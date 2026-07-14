@@ -57,7 +57,9 @@ img,svg,video{display:block;max-width:100%}
 .topbar .brand:hover{opacity:.8}
 .topbar .dayclock{font-family:var(--font-mono);font-size:13px;color:#C7CDDB;white-space:nowrap}
 .meters{display:flex;gap:16px;margin-left:auto;align-items:center;flex-wrap:wrap}
-.meter{min-width:145px}
+.meter{min-width:145px;cursor:pointer;border:none;background:none;padding:0;text-align:left}
+.meter:hover .m-label{color:#fff}
+.m-info{opacity:.75;font-size:10px;margin-left:4px}
 .meter .m-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#C7CDDB;margin-bottom:3px}
 .meter .m-track{height:8px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden}
 .meter .m-fill{height:100%;border-radius:4px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
@@ -213,14 +215,14 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
     <button class="brand" id="brand-top" type="button"></button>
     <div class="dayclock" id="dayclock"></div>
     <div class="meters">
-      <div class="meter cred">
+      <button class="meter cred" id="meter-cred" type="button">
         <div class="m-label"><span id="cred-label"></span><span id="cred-num">50</span></div>
         <div class="m-track"><div class="m-fill" id="cred-fill" style="width:50%"></div></div>
-      </div>
-      <div class="meter pop">
+      </button>
+      <button class="meter pop" id="meter-pop" type="button">
         <div class="m-label"><span id="pop-label"></span><span id="pop-num">20</span></div>
         <div class="m-track"><div class="m-fill" id="pop-fill" style="width:20%"></div></div>
-      </div>
+      </button>
       <select id="lang-top"></select>
       <button class="btn-guide" id="btn-guide"></button>
     </div>
@@ -323,8 +325,10 @@ function startGame(){
   $("#brand-top").textContent = t("brandName");
   $("#brand-top").title = t("homeTitle");
   $("#brand-top").onclick = goHome;
-  $("#cred-label").textContent = t("credibility");
-  $("#pop-label").textContent = t("popularity");
+  $("#cred-label").innerHTML = esc(t("credibility"))+'<span class="m-info">ⓘ</span>';
+  $("#pop-label").innerHTML = esc(t("popularity"))+'<span class="m-info">ⓘ</span>';
+  $("#meter-cred").title = t("meterHint"); $("#meter-pop").title = t("meterHint");
+  $("#meter-cred").onclick = openMeterInfo; $("#meter-pop").onclick = openMeterInfo;
   $("#btn-guide").textContent = t("fieldGuideBtn");
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
@@ -617,6 +621,25 @@ function openGuide(){
     <div class="modal-body"><button class="btn-primary" id="g-close">${esc(t("backToDesk"))}</button></div></div></div>`;
   $("#g-close").addEventListener("click",()=>mount.innerHTML="");
   $("#g-ov").addEventListener("click",e=>{if(e.target.id==="g-ov")mount.innerHTML="";});
+}
+function openMeterInfo(){
+  const mount=$("#modal-mount");
+  mount.innerHTML=`<div class="overlay" id="mi-ov"><div class="modal">
+    <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:2px">${esc(t("meterInfoTitle"))}</h2></div>
+    <div class="modal-body">
+      <div class="techcard" style="border-color:var(--verify)">
+        <div class="tc-top" style="background:var(--verify)">${esc(t("credibility"))}</div>
+        <div class="tc-body">${esc(t("meterCredBody"))}</div>
+      </div>
+      <div class="techcard" style="border-color:var(--pop)">
+        <div class="tc-top" style="background:var(--pop)">${esc(t("popularity"))}</div>
+        <div class="tc-body">${esc(t("meterPopBody"))}</div>
+      </div>
+      <div class="ev-note warn" style="margin-top:10px">${esc(t("meterTension"))}</div>
+      <button class="btn-primary" id="mi-close" style="margin-top:14px">${esc(t("backToDesk"))}</button>
+    </div></div></div>`;
+  $("#mi-close").addEventListener("click",()=>mount.innerHTML="");
+  $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov")mount.innerHTML="";});
 }
 $("#btn-guide").addEventListener("click",openGuide);
 

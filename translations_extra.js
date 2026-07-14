@@ -10,6 +10,11 @@
    ===================================================================== */
 const extraStrings = {
 en: {
+  meterHint: "Tap to see how scoring works",
+  meterInfoTitle: "Your two meters — and how choices move them",
+  meterCredBody: "Do readers trust this paper? Right calls raise it: +8 for publishing a verified story, +12 for stopping misinformation, and +4 extra when your pinned evidence truly supports your verdict. Wrong calls cost more than right ones earn: publishing a fake means a public correction (−18), and flagging real news buries the truth (−8). If credibility collapses, your trial ends — no matter how popular you are.",
+  meterPopBody: "How many people are reading? Publish a true story and it earns its buzz — the hotter the tip, the bigger the gain. But beware: a published fake goes viral FIRST (+buzz)… and when the correction lands, readers feel fooled and it crashes by half again as much. Flagging real news hands the scoop to the rival paper (−6).",
+  meterTension: "⚖️ The trap by design: the juiciest tips promise the most popularity and risk the most credibility. Popularity pays the bills. Credibility keeps the paper alive. When in doubt — verify.",
   nf16_title: "MASSIVE forest fire raging toward Dove City — WHY is nobody talking about this?!",
   nf16_desc: "Shared 4,000 times tonight. \"Get out while you still can. They won't warn you until it's too late.\"",
   nf16_term1: "Dove City forest fire tonight",
@@ -187,6 +192,11 @@ en: {
 },
 
 sv: {
+  meterHint: "Tryck för att se hur poängen fungerar",
+  meterInfoTitle: "Dina två mätare — och hur dina val påverkar dem",
+  meterCredBody: "Litar läsarna på tidningen? Rätt beslut höjer den: +8 för en publicerad verifierad nyhet, +12 för stoppad desinformation, och +4 extra när dina fastnålade bevis faktiskt stödjer ditt utslag. Fel beslut kostar mer än rätt beslut ger: en publicerad bluff kräver en offentlig rättelse (−18), och en flaggad riktig nyhet begraver sanningen (−8). Rasar trovärdigheten är provanställningen över — oavsett hur populär du är.",
+  meterPopBody: "Hur många läser? Publicera en sann nyhet och den ger sitt buzz — ju hetare tips, desto större vinst. Men se upp: en publicerad bluff går viralt FÖRST (+buzz)… och när rättelsen kommer känner sig läsarna lurade och den rasar med hälften till. Flaggar du en riktig nyhet tar konkurrenten scoopet (−6).",
+  meterTension: "⚖️ Fällan är avsiktlig: de saftigaste tipsen lovar mest popularitet och riskerar mest trovärdighet. Popularitet betalar räkningarna. Trovärdighet håller tidningen vid liv. Vid tvekan — granska.",
   nf16_title: "ENORM skogsbrand rasar mot Duvstaden — VARFÖR pratar ingen om detta?!",
   nf16_desc: "Delad 4 000 gånger ikväll. \"Ta er ut medan ni kan. De varnar er inte förrän det är för sent.\"",
   nf16_term1: "Duvstaden skogsbrand ikväll",
@@ -362,6 +372,11 @@ sv: {
 },
 
 fi: {
+  meterHint: "Napauta nähdäksesi miten pisteytys toimii",
+  meterInfoTitle: "Kaksi mittariasi — ja miten valintasi liikuttavat niitä",
+  meterCredBody: "Luottavatko lukijat lehteen? Oikeat päätökset nostavat sitä: +8 julkaistusta varmistetusta uutisesta, +12 pysäytetystä disinformaatiosta ja +4 lisää, kun kiinnittämäsi todisteet todella tukevat päätöstäsi. Väärät päätökset maksavat enemmän kuin oikeat tuottavat: julkaistu huijaus vaatii julkisen oikaisun (−18), ja virheelliseksi merkitty oikea uutinen hautaa totuuden (−8). Jos uskottavuus romahtaa, koeaikasi päättyy — olitpa kuinka suosittu tahansa.",
+  meterPopBody: "Kuinka moni lukee? Julkaise tosi uutinen, ja se tuottaa pöhinänsä — mitä kuumempi vihje, sitä suurempi voitto. Mutta varo: julkaistu huijaus leviää ENSIN viraalisti (+pöhinä)… ja kun oikaisu tulee, lukijat tuntevat tulleensa huijatuiksi ja mittari romahtaa puolitoistakertaisesti. Oikean uutisen merkitseminen virheelliseksi antaa skuupin kilpailijalle (−6).",
+  meterTension: "⚖️ Ansa on tarkoituksellinen: mehukkaimmat vihjeet lupaavat eniten suosiota ja vaarantavat eniten uskottavuutta. Suosio maksaa laskut. Uskottavuus pitää lehden hengissä. Kun epäilet — tarkista.",
   nf16_title: "VALTAVA metsäpalo etenee kohti Kyyhkyskaupunkia — MIKSI kukaan ei puhu tästä?!",
   nf16_desc: "Jaettu 4 000 kertaa tänä iltana. \"Lähtekää niin kauan kuin voitte. Teitä ei varoiteta ennen kuin on liian myöhäistä.\"",
   nf16_term1: "Kyyhkyskaupunki metsäpalo tänä iltana",
@@ -534,6 +549,11 @@ fi: {
   vera_genuine_no: "Varovasti — työmme ei ole merkitä kaikkea virheelliseksi. Se on ottaa selvää. Tämä piti paikkansa. Liika epäluulo maksaa uutisia — ja lukijoita."
 },
 et: {
+  meterHint: "Puuduta, et näha kuidas punktid liiguvad",
+  meterInfoTitle: "Sinu kaks mõõdikut — ja kuidas su valikud neid liigutavad",
+  meterCredBody: "Kas lugejad usaldavad seda lehte? Õiged otsused tõstavad seda: +8 avaldatud kontrollitud uudise eest, +12 peatatud desinformatsiooni eest ja +4 lisaks, kui sinu kinnitatud tõendid tõesti toetavad su otsust. Valed otsused maksavad rohkem, kui õiged sisse toovad: avaldatud võltsing nõuab avalikku parandust (−18) ja valeks märgitud päris uudis matab tõe (−8). Kui usaldusväärsus variseb, on prooviaeg läbi — ükskõik kui populaarne sa oled.",
+  meterPopBody: "Kui paljud loevad? Avalda tõene uudis ja see toob oma kõmina — mida kuumem vihje, seda suurem võit. Aga ettevaatust: avaldatud võltsing läheb KÕIGEPEALT viraalseks (+kõmin)… ja kui parandus saabub, tunnevad lugejad end petetuna ning mõõdik kukub poolteist korda rohkem. Päris uudise valeks märkimine annab loo konkurendile (−6).",
+  meterTension: "⚖️ Lõks on taotluslik: kõige mahlakamad vihjed lubavad kõige rohkem populaarsust ja riskivad kõige rohkem usaldusväärsusega. Populaarsus maksab arved. Usaldusväärsus hoiab lehte elus. Kui kahtled — kontrolli.",
   nf16_title: "TOHUTU metsatulekahju liigub Tuvilinna poole — MIKS keegi sellest ei räägi?!",
   nf16_desc: "Täna õhtul jagatud 4 000 korda. \"Lahkuge, kuni veel saate. Teid ei hoiatata enne, kui on liiga hilja.\"",
   nf16_term1: "Tuvilinn metsatulekahju täna õhtul",
