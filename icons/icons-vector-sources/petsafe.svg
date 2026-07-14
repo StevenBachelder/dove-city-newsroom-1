@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 13.7px;
+        font-weight: 700;
+        letter-spacing: .1em;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5, .st6 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st2 {
+        opacity: .7;
+        stroke: #859eb5;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st2, .st4, .st7 {
+        fill: none;
+      }
+
+      .st3 {
+        fill: #bfbfbf;
+      }
+
+      .st3, .st4, .st5 {
+        opacity: .5;
+      }
+
+      .st8 {
+        fill: url(#linear-gradient);
+      }
+
+      .st9 {
+        fill: #1f3e63;
+      }
+
+      .st10 {
+        fill: #fff;
+      }
+
+      .st4 {
+        stroke: #143049;
+        stroke-width: 2px;
+      }
+
+      .st5 {
+        fill: #dbdbdb;
+      }
+
+      .st6 {
+        fill: #5d748e;
+        opacity: .6;
+      }
+
+      .st7 {
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-width: 5px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#40688c"/>
+      <stop offset="1" stop-color="#1a3e5f"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st8" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st4" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st2" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="shield">
+      <path class="st1" d="M66.9,18.3l29.5,11.6v27.2c0,21-13.2,32.6-29.5,38.8-16.3-6.2-29.5-17.9-29.5-38.8v-27.2l29.5-11.6Z"/>
+      <path class="st9" d="M65.7,16l29.5,11.6v27.2c0,21-13.2,32.6-29.5,38.8-16.3-6.2-29.5-17.9-29.5-38.8v-27.2l29.5-11.6Z"/>
+      <path class="st7" d="M65.7,16l29.5,11.6v27.2c0,21-13.2,32.6-29.5,38.8-16.3-6.2-29.5-17.9-29.5-38.8v-27.2l29.5-11.6Z"/>
+      <path class="st6" d="M65.7,20.7l24.8,9.7v13.6c-10.9-4.7-35.7-4.7-49.7,0v-13.6l24.8-9.7Z"/>
+      <g id="paw">
+        <ellipse class="st3" cx="66.4" cy="56" rx="9.3" ry="7.5"/>
+        <ellipse class="st10" cx="65.7" cy="54.8" rx="9.3" ry="7.5"/>
+        <ellipse class="st5" cx="65.7" cy="56.7" rx="5.6" ry="3.7"/>
+        <circle class="st10" cx="55.5" cy="46.4" r="3.7"/>
+        <circle class="st10" cx="62" cy="41.8" r="3.7"/>
+        <circle class="st10" cx="69.4" cy="41.8" r="3.7"/>
+        <circle class="st10" cx="76" cy="46.4" r="3.7"/>
+      </g>
+      <text class="st0" transform="translate(29.6 110.7)"><tspan x="0" y="0">PETSAFE</tspan></text>
+    </g>
+  </g>
+</svg>

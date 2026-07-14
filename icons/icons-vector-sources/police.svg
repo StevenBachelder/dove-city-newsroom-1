@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .5;
+        stroke: #131822;
+        stroke-width: 2px;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st0, .st5, .st6 {
+        fill: none;
+      }
+
+      .st7 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st2 {
+        opacity: .2;
+      }
+
+      .st8 {
+        fill: #f7de93;
+        fill-opacity: 0;
+      }
+
+      .st9 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        fill: #6d8cae;
+        opacity: .6;
+      }
+
+      .st4 {
+        fill: #fff;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .2em;
+      }
+
+      .st5 {
+        opacity: .7;
+        stroke: #848992;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st10 {
+        fill: #35608f;
+      }
+
+      .st6 {
+        stroke: #fff;
+        stroke-linejoin: round;
+        stroke-width: 5px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3f4655"/>
+      <stop offset="1" stop-color="#181f2d"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st9" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st0" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st5" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="shield">
+      <path class="st2" d="M64.8,17.3l38,15v35c0,27-17,42-38,50-21-8-38-23-38-50v-35l38-15Z"/>
+      <path class="st10" d="M63.2,14.3l38,15v35c0,27-17,42-38,50-21-8-38-23-38-50V29.3l38-15Z"/>
+      <path class="st6" d="M63.2,14.3l38,15v35c0,27-17,42-38,50-21-8-38-23-38-50V29.3l38-15Z"/>
+      <path class="st3" d="M63.2,20.3l32,12.5v17.5c-14-6-46-6-64,0v-17.5l32-12.5Z"/>
+      <polygon class="st1" points="63.2 34.2 67.9 46.7 81.3 47.3 70.8 55.7 74.4 68.6 63.2 61.2 52 68.6 55.7 55.7 45.2 47.3 58.5 46.7 63.2 34.2"/>
+      <polygon class="st7" points="63.2 31.2 67.9 43.7 81.3 44.3 70.8 52.7 74.4 65.6 63.2 58.2 52 65.6 55.7 52.7 45.2 44.3 58.5 43.7 63.2 31.2"/>
+      <polygon class="st8" points="64 28.4 68.7 40.9 82.1 41.5 71.6 49.9 75.2 62.8 64 55.4 52.8 62.8 56.4 49.9 45.9 41.5 59.3 40.9 64 28.4"/>
+      <text class="st4" transform="translate(33.4 79.8)"><tspan x="0" y="0">POLICE</tspan></text>
+    </g>
+  </g>
+</svg>

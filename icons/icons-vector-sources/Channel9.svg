@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st2 {
+        fill: #45325c;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .st6 {
+        fill: #4d3866;
+      }
+
+      .st7 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        fill: #7fb3d5;
+        opacity: .3;
+      }
+
+      .st8 {
+        fill: #f7de93;
+      }
+
+      .st9 {
+        stroke: #b5a6c6;
+        stroke-width: 6px;
+      }
+
+      .st9, .st4, .st5 {
+        fill: none;
+      }
+
+      .st9, .st5 {
+        stroke-linecap: round;
+      }
+
+      .st10 {
+        fill: #fff;
+      }
+
+      .st11 {
+        fill: #b5a6c6;
+      }
+
+      .st4 {
+        opacity: .5;
+        stroke: #402e55;
+        stroke-width: 2px;
+      }
+
+      .st5 {
+        opacity: .7;
+        stroke: #ad9dc0;
+        stroke-width: 3px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7f669d"/>
+      <stop offset="1" stop-color="#533c6e"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st7" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st4" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st5" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="tv">
+      <g>
+        <line class="st9" x1="50" y1="36" x2="38" y2="18"/>
+        <line class="st9" x1="78" y1="36" x2="90" y2="18"/>
+      </g>
+      <circle class="st11" cx="38" cy="18" r="4.5"/>
+      <circle class="st11" cx="90" cy="18" r="4.5"/>
+      <rect class="st1" x="30.5" y="39.5" width="70" height="53" rx="10" ry="10"/>
+      <rect class="st6" x="28" y="36" width="72" height="54" rx="10" ry="10"/>
+      <rect class="st10" x="34" y="42" width="60" height="42" rx="6" ry="6"/>
+      <path class="st3" d="M34,42h60v14c-20-7-40-7-60,0v-14Z"/>
+      <text class="st2" transform="translate(55.7 73.2)"><tspan x="0" y="0">9</tspan></text>
+      <path class="st0" d="M38.5,96h51c2.5,0,4.5,2,4.5,4.5h0c0,2.5-2,4.5-4.5,4.5h-51c-2.5,0-4.5-2-4.5-4.5h0c0-2.5,2-4.5,4.5-4.5Z"/>
+      <path class="st8" d="M36,96h56c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2h-56c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
+    </g>
+  </g>
+</svg>

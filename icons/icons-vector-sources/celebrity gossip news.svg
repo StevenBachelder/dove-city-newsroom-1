@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st1, .st2, .st3 {
+        isolation: isolate;
+      }
+
+      .st4 {
+        fill: #f7de93;
+        fill-opacity: 0;
+      }
+
+      .st5 {
+        fill: url(#linear-gradient);
+      }
+
+      .st6 {
+        fill: #f9e6ae;
+      }
+
+      .st7 {
+        fill: #fff;
+      }
+
+      .st2 {
+        opacity: .5;
+        stroke: #402e55;
+        stroke-width: 2px;
+      }
+
+      .st2, .st3 {
+        fill: none;
+      }
+
+      .st3 {
+        opacity: .7;
+        stroke: #ad9dc0;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st8 {
+        fill: #6b4e8e;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7f669d"/>
+      <stop offset="1" stop-color="#533c6e"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st5" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st2" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st3" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <polygon class="st1" points="54.1 40.6 63.2 63.9 89.2 64.9 68.9 80.3 75.9 104.3 54.1 90.6 32.3 104.3 39.3 80.3 19 64.9 45 63.9 54.1 40.6"/>
+    <polygon class="st0" points="56.8 41.1 65.6 62.4 90.8 63.3 71.1 77.5 77.9 99.4 56.8 86.9 35.8 99.4 42.5 77.5 22.9 63.3 48 62.4 56.8 41.1"/>
+    <polygon class="st4" points="56.8 42.5 65.6 64.4 90.8 65.3 71.1 79.9 77.9 102.5 56.8 89.6 35.8 102.5 42.5 79.9 22.9 65.3 48 64.4 56.8 42.5"/>
+    <path class="st7" d="M63,20.2h32c2.8,0,5,2.2,5,5v16c0,2.8-2.2,5-5,5h-14l-9,11v-11h-9c-2.8,0-5-2.2-5-5v-16c0-2.8,2.2-5,5-5Z"/>
+    <g>
+      <circle class="st8" cx="72" cy="33.2" r="2.8"/>
+      <circle class="st8" cx="80" cy="33.2" r="2.8"/>
+      <circle class="st8" cx="88" cy="33.2" r="2.8"/>
+    </g>
+    <path class="st6" d="M45.5,66.5c0,2.2-1.8,4-4,4-2.2,0-4-1.8-4-4,0-2.2,1.8-4,4-4s4,1.8,4,4Z"/>
+  </g>
+</svg>

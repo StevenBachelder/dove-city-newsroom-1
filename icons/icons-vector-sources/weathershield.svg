@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-weathershield" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#40688C"/><stop offset="1" stop-color="#1A3E5F"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-weathershield)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#143049" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#859EB5" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="shield"><path d="M64 16 L102 31 V66 C102 93 85 108 64 116 C43 108 26 93 26 66 V31 Z" transform="translate(1.5,3)" fill="#000" opacity="0.22"/><path d="M64 16 L102 31 V66 C102 93 85 108 64 116 C43 108 26 93 26 66 V31 Z" fill="#1F3E63"/><path d="M64 16 L102 31 V66 C102 93 85 108 64 116 C43 108 26 93 26 66 V31 Z" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round"/><path d="M64 22 L96 34.5 V52 C82 46 50 46 32 52 V34.5 Z" fill="#5D748E" opacity="0.55"/><g id="cloud" transform="translate(64,56) scale(0.6)"><g transform="translate(1.5,3)" opacity="0.2" fill="#000"><circle cx="-18" cy="4" r="16"/><circle cx="2" cy="-6" r="20"/><circle cx="22" cy="6" r="14"/><rect x="-30" y="4" width="64" height="16" rx="8"/></g><g fill="#FFFFFF"><circle cx="-18" cy="4" r="16"/><circle cx="2" cy="-6" r="20"/><circle cx="22" cy="6" r="14"/><rect x="-30" y="4" width="64" height="16" rx="8"/></g><path d="M-30 12 a8 8 0 0 0 8 8 h48 a10 10 0 0 0 8 -12 c-16 8 -48 8 -64 4 Z" fill="#D6D6D6" opacity="0.55"/><circle cx="-6" cy="-12" r="9" fill="#FFFFFF" opacity="0.6"/></g><g stroke="#F2C94C" stroke-width="5" stroke-linecap="round"><line x1="52" y1="76" x2="47" y2="88"/><line x1="66" y1="76" x2="61" y2="88"/><line x1="80" y1="76" x2="75" y2="88"/></g></g>
+</g>
+</svg>

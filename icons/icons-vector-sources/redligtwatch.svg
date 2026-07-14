@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-redligtwatch" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#442B2E"/><stop offset="1" stop-color="#1D070A"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-redligtwatch)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#160507" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#877779" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="eye"><path d="M18 62 C36 36 92 36 110 62 C92 88 36 88 18 62 Z" fill="#FFFFFF"/><path d="M18 62 C36 42 92 42 110 62 C92 50 36 50 18 62 Z" fill="#D8D8D8" opacity="0.6"/><circle cx="64" cy="62" r="17" fill="#B3352C"/><circle cx="64" cy="62" r="17" fill="none" stroke="#74221C" stroke-width="3"/><circle cx="64" cy="62" r="7.5" fill="#20293A"/><circle cx="59" cy="56" r="3.5" fill="#FFFFFF" opacity="0.9"/></g><g id="alert"><circle cx="100" cy="27" r="9" fill="#B3352C"/><circle cx="97" cy="24" r="3" fill="#D58F8A"/></g><text x="64" y="108" font-family="Arial" font-size="10" letter-spacing="2.5" font-weight="bold" fill="#B3352C" text-anchor="middle">WATCHING</text>
+</g>
+</svg>

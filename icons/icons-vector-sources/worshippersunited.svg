@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-worshippers" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#66557F"/><stop offset="1" stop-color="#3C2D53"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-worshippers)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#2E2240" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#9D92AD" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<ellipse id="ground-shadow" cx="64" cy="106" rx="26" ry="5" fill="#000000" opacity="0.16"/><g id="candle"><path d="M64 16 C72 26 72 34 64 42 C56 34 56 26 64 16 Z" fill="#F2C94C"/><path d="M64 22 C68 27 68 33 64 38 C60 33 60 27 64 22 Z" fill="#F8E4A5"/><ellipse cx="64" cy="30" rx="2.2" ry="4" fill="#FFFFFF" opacity="0.9"/><rect x="55" y="46" width="18" height="46" rx="5" fill="#F4F3EE"/><rect x="55" y="46" width="7" height="46" rx="3.5" fill="#FFFFFF" opacity="0.7"/><path d="M55 50 q4 5 0 10" stroke="#CFCECA" stroke-width="3" fill="none"/><path d="M46 96 h36 a6 6 0 0 1 -6 8 h-24 a6 6 0 0 1 -6 -8 Z" fill="#F2C94C"/><path d="M46 96 h36 a6 6 0 0 1 -2 5 h-32 a6 6 0 0 1 -2 -5 Z" fill="#F5D981"/></g>
+</g>
+</svg>

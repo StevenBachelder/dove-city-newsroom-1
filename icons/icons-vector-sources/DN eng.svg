@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .5;
+        stroke: #131822;
+        stroke-width: 2px;
+      }
+
+      .st0, .st1, .st2, .st3, .st4 {
+        isolation: isolate;
+      }
+
+      .st0, .st3 {
+        fill: none;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st5 {
+        fill: url(#linear-gradient);
+      }
+
+      .st6 {
+        fill: #f4f3ee;
+      }
+
+      .st7 {
+        fill: #e0dfda;
+      }
+
+      .st8 {
+        fill: #b3352c;
+      }
+
+      .st2 {
+        fill: #5b6377;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 11px;
+        letter-spacing: .2em;
+      }
+
+      .st2, .st4 {
+        font-weight: 700;
+      }
+
+      .st3 {
+        opacity: .7;
+        stroke: #848992;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st4 {
+        fill: #20293a;
+        font-family: Georgia-Bold, Georgia;
+        font-size: 40px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3f4655"/>
+      <stop offset="1" stop-color="#181f2d"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st5" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st0" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st3" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <rect class="st1" x="26.5" y="31.5" width="78" height="72" rx="7" ry="7"/>
+    <rect class="st6" x="24" y="28" width="80" height="72" rx="7" ry="7"/>
+    <path class="st7" d="M29,28h70c2.8,0,5,2.2,5,5h0c0,2.8-2.2,5-5,5H29c-2.8,0-5-2.2-5-5h0c0-2.8,2.2-5,5-5Z"/>
+    <text class="st4" transform="translate(30.5 64)"><tspan x="0" y="0">DN</tspan></text>
+    <path class="st8" d="M36.5,67.5h55c1.4,0,2.5,1.1,2.5,2.5h0c0,1.4-1.1,2.5-2.5,2.5h-55c-1.4,0-2.5-1.1-2.5-2.5h0c0-1.4,1.1-2.5,2.5-2.5Z"/>
+    <text class="st2" transform="translate(34 85)"><tspan x="0" y="0">ENGLISH</tspan></text>
+  </g>
+</svg>

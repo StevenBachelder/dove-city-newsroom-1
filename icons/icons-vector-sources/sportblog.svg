@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .2;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st6 {
+        stroke: #20293a;
+      }
+
+      .st6, .st1, .st3 {
+        fill: none;
+      }
+
+      .st6, .st3 {
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st7 {
+        fill: url(#linear-gradient);
+      }
+
+      .st1 {
+        opacity: .5;
+        stroke: #0c4b45;
+        stroke-width: 2px;
+      }
+
+      .st2 {
+        fill: #a1cbc7;
+        opacity: .6;
+      }
+
+      .st8, .st4, .st5 {
+        fill: #fff;
+      }
+
+      .st9 {
+        fill: #20293a;
+      }
+
+      .st3 {
+        opacity: .7;
+        stroke: #7db7b2;
+      }
+
+      .st10 {
+        fill: #d8d4c8;
+      }
+
+      .st4 {
+        opacity: .9;
+      }
+
+      .st5 {
+        opacity: .9;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#348f87"/>
+      <stop offset="1" stop-color="#0f615a"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st7" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st1" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st3" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="football">
+      <circle class="st0" cx="65" cy="54.5" r="23"/>
+      <circle class="st8" cx="64" cy="52" r="23"/>
+      <path class="st10" d="M41,52c0,12.7,10.3,23,23,23s23-10.3,23-23c-11.5,5.8-31.2,6.3-43.9,1-.7-.3-1.5-.6-2.1-1Z"/>
+      <circle class="st4" cx="56" cy="42.8" r="8.7"/>
+      <polygon class="st9" points="64 41 74 49 70 61 58 61 54 49 64 41"/>
+      <g>
+        <path class="st6" d="M64,44.5v-13.5"/>
+        <path class="st6" d="M71,50l12.6-7.1"/>
+        <path class="st6" d="M69.2,59.9l6.9,9.4"/>
+        <path class="st6" d="M58.8,59.9l-7.3,9.4"/>
+        <path class="st6" d="M55.1,49.1l-10.1-5.3"/>
+      </g>
+    </g>
+    <g>
+      <path class="st8" d="M33.5,86h61c1.9,0,3.5,1.6,3.5,3.5h0c0,1.9-1.6,3.5-3.5,3.5h-61c-1.9,0-3.5-1.6-3.5-3.5h0c0-1.9,1.6-3.5,3.5-3.5Z"/>
+      <path class="st2" d="M31.5,86h65c.8,0,1.5.7,1.5,1.5h0c0,.8-.7,1.5-1.5,1.5H31.5c-.8,0-1.5-.7-1.5-1.5h0c0-.8.7-1.5,1.5-1.5Z"/>
+      <path class="st5" d="M45.5,99h37c1.9,0,3.5,1.6,3.5,3.5h0c0,1.9-1.6,3.5-3.5,3.5h-37c-1.9,0-3.5-1.6-3.5-3.5h0c0-1.9,1.6-3.5,3.5-3.5Z"/>
+    </g>
+  </g>
+</svg>

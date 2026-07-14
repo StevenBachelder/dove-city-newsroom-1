@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-toxicsafe" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#D0AF45"/><stop offset="1" stop-color="#9C7E1E"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-toxicsafe)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#786117" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#E1CB88" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="warning"><path d="M64 18 a10 10 0 0 1 9 5 l40 70 a10 10 0 0 1 -9 15 H24 a10 10 0 0 1 -9 -15 l40 -70 a10 10 0 0 1 9 -5 Z" fill="#000" opacity="0.25" transform="translate(1.5,2.5)"/><path d="M64 16 a10 10 0 0 1 9 5 l40 70 a10 10 0 0 1 -9 15 H24 a10 10 0 0 1 -9 -15 l40 -70 a10 10 0 0 1 9 -5 Z" fill="#20293A"/><path d="M64 24 l36 63 H28 Z" fill="none" stroke="#F2C94C" stroke-width="4" stroke-linejoin="round" opacity="0.6"/><circle cx="64" cy="66" r="13" fill="none" stroke="#F2C94C" stroke-width="5.5"/><circle cx="64" cy="66" r="4" fill="#F2C94C"/><g stroke="#F2C94C" stroke-width="5.5" stroke-linecap="round"><line x1="64" y1="53" x2="64" y2="44"/><line x1="53" y1="73" x2="45" y2="80"/><line x1="75" y1="73" x2="83" y2="80"/></g></g>
+</g>
+</svg>

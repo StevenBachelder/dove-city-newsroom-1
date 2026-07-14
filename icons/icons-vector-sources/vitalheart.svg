@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-vitalheart" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8C403A"/><stop offset="1" stop-color="#5F1914"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-vitalheart)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#49130F" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#B58481" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="heart"><path d="M64 100 C29 75 25 47 44 37 C56 31 64 41 64 47 C64 41 72 31 84 37 C103 47 99 75 64 100 Z" fill="#000" opacity="0.25" transform="translate(1.5,2.5)"/><path d="M64 98 C29 73 25 45 44 35 C56 29 64 39 64 45 C64 39 72 29 84 35 C103 45 99 73 64 98 Z" fill="#FFFFFF"/><path d="M44 35 C56 29 64 39 64 45 C60 37 50 33 44 35 Z" fill="#E5E5E5"/><ellipse cx="47" cy="46" rx="7" ry="10" fill="#FFFFFF" opacity="0.9" transform="rotate(-24 47 46)"/><polyline points="38,63 52,63 58,49 66,77 72,63 90,63" fill="none" stroke="#B3352C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90" cy="63" r="3.5" fill="#B3352C"/></g>
+</g>
+</svg>

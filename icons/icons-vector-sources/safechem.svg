@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-safechem" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#2F756F"/><stop offset="1" stop-color="#0A4A44"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-safechem)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#083934" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#7AA7A3" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="flask2"><path d="M56 24 H73 V46 L89 82 C93 92 85 100 78 100 H51 C44 100 35 92 39 82 L56 46 Z" fill="#FFFFFF"/><path d="M47 76 h34 l6 10 c2 7 -4 12 -9 12 H51 c-5 0 -11 -5 -9 -12 Z" fill="#3E7C4F"/><path d="M47 76 h34 l2 4 c-12 4 -26 4 -38 0 Z" fill="#77A383" opacity="0.8"/><rect x="51" y="18" width="27" height="8" rx="4" fill="#FFFFFF"/><g fill="#FFFFFF" opacity="0.85"><circle cx="58" cy="88" r="2.6"/><circle cx="70" cy="92" r="3.2"/></g></g><g id="check" transform="translate(89,36) scale(0.7)"><path d="M-16 1 L-4 13 L18 -13" fill="none" stroke="#9D8231" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16 0 L-4 12 L18 -14" fill="none" stroke="#F2C94C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
+</g>
+</svg>

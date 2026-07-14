@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0, .st1 {
+        fill: #f2c94c;
+      }
+
+      .st2 {
+        opacity: .2;
+      }
+
+      .st2, .st3, .st4, .st5, .st1, .st6 {
+        isolation: isolate;
+      }
+
+      .st3 {
+        opacity: .2;
+      }
+
+      .st7 {
+        fill: #f7de93;
+      }
+
+      .st7, .st8 {
+        fill-opacity: 0;
+      }
+
+      .st8 {
+        fill: #f9e6ae;
+      }
+
+      .st9 {
+        stroke: #20293a;
+      }
+
+      .st9, .st4 {
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st9, .st4, .st5, .st10 {
+        fill: none;
+      }
+
+      .st11 {
+        fill: url(#linear-gradient);
+      }
+
+      .st4 {
+        opacity: .7;
+        stroke: #8aa7be;
+      }
+
+      .st5 {
+        opacity: .5;
+        stroke: #1a3952;
+        stroke-width: 2px;
+      }
+
+      .st12 {
+        fill: #f5d678;
+      }
+
+      .st13, .st6 {
+        fill: #fff;
+      }
+
+      .st14 {
+        fill: #20293a;
+      }
+
+      .st1 {
+        font-family: Arial-BoldMT, Arial;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .2em;
+      }
+
+      .st15 {
+        fill: #214767;
+      }
+
+      .st16 {
+        fill: #d8d4c8;
+      }
+
+      .st10 {
+        stroke: #f2c94c;
+        stroke-width: 4px;
+      }
+
+      .st6 {
+        opacity: .9;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#49759a"/>
+      <stop offset="1" stop-color="#224a6b"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st11" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st5" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st4" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <circle class="st15" cx="64" cy="62" r="35"/>
+    <circle class="st10" cx="64" cy="62" r="35"/>
+    <g id="football">
+      <circle class="st3" cx="65" cy="64.5" r="22"/>
+      <circle class="st13" cx="64" cy="62" r="22"/>
+      <path class="st16" d="M42,62c0,12.2,9.8,22,22,22s22-9.8,22-22c-11,5.6-29.8,6-42,.9-.7-.3-1.4-.6-2-.9Z"/>
+      <circle class="st6" cx="56.3" cy="53.2" r="8.4"/>
+      <polygon class="st14" points="64 51 74 59 70 71 58 71 54 59 64 51"/>
+      <g>
+        <path class="st9" d="M64,56.1v-14.1"/>
+        <path class="st9" d="M70,59.8l12-4.3"/>
+        <path class="st9" d="M67.9,67.5l8.1,9.9"/>
+        <path class="st9" d="M60.1,67.5l-8.6,9.9"/>
+        <path class="st9" d="M55.1,59.3l-10.1-3.2"/>
+      </g>
+    </g>
+    <polygon class="st2" points="97 22 99.5 28.6 106.5 28.9 101 33.3 102.9 40.1 97 36.2 91.1 40.1 93 33.3 87.5 28.9 94.5 28.6 97 22"/>
+    <polygon class="st0" points="96 20 98.5 26.6 105.5 26.9 100 31.3 101.9 38.1 96 34.2 90.1 38.1 92 31.3 86.5 26.9 93.5 26.6 96 20"/>
+    <polygon class="st7" points="66.6 8 69.1 14.6 76.1 14.9 70.6 19.3 72.5 26.1 66.6 22.2 60.7 26.1 62.6 19.3 57.1 14.9 64.1 14.6 66.6 8"/>
+    <polygon class="st2" points="33 25 34.7 29.6 39.7 29.8 35.8 32.9 37.1 37.7 33 34.9 28.9 37.7 30.2 32.9 26.3 29.8 31.3 29.6 33 25"/>
+    <polygon class="st12" points="32 23 33.7 27.6 38.7 27.8 34.8 30.9 36.1 35.7 32 32.9 27.9 35.7 29.2 30.9 25.3 27.8 30.3 27.6 32 23"/>
+    <polygon class="st8" points="32 23 33.7 27.6 38.7 27.8 34.8 30.9 36.1 35.7 32 32.9 27.9 35.7 29.2 30.9 25.3 27.8 30.3 27.6 32 23"/>
+    <text class="st1" transform="translate(38.3 110)"><tspan x="0" y="0">SPORT</tspan></text>
+    <polygon class="st7" points="52.5 11 55 17.6 62 17.9 56.5 22.2 58.4 29 52.5 25.2 46.6 29 48.5 22.2 43 17.9 50 17.6 52.5 11"/>
+  </g>
+</svg>

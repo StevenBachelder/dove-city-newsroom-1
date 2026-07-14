@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-DNclean" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#71788A"/><stop offset="1" stop-color="#464D5C"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-DNclean)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#363B47" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#A4A9B4" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<rect x="25" y="29" width="78" height="72" rx="7" fill="#000" opacity="0.2" transform="translate(1.5,2.5)"/><rect x="24" y="28" width="80" height="72" rx="7" fill="#F4F3EE"/><rect x="24" y="28" width="80" height="10" rx="5" fill="#E0DFDA"/><text x="64" y="60" font-family="Georgia,serif" font-size="40" font-weight="bold" fill="#20293A" text-anchor="middle" dominant-baseline="central">DN</text><rect x="34" y="80" width="60" height="5" rx="2.5" fill="#20293A"/><g fill="#AFAEAB"><rect x="34" y="89" width="26" height="3.5" rx="1.75"/><rect x="64" y="89" width="30" height="3.5" rx="1.75"/></g>
+</g>
+</svg>

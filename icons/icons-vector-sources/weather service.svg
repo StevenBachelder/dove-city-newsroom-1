@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        fill: url(#linear-gradient);
+      }
+
+      .st2 {
+        fill: #f8e4a5;
+      }
+
+      .st3 {
+        fill: #d6d6d6;
+        opacity: .6;
+      }
+
+      .st3, .st4, .st5, .st6 {
+        isolation: isolate;
+      }
+
+      .st7 {
+        stroke: #7fb3d5;
+        stroke-width: 6px;
+      }
+
+      .st7, .st4, .st8, .st5 {
+        fill: none;
+      }
+
+      .st7, .st8, .st5 {
+        stroke-linecap: round;
+      }
+
+      .st4 {
+        opacity: .5;
+        stroke: #24425e;
+        stroke-width: 2px;
+      }
+
+      .st9, .st6 {
+        fill: #fff;
+      }
+
+      .st8 {
+        stroke: #f2c94c;
+        stroke-width: 4px;
+      }
+
+      .st10 {
+        opacity: .9;
+      }
+
+      .st11 {
+        opacity: .2;
+      }
+
+      .st5 {
+        opacity: .7;
+        stroke: #94afc9;
+        stroke-width: 3px;
+      }
+
+      .st6 {
+        opacity: .6;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5882ab"/>
+      <stop offset="1" stop-color="#2f557b"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st1" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st4" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st5" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <circle class="st0" cx="83" cy="42" r="15"/>
+    <circle class="st2" cx="84.9" cy="34.5" r="5"/>
+    <g class="st10">
+      <line class="st8" x1="84.2" y1="16" x2="84.2" y2="22"/>
+      <line class="st8" x1="102.2" y1="38" x2="108.2" y2="38"/>
+      <line class="st8" x1="98.2" y1="23" x2="102.2" y2="19"/>
+    </g>
+    <g id="cloud">
+      <g class="st11">
+        <circle cx="41.2" cy="65.1" r="16.3"/>
+        <circle cx="61.6" cy="54.9" r="20.4"/>
+        <circle cx="82" cy="67.2" r="14.3"/>
+        <path d="M37.1,65.1h49c4.5,0,8.2,3.7,8.2,8.2h0c0,4.5-3.7,8.2-8.2,8.2h-49c-4.5,0-8.2-3.7-8.2-8.2h0c0-4.5,3.7-8.2,8.2-8.2Z"/>
+      </g>
+      <g>
+        <circle class="st9" cx="39.6" cy="62.1" r="16.3"/>
+        <circle class="st9" cx="60" cy="51.9" r="20.4"/>
+        <circle class="st9" cx="80.4" cy="64.1" r="14.3"/>
+        <path class="st9" d="M35.6,62.1h49c4.5,0,8.2,3.7,8.2,8.2h0c0,4.5-3.7,8.2-8.2,8.2h-49c-4.5,0-8.2-3.7-8.2-8.2h0c0-4.5,3.7-8.2,8.2-8.2Z"/>
+      </g>
+      <path class="st3" d="M27.4,70.2c0,4.5,3.7,8.2,8.2,8.2h49c5.5-1,9.2-6.3,8.2-11.8,0-.1,0-.3,0-.4-16.3,8.2-49,8.2-65.3,4.1Z"/>
+      <circle class="st6" cx="51.9" cy="45.8" r="9.2"/>
+    </g>
+    <g>
+      <line class="st7" x1="39.3" y1="88" x2="33.3" y2="102"/>
+      <line class="st7" x1="57.3" y1="88" x2="51.3" y2="102"/>
+      <line class="st7" x1="75.3" y1="88" x2="69.3" y2="102"/>
+    </g>
+  </g>
+</svg>

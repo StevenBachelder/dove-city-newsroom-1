@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-security" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3F4655"/><stop offset="1" stop-color="#181F2D"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-security)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#131822" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#848992" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="padlock" transform="translate(64,66) scale(1.0)"><path d="M-17 -8 V-21 C-17 -34 17 -34 17 -21 V-8" fill="none" stroke="#B2B2B2" stroke-width="9"/><path d="M-17 -8 V-21 C-17 -34 17 -34 17 -21 V-8" fill="none" stroke="#FFFFFF" stroke-width="6"/><rect x="-25.5" y="-6.5" width="52" height="42" rx="9" fill="#000" opacity="0.25" transform="translate(1.5,2.5)"/><rect x="-27" y="-8" width="54" height="42" rx="9" fill="#F2C94C"/><rect x="-27" y="-8" width="54" height="12" rx="6" fill="#F6DB8A" opacity="0.7"/><circle cx="0" cy="10" r="6.5" fill="#20293A"/><path d="M-3.5 10 h7 l2 14 h-11 Z" fill="#20293A"/></g><g stroke="#F2C94C" stroke-width="3" stroke-linecap="round" opacity="0.8"><path d="M24 40 a44 44 0 0 1 10 -14"/><path d="M104 40 a44 44 0 0 0 -10 -14"/></g>
+</g>
+</svg>

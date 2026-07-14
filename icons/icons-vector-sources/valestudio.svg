@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        opacity: .3;
+      }
+
+      .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st6 {
+        fill: url(#linear-gradient);
+      }
+
+      .st7 {
+        fill: #f4f3ee;
+      }
+
+      .st2 {
+        fill: #547ccc;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 9px;
+        letter-spacing: .3em;
+      }
+
+      .st2, .st3 {
+        font-weight: 700;
+      }
+
+      .st8, .st3 {
+        fill: #20293a;
+      }
+
+      .st3 {
+        font-family: Georgia-Bold, Georgia;
+        font-size: 26px;
+      }
+
+      .st4 {
+        opacity: .7;
+        stroke: #7b7d80;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st4, .st5 {
+        fill: none;
+      }
+
+      .st9 {
+        fill: #dbdad6;
+      }
+
+      .st5 {
+        opacity: .5;
+        stroke: #090c0f;
+        stroke-width: 2px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#303439"/>
+      <stop offset="1" stop-color="#0b0f13"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st6" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st5" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st4" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="clapper">
+      <rect class="st1" x="29" y="55.5" width="74" height="44" rx="7" ry="7"/>
+      <rect class="st7" x="26" y="52" width="76" height="44" rx="7" ry="7"/>
+      <rect class="st9" x="26" y="52" width="76" height="8"/>
+      <g>
+        <rect class="st0" x="22.1" y="26.1" width="78" height="16" rx="4" ry="4" transform="translate(-6.4 15.8) rotate(-14)"/>
+        <g>
+          <polygon class="st8" points="29 33.9 40.7 31 38.7 47.9 27.1 50.8 29 33.9"/>
+          <polygon class="st8" points="52.3 28.1 64 25.2 62 42.1 50.4 45 52.3 28.1"/>
+          <polygon class="st8" points="75.6 22.3 87.3 19.4 85.3 36.3 73.7 39.2 75.6 22.3"/>
+        </g>
+      </g>
+      <text class="st3" transform="translate(53.2 77.5)"><tspan x="0" y="0">V</tspan></text>
+      <text class="st2" transform="translate(33.3 86.6)"><tspan x="0" y="0">STUDIOS</tspan></text>
+    </g>
+  </g>
+</svg>

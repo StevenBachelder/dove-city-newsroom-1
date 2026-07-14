@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .7;
+        stroke: #7fb0ab;
+        stroke-width: 3px;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        isolation: isolate;
+      }
+
+      .st0, .st2 {
+        stroke-linecap: round;
+      }
+
+      .st0, .st3 {
+        fill: none;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st2 {
+        opacity: .6;
+        stroke: #e0e0e0;
+        stroke-width: 8px;
+      }
+
+      .st4 {
+        fill: url(#linear-gradient);
+      }
+
+      .st5 {
+        fill: #fff;
+      }
+
+      .st3 {
+        opacity: .5;
+        stroke: #0d433d;
+        stroke-width: 2px;
+      }
+
+      .st6 {
+        opacity: .2;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#37847c"/>
+      <stop offset="1" stop-color="#115750"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st4" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st3" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st0" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <ellipse id="ground-shadow" class="st1" cx="64" cy="92" rx="38" ry="6"/>
+    <g id="bone">
+      <g class="st6">
+        <circle cx="39.5" cy="56.5" r="11"/>
+        <circle cx="39.5" cy="76.5" r="11"/>
+        <circle cx="91.5" cy="56.5" r="11"/>
+        <circle cx="91.5" cy="76.5" r="11"/>
+        <path d="M47.5,56.5h36c5.5,0,10,4.5,10,10h0c0,5.5-4.5,10-10,10h-36c-5.5,0-10-4.5-10-10h0c0-5.5,4.5-10,10-10Z"/>
+      </g>
+      <g>
+        <circle class="st5" cx="38" cy="50.4" r="11"/>
+        <circle class="st5" cx="38" cy="70.4" r="11"/>
+        <circle class="st5" cx="90" cy="50.4" r="11"/>
+        <circle class="st5" cx="90" cy="70.4" r="11"/>
+        <path class="st5" d="M46,50.4h36c5.5,0,10,4.5,10,10h0c0,5.5-4.5,10-10,10h-36c-5.5,0-10-4.5-10-10h0c0-5.5,4.5-10,10-10Z"/>
+      </g>
+      <path class="st2" d="M40,64h48"/>
+    </g>
+  </g>
+</svg>

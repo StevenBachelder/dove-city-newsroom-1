@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-cleanflow" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#2F756F"/><stop offset="1" stop-color="#0A4A44"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-cleanflow)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#083934" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#7AA7A3" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<g id="drop" transform="translate(64,52) scale(0.8)"><path d="M0 -34 C12 -16 24 -2 24 12 C24 27 13 38 0 38 C-13 38 -24 27 -24 12 C-24 -2 -12 -16 0 -34 Z" fill="#FFFFFF"/><path d="M0 -34 C12 -16 24 -2 24 12 C24 24 17 33 8 36 C14 26 13 8 4 -8 C1 -17 0 -26 0 -34 Z" fill="#C6C6C6" opacity="0.6"/><ellipse cx="-9" cy="8" rx="6" ry="10" fill="#FFFFFF" opacity="0.85" transform="rotate(18 -9 8)"/></g><g id="waves" stroke-linecap="round" fill="none"><path d="M26 96 Q38 88 50 96 T74 96 T102 96" stroke="#6B98B5" stroke-width="9" opacity="0.5" transform="translate(1,2)"/><path d="M26 96 Q38 88 50 96 T74 96 T102 96" stroke="#7FB3D5" stroke-width="6.5"/><path d="M36 110 Q46 104 56 110 T78 110 T96 110" stroke="#7FB3D5" stroke-width="5" opacity="0.6"/></g>
+</g>
+</svg>

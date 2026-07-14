@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        fill: #6ee530;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6, .st7 {
+        isolation: isolate;
+      }
+
+      .st1, .st7 {
+        opacity: .4;
+      }
+
+      .st2 {
+        opacity: .2;
+      }
+
+      .st8 {
+        fill: #3e7c4f;
+      }
+
+      .st3 {
+        opacity: .5;
+        stroke: #231912;
+        stroke-width: 2px;
+      }
+
+      .st3, .st9 {
+        fill: none;
+      }
+
+      .st4 {
+        fill: #c6a43e;
+        opacity: .7;
+      }
+
+      .st10 {
+        fill: url(#linear-gradient);
+      }
+
+      .st11 {
+        fill: #f8e4a5;
+      }
+
+      .st5 {
+        fill: #2bbf4e;
+        opacity: .3;
+      }
+
+      .st12 {
+        fill: #30603d;
+      }
+
+      .st13 {
+        fill: #f48837;
+      }
+
+      .st14 {
+        fill: #77665a;
+      }
+
+      .st6 {
+        fill: #f4b10b;
+        opacity: .4;
+      }
+
+      .st15 {
+        fill: #b3352c;
+      }
+
+      .st9 {
+        stroke: #5b6377;
+        stroke-linecap: round;
+        stroke-width: 4px;
+      }
+
+      .st7 {
+        fill: #24ba47;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-1225.2" y1="5.4" x2="-1225.2" y2="6.4" gradientTransform="translate(147088 -634) scale(120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#56473d"/>
+      <stop offset="1" stop-color="#2e2017"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st10" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st3" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+  </g>
+  <g id="glyph">
+    <ellipse id="ground-shadow" class="st2" cx="64" cy="106" rx="42" ry="6"/>
+    <g id="pine">
+      <rect class="st13" x="36.9" y="89.9" width="10.2" height="17.6" rx="2.6" ry="2.6"/>
+      <rect class="st14" x="36.9" y="89.9" width="4.3" height="17.6"/>
+      <polygon class="st8" points="42 21.2 59 49.4 25 49.4 42 21.2"/>
+      <polygon class="st12" points="42 37.1 64.1 67 19.9 67 42 37.1"/>
+      <polygon class="st8" points="42 52.9 69.2 91.7 14.8 91.7 42 52.9"/>
+      <polygon class="st7" points="42 21.2 59 49.4 42 49.4 42 21.2"/>
+      <polygon class="st1" points="42 37.1 64.1 67 42 67 42 37.1"/>
+      <polygon class="st5" points="42 52.9 69.2 91.7 42 91.7 42 52.9"/>
+    </g>
+    <g id="flame">
+      <path class="st0" d="M88,38.8c10.9,13.5,16.3,21,16.3,34.6s-7.5,22.6-16.3,22.6-16.3-9.1-16.3-22.6,3.4-14.3,8.2-21c-.7,9.1,2,12.8,5.4,12.1-4.8-9.7-3.4-17.3,2.7-25.6h0Z"/>
+      <path class="st4" d="M88,38.8c10.9,13.5,16.3,21,16.3,34.6s-4.8,18-10.9,21c4.1-7.5,4.1-18-1.4-27.1,2.7-9.1,0-19.6-4.1-28.5h0Z"/>
+      <path class="st15" d="M88,71.9c5.4,6,7.5,9.7,7.5,14.3s-3.4,9.7-7.5,9.7-7.5-3.8-7.5-9.7,2-8.3,7.5-14.3Z"/>
+      <path class="st11" d="M88,79.4c2.7,3,3.4,5.3,3.4,7.5,0,3.8-2,6-3.4,6-2,0-3.4-2.2-3.4-6s.7-4.5,3.4-7.5Z"/>
+    </g>
+    <path class="st9" d="M83.7,9.1c-3.8,4.2-4.2,8.3-1.3,12.1"/>
+    <path class="st9" d="M89.8,31.9c4-4,4.7-8,2-12"/>
+    <ellipse id="ground-shadow1" data-name="ground-shadow" class="st6" cx="88.5" cy="106" rx="14.7" ry="3"/>
+  </g>
+</svg>

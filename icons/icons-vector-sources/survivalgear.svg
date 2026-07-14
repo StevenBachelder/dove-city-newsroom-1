@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+  <linearGradient id="bg-survivalgear" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#555346"/><stop offset="1" stop-color="#2D2A1F"/>
+  </linearGradient>
+</defs>
+<g id="tile">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg-survivalgear)"/>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="none" stroke="#222118" stroke-width="2" opacity="0.5"/>
+  <path id="rim-light" d="M20 10 H108 A16 16 0 0 1 122 22" fill="none" stroke="#929189" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+</g>
+<g id="glyph">
+<ellipse id="ground-shadow" cx="64" cy="104" rx="34" ry="6" fill="#000000" opacity="0.16"/><g id="pack2"><rect x="42" y="40" width="44" height="54" rx="11" fill="#3E7C4F"/><rect x="42" y="40" width="44" height="13" rx="6.5" fill="#6E9C7B" opacity="0.85"/><rect x="52" y="30" width="24" height="15" rx="7.5" fill="none" stroke="#346943" stroke-width="7"/><rect x="42" y="60" width="44" height="9" fill="#2B5637"/><rect x="55" y="73" width="18" height="14" rx="3.5" fill="#F4F3EE"/><circle cx="64" cy="64.5" r="3.2" fill="#F2C94C"/><g stroke="#F2C94C" stroke-width="5" stroke-linecap="round"><line x1="32" y1="48" x2="32" y2="88"/><line x1="96" y1="48" x2="96" y2="88"/></g><g stroke="#285033" stroke-width="3"><line x1="32" y1="62" x2="32" y2="70"/><line x1="96" y1="62" x2="96" y2="70"/></g></g>
+</g>
+</svg>

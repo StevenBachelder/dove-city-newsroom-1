@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        fill: #f5d981;
+      }
+
+      .st2 {
+        opacity: .2;
+      }
+
+      .st2, .st3, .st4, .st5, .st6, .st7 {
+        isolation: isolate;
+      }
+
+      .st8 {
+        fill: #d4b042;
+      }
+
+      .st9 {
+        fill: url(#linear-gradient);
+      }
+
+      .st10 {
+        stroke: #91782d;
+      }
+
+      .st10, .st3 {
+        stroke-width: 2.5px;
+      }
+
+      .st10, .st3, .st11, .st4, .st7 {
+        fill: none;
+      }
+
+      .st10, .st11, .st7 {
+        stroke-linecap: round;
+      }
+
+      .st3 {
+        opacity: .8;
+        stroke: #a98c35;
+      }
+
+      .st11 {
+        stroke: #7fb3d5;
+        stroke-width: 5px;
+      }
+
+      .st4 {
+        opacity: .5;
+        stroke: #0d2d37;
+        stroke-width: 2px;
+      }
+
+      .st12 {
+        fill: #fff;
+      }
+
+      .st13 {
+        fill: #20293a;
+      }
+
+      .st14, .st6 {
+        opacity: .9;
+      }
+
+      .st15 {
+        opacity: .9;
+      }
+
+      .st16 {
+        fill: #edf2f4;
+      }
+
+      .st5 {
+        fill: #c1a03c;
+        opacity: .6;
+      }
+
+      .st6 {
+        fill: #0f94ce;
+        font-family: Arial-BoldMT, Arial;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0em;
+      }
+
+      .st7 {
+        opacity: .7;
+        stroke: #7e9ca5;
+        stroke-width: 3px;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#366472"/>
+      <stop offset="1" stop-color="#113a47"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st9" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st4" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st7" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="fish">
+      <ellipse class="st2" cx="58.5" cy="65.5" rx="29" ry="18"/>
+      <ellipse class="st0" cx="56" cy="61" rx="29" ry="18"/>
+      <path class="st5" d="M27,61c0,9.9,13,18,29,18s29-8.1,29-18c-14,8-44,8-58,0Z"/>
+      <polygon class="st0" points="83 61 106 45 106 77 83 61"/>
+      <polygon class="st1" points="83 61 106 45 98 61 83 61"/>
+      <polygon class="st8" points="50 45 60 32 66 46 50 45"/>
+      <circle class="st12" cx="43" cy="56" r="5"/>
+      <circle class="st13" cx="44.5" cy="57" r="2.6"/>
+      <path class="st10" d="M34,68c2.7,2.7,5.7,3.7,9,3"/>
+      <path class="st3" d="M60,56c4,3.3,4,7,0,11M70,55c4,3.3,4,7.3,0,12"/>
+    </g>
+    <g class="st15">
+      <circle class="st16" cx="40.6" cy="31.9" r="4"/>
+      <circle class="st16" cx="50.6" cy="21.9" r="3"/>
+      <circle class="st16" cx="32.6" cy="21.9" r="2.4"/>
+    </g>
+    <g class="st14">
+      <path class="st11" d="M25.5,87c5.3-4.7,10.6-4.7,15.9,0s10.6,4.7,15.9,0,9.9-4.7,13.6,0"/>
+    </g>
+    <text class="st6" transform="translate(27.1 103.5)"><tspan x="0" y="0">FOLLOWERS</tspan><tspan x="5.3" y="12" xml:space="preserve"> FOR SALE</tspan></text>
+    <g class="st14">
+      <path class="st11" d="M56.5,87.9c5.3-4.7,10.6-4.7,15.9,0s10.6,4.7,15.9,0c5.3-4.7,9.9-4.7,13.6,0"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-family: Arial-BoldMT, Arial;
+        font-size: 14.7px;
+        font-weight: 700;
+        letter-spacing: .2em;
+        opacity: .9;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st0, .st6 {
+        fill: #fff;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st2 {
+        fill: #bfbfbf;
+      }
+
+      .st2, .st3, .st5 {
+        opacity: .5;
+      }
+
+      .st7 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        stroke: #0c4b45;
+        stroke-width: 2px;
+      }
+
+      .st3, .st4 {
+        fill: none;
+      }
+
+      .st4 {
+        opacity: .7;
+        stroke: #7db7b2;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st5 {
+        fill: #dbdbdb;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#348f87"/>
+      <stop offset="1" stop-color="#0f615a"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st7" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st3" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st4" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="paw">
+      <ellipse class="st2" cx="42.3" cy="64.7" rx="15.6" ry="12.5"/>
+      <ellipse class="st6" cx="41.2" cy="62.8" rx="15.6" ry="12.5"/>
+      <ellipse class="st5" cx="41.2" cy="65.9" rx="9.4" ry="6.2"/>
+      <circle class="st6" cx="24" cy="48.7" r="6.2"/>
+      <circle class="st6" cx="34.9" cy="40.9" r="6.2"/>
+      <circle class="st6" cx="47.4" cy="40.9" r="6.2"/>
+      <circle class="st6" cx="58.3" cy="48.7" r="6.2"/>
+    </g>
+    <g id="cross">
+      <rect class="st1" x="77.5" y="36.6" width="13" height="40" rx="4" ry="4"/>
+      <rect class="st1" x="67.2" y="50.1" width="40" height="13" rx="4" ry="4"/>
+      <rect class="st6" x="80.7" y="33.3" width="13" height="40" rx="4" ry="4"/>
+      <rect class="st6" x="67.2" y="46.8" width="40" height="13" rx="4" ry="4"/>
+    </g>
+    <text class="st0" transform="translate(22.5 98.3)"><tspan x="0" y="0">CITY VET</tspan></text>
+  </g>
+</svg>

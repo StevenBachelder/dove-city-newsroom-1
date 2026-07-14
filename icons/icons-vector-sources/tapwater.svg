@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f2c94c;
+      }
+
+      .st1 {
+        fill: url(#linear-gradient);
+      }
+
+      .st2 {
+        fill: #c6c6c6;
+        opacity: .6;
+      }
+
+      .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st3 {
+        opacity: .5;
+        stroke: #2d4f67;
+        stroke-width: 2px;
+      }
+
+      .st3, .st4 {
+        fill: none;
+      }
+
+      .st4 {
+        opacity: .7;
+        stroke: #9cbbd1;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st6, .st5 {
+        fill: #fff;
+      }
+
+      .st7 {
+        fill: #20293a;
+      }
+
+      .st8 {
+        fill: #6e737e;
+      }
+
+      .st9 {
+        fill: #797e88;
+      }
+
+      .st5 {
+        opacity: .9;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6496b8"/>
+      <stop offset="1" stop-color="#3a6786"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st1" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st3" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st4" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <g id="drop">
+      <path class="st6" d="M86.8,74.6c6.2,9.3,12.5,16.5,12.5,23.7s-5.7,13.4-12.5,13.4-12.5-5.7-12.5-13.4,6.2-14.5,12.5-23.7Z"/>
+      <path class="st2" d="M86.8,74.6c6.2,9.3,12.5,16.5,12.5,23.7s-3.6,10.8-8.3,12.4c3.1-5.2,2.6-14.5-2.1-22.7-1.6-4.6-2.1-9.3-2.1-13.4Z"/>
+      <ellipse class="st5" cx="82.1" cy="96.3" rx="5.2" ry="3.1" transform="translate(-35.1 144) rotate(-71.7)"/>
+    </g>
+    <g id="tap">
+      <path class="st7" d="M41,46.8h37.5c6.1,0,11,3.9,11,8.8h0c0,4.8-4.9,8.8-11,8.8h-37.5c-6.1,0-11-3.9-11-8.8h0c0-4.8,4.9-8.8,11-8.8Z"/>
+      <path class="st8" d="M34.5,46.8h50.4c2.5,0,4.5,1.6,4.5,3.6h0c0,2-2,3.6-4.5,3.6h-50.4c-2.5,0-4.5-1.6-4.5-3.6h0c0-2,2-3.6,4.5-3.6Z"/>
+      <rect class="st7" x="76.5" y="46.8" width="20.7" height="31" rx="4" ry="4"/>
+      <rect class="st7" x="55.8" y="30.3" width="14.2" height="18.6"/>
+      <path class="st7" d="M50,22h25.8c3.9,0,7.1,2.5,7.1,5.7h0c0,3.1-3.2,5.7-7.1,5.7h-25.8c-3.9,0-7.1-2.5-7.1-5.7h0c0-3.1,3.2-5.7,7.1-5.7Z"/>
+      <path class="st9" d="M45.8,22h34.2c1.6,0,2.9,1,2.9,2.3h0c0,1.3-1.3,2.3-2.9,2.3h-34.2c-1.6,0-2.9-1-2.9-2.3h0c0-1.3,1.3-2.3,2.9-2.3Z"/>
+      <ellipse class="st0" cx="50.7" cy="27.7" rx="2.6" ry="2.1"/>
+      <ellipse class="st0" cx="75.2" cy="27.7" rx="2.6" ry="2.1"/>
+    </g>
+  </g>
+</svg>

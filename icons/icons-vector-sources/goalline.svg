@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 128 128">
+  <!-- Generator: Adobe Illustrator 29.8.9, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .2;
+      }
+
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        opacity: .2;
+      }
+
+      .st6 {
+        stroke: #6d6b67;
+        stroke-width: 6px;
+      }
+
+      .st6, .st2, .st7, .st3, .st8, .st4 {
+        fill: none;
+      }
+
+      .st2 {
+        opacity: .5;
+        stroke: #254a2f;
+      }
+
+      .st2, .st8 {
+        stroke-width: 2px;
+      }
+
+      .st7 {
+        stroke: #20293a;
+      }
+
+      .st7, .st4 {
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .st9 {
+        fill: url(#linear-gradient);
+      }
+
+      .st3 {
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+
+      .st3, .st5 {
+        opacity: .9;
+      }
+
+      .st10, .st5 {
+        fill: #fff;
+      }
+
+      .st11 {
+        fill: #20293a;
+      }
+
+      .st12 {
+        opacity: .8;
+      }
+
+      .st8 {
+        stroke: #726f6a;
+      }
+
+      .st4 {
+        opacity: .7;
+        stroke: #94b69e;
+      }
+
+      .st13 {
+        fill: #d8d4c8;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-612.4" y1="446.3" x2="-612.4" y2="445.3" gradientTransform="translate(73546 53565) scale(120 -120)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#598e67"/>
+      <stop offset="1" stop-color="#30603d"/>
+    </linearGradient>
+  </defs>
+  <g id="tile">
+    <rect class="st9" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <rect class="st2" x="4" y="4" width="120" height="120" rx="28" ry="28"/>
+    <path id="rim-light" class="st4" d="M20,10h88c6.7.6,12.3,5.4,14,12"/>
+  </g>
+  <g id="glyph">
+    <rect class="st0" x="21.4" y="29.4" width="85.1" height="47.6"/>
+    <rect class="st6" x="22" y="28" width="84" height="48"/>
+    <g class="st12">
+      <line class="st8" x1="36" y1="28" x2="36" y2="76"/>
+      <line class="st8" x1="50" y1="28" x2="50" y2="76"/>
+      <line class="st8" x1="64" y1="28" x2="64" y2="76"/>
+      <line class="st8" x1="78" y1="28" x2="78" y2="76"/>
+      <line class="st8" x1="92" y1="28" x2="92" y2="76"/>
+      <line class="st8" x1="22" y1="44" x2="106" y2="44"/>
+      <line class="st8" x1="22" y1="60" x2="106" y2="60"/>
+    </g>
+    <line class="st3" x1="14" y1="103" x2="114" y2="103"/>
+    <g id="football">
+      <circle class="st1" cx="65" cy="94.5" r="17"/>
+      <circle class="st10" cx="64" cy="92" r="17"/>
+      <path class="st13" d="M47,92c0,9.4,7.6,17,17,17s17-7.6,17-17c-8.5,4.3-23,4.6-32.4.7-.6-.2-1.1-.5-1.6-.7Z"/>
+      <circle class="st5" cx="58.1" cy="85.2" r="6.5"/>
+      <polygon class="st11" points="64 81 74 89 70 101 58 101 54 89 64 81"/>
+      <g>
+        <path class="st7" d="M64,84.1v-7.1"/>
+        <path class="st7" d="M72.1,90.1l6.7-3.5"/>
+        <path class="st7" d="M68.7,97.7l3.8,6.7"/>
+        <path class="st7" d="M59.6,97.7l-4.8,6.2"/>
+        <path class="st7" d="M55.3,89.4l-5.3-1"/>
+      </g>
+    </g>
+  </g>
+</svg>
