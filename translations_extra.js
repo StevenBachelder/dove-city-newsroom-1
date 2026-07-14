@@ -10,6 +10,7 @@
    ===================================================================== */
 const extraStrings = {
 en: {
+  meterNudge: "Your meters just moved ↑ Tap them anytime to see exactly how scoring works.",
   meterHint: "Tap to see how scoring works",
   meterInfoTitle: "Your two meters — and how choices move them",
   meterCredBody: "Do readers trust this paper? Right calls raise it: +8 for publishing a verified story, +12 for stopping misinformation, and +4 extra when your pinned evidence truly supports your verdict. Wrong calls cost more than right ones earn: publishing a fake means a public correction (−18), and flagging real news buries the truth (−8). If credibility collapses, your trial ends — no matter how popular you are.",
@@ -192,6 +193,7 @@ en: {
 },
 
 sv: {
+  meterNudge: "Dina mätare rörde sig just ↑ Tryck på dem när som helst för att se exakt hur poängen fungerar.",
   meterHint: "Tryck för att se hur poängen fungerar",
   meterInfoTitle: "Dina två mätare — och hur dina val påverkar dem",
   meterCredBody: "Litar läsarna på tidningen? Rätt beslut höjer den: +8 för en publicerad verifierad nyhet, +12 för stoppad desinformation, och +4 extra när dina fastnålade bevis faktiskt stödjer ditt utslag. Fel beslut kostar mer än rätt beslut ger: en publicerad bluff kräver en offentlig rättelse (−18), och en flaggad riktig nyhet begraver sanningen (−8). Rasar trovärdigheten är provanställningen över — oavsett hur populär du är.",
@@ -372,6 +374,7 @@ sv: {
 },
 
 fi: {
+  meterNudge: "Mittarisi liikkuivat juuri ↑ Napauta niitä milloin vain nähdäksesi tarkalleen, miten pisteytys toimii.",
   meterHint: "Napauta nähdäksesi miten pisteytys toimii",
   meterInfoTitle: "Kaksi mittariasi — ja miten valintasi liikuttavat niitä",
   meterCredBody: "Luottavatko lukijat lehteen? Oikeat päätökset nostavat sitä: +8 julkaistusta varmistetusta uutisesta, +12 pysäytetystä disinformaatiosta ja +4 lisää, kun kiinnittämäsi todisteet todella tukevat päätöstäsi. Väärät päätökset maksavat enemmän kuin oikeat tuottavat: julkaistu huijaus vaatii julkisen oikaisun (−18), ja virheelliseksi merkitty oikea uutinen hautaa totuuden (−8). Jos uskottavuus romahtaa, koeaikasi päättyy — olitpa kuinka suosittu tahansa.",
@@ -549,6 +552,7 @@ fi: {
   vera_genuine_no: "Varovasti — työmme ei ole merkitä kaikkea virheelliseksi. Se on ottaa selvää. Tämä piti paikkansa. Liika epäluulo maksaa uutisia — ja lukijoita."
 },
 et: {
+  meterNudge: "Sinu mõõdikud just liikusid ↑ Puuduta neid ükskõik millal, et näha täpselt kuidas punktid liiguvad.",
   meterHint: "Puuduta, et näha kuidas punktid liiguvad",
   meterInfoTitle: "Sinu kaks mõõdikut — ja kuidas su valikud neid liigutavad",
   meterCredBody: "Kas lugejad usaldavad seda lehte? Õiged otsused tõstavad seda: +8 avaldatud kontrollitud uudise eest, +12 peatatud desinformatsiooni eest ja +4 lisaks, kui sinu kinnitatud tõendid tõesti toetavad su otsust. Valed otsused maksavad rohkem, kui õiged sisse toovad: avaldatud võltsing nõuab avalikku parandust (−18) ja valeks märgitud päris uudis matab tõe (−8). Kui usaldusväärsus variseb, on prooviaeg läbi — ükskõik kui populaarne sa oled.",
