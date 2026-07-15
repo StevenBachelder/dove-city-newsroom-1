@@ -106,6 +106,11 @@ img,svg,video{display:block;max-width:100%}
 .evcard .e-icon img{width:100%;height:100%;object-fit:cover}
 .evcard .e-main{flex:1;min-width:0}
 .evcard .e-label{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-viewer.is-ad{outline:3px dashed var(--ad);outline-offset:-3px}
+.ad-banner{background:var(--ad);color:#fff;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:2.5px;text-align:center;padding:9px 12px;border-radius:8px;margin-bottom:12px}
+.ev-head-row{display:flex;gap:11px;align-items:center;margin-bottom:8px}
+.ev-src-icon{width:36px;height:36px;border-radius:8px;overflow:hidden;background:var(--paper-dark);flex-shrink:0;border:1px solid var(--line)}
+.ev-src-icon img{width:100%;height:100%;object-fit:cover}
 .ev-viewer .photo{margin:0 0 12px}
 .ev-viewer .photo img,.ev-viewer .photo video{max-height:52vh;width:100%;object-fit:contain;background:var(--paper-dark)}
 .evcard.is-ad{border-left-color:var(--ad)}
@@ -730,10 +735,14 @@ function openEvidence(i){
   const mount=$("#viewer-mount");
   const media = e.kind==="img" ? `<div class="photo">${mediaTag(e.mediaSrc,"img")}</div>`
               : e.kind==="video" ? `<div class="photo">${mediaTag(e.mediaSrc,"video")}</div>` : "";
-  mount.innerHTML=`<div class="overlay" id="ev-ov"><div class="modal ev-viewer">
+  mount.innerHTML=`<div class="overlay" id="ev-ov"><div class="modal ev-viewer ${e.isAd?"is-ad":""}">
     <div class="modal-body" style="padding-top:20px">
+      ${e.isAd?`<div class="ad-banner">⚠️ ${esc(t("sponsoredTag").toUpperCase())}</div>`:""}
       ${media}
-      <p style="font-weight:700;font-size:15.5px">${esc(e.label)}</p>
+      <div class="ev-head-row">
+        ${e.icon?`<div class="ev-src-icon"><img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'"></div>`:""}
+        <p style="font-weight:700;font-size:15.5px;margin:0">${esc(e.label)}</p>
+      </div>
       ${e.desc?`<p>${esc(e.desc)}</p>`:""}
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
       <div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
