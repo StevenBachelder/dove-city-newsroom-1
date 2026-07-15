@@ -159,6 +159,18 @@ img,svg,video{display:block;max-width:100%}
 .techcard .tc-name{font-family:var(--font-display);font-weight:900;font-size:20px;padding:10px 14px 2px}
 .techcard .tc-body{padding:4px 14px 12px;font-size:14px}
 .delta-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.delta{opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.delta.show{opacity:1;transform:none}
+.tally{display:flex;gap:14px;margin:6px 0 12px}
+.tally .t-box{flex:1;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px}
+.tally .t-name{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft)}
+.tally .t-num{font-family:var(--font-mono);font-size:26px;font-weight:600;line-height:1.15}
+.tally .t-box.cred .t-num{color:var(--verify)}
+.tally .t-box.pop .t-num{color:var(--pop)}
+.t-num.bump-up{animation:bumpup .18s ease}
+.t-num.bump-down{animation:bumpdown .18s ease}
+@keyframes bumpup{50%{transform:translateY(-3px) scale(1.08)}}
+@keyframes bumpdown{50%{transform:translateY(3px) scale(0.94)}}
 .delta{font-family:var(--font-mono);font-size:13px;border-radius:6px;padding:6px 10px;border:1px solid var(--line);background:var(--paper)}
 .delta.up{color:var(--verify);border-color:var(--verify)}
 .delta.down{color:var(--stamp-red);border-color:var(--stamp-red)}
@@ -276,6 +288,33 @@ const SKILL_MAP = { manipulated:"image", outofcontext:"image", emotionaltrue:"cl
                     conspiracy:"claims", polarization:"claims", unverified:"source",
                     hoax:"source", genuine:"source" };
 const MAX_PINS = 3;
+
+/* ---------- tiny synth for score ticks (no audio files needed) ---------- */
+let _ac=null;
+function _audio(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return null;
+    _ac=_ac||new AC();
+    if(_ac.state==="suspended")_ac.resume();
+    return _ac;
+  }catch(e){return null;}
+}
+function blip(freq,dur,type,vol){
+  const a=_audio(); if(!a) return;
+  try{
+    const o=a.createOscillator(), g=a.createGain();
+    o.type=type||"square"; o.frequency.value=freq;
+    g.gain.setValueAtTime(vol||0.09,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+(dur||0.05));
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime+(dur||0.05)+0.01);
+  }catch(e){}
+}
+function tickUp(i){ blip(500*Math.pow(2,Math.min(i,14)/14), 0.045, "square", 0.085); }
+function tickDown(i){ blip(340*Math.pow(2,-Math.min(i,14)/12), 0.06, "square", 0.10); }
+function chordUp(){ blip(880,0.10,"triangle",0.10); setTimeout(()=>blip(1174,0.14,"triangle",0.10),70); }
+function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2,"triangle",0.12),90); }
 
 const state = {
   day:1, cred:50, pop:20, current:null, evidence:[], handled:{},
@@ -502,16 +541,20 @@ function verdict(choice){
   const correct=(choice==="publish")===c.truth;
   const evOk=state.evidence.some(e=>e.supports);
   const adUsed=state.evidence.some(e=>e.isAd);
-  let deltas=[], dc=0, dp=0;
+  const before={cred:state.cred,pop:state.pop};
+  let events=[], dc=0, dp=0;
   if(correct){
-    if(c.truth){ dc+=8; dp+=c.buzz; deltas.push(["up",tf("dCredPlusVerified",{n:8})],["up",tf("dPopPlusLoved",{n:c.buzz})]); }
-    else { dc+=12; dp+=2; deltas.push(["up",tf("dCredPlusStopped",{n:12})],["up",tf("dPopPlusTrust",{n:2})]); }
+    if(c.truth){ dc+=8; dp+=c.buzz;
+      events.push({m:"cred",amt:8,label:tf("dCredPlusVerified",{n:8})},{m:"pop",amt:c.buzz,label:tf("dPopPlusLoved",{n:c.buzz})}); }
+    else { dc+=12; dp+=2;
+      events.push({m:"cred",amt:12,label:tf("dCredPlusStopped",{n:12})},{m:"pop",amt:2,label:tf("dPopPlusTrust",{n:2})}); }
   } else {
     if(!c.truth){ dp+=c.buzz; dc-=18; const back=Math.round(c.buzz*1.5); dp-=back;
-      deltas.push(["up",tf("dPopPlusViral",{n:c.buzz})],["down",tf("dCredMinusCorrection",{n:18})],["down",tf("dPopMinusFooled",{n:back})]); }
-    else { dc-=8; dp-=6; deltas.push(["down",tf("dCredMinusBuried",{n:8})],["down",tf("dPopMinusScooped",{n:6})]); }
+      events.push({m:"pop",amt:c.buzz,label:tf("dPopPlusViral",{n:c.buzz})},{m:"cred",amt:-18,label:tf("dCredMinusCorrection",{n:18})},{m:"pop",amt:-back,label:tf("dPopMinusFooled",{n:back})}); }
+    else { dc-=8; dp-=6;
+      events.push({m:"cred",amt:-8,label:tf("dCredMinusBuried",{n:8})},{m:"pop",amt:-6,label:tf("dPopMinusScooped",{n:6})}); }
   }
-  if(evOk&&correct){ dc+=4; deltas.push(["up",tf("dEvidenceBonus",{n:4})]); }
+  if(evOk&&correct){ dc+=4; events.push({m:"cred",amt:4,label:tf("dEvidenceBonus",{n:4})}); }
   setMeters(dc,dp);
   state.handled[c.id]={choice,correct,evOk};
   const sk=SKILL_MAP[c.technique]||"source";
@@ -519,10 +562,10 @@ function verdict(choice){
   state.skills.evidence.n++; if(evOk) state.skills.evidence.ok++;
   if(c.technique!=="genuine"){ state.seenTech.add(c.technique); if(correct) state.badges.add(c.technique); }
   if(adUsed) state.seenTech.add("sponsored");
-  feedback(c,choice,correct,evOk,adUsed,deltas);
+  feedback(c,choice,correct,evOk,adUsed,events,before);
 }
 
-function feedback(c,choice,correct,evOk,adUsed,deltas){
+function feedback(c,choice,correct,evOk,adUsed,events,before){
   const drKey="decisionReasoning_"+c.id+"_"+(correct?"correct":"incorrect")+"_"+choice;
   const dr=t(drKey); const drText = (dr===drKey)?"":dr;
   const isTech=c.technique!=="genuine";
@@ -532,7 +575,11 @@ function feedback(c,choice,correct,evOk,adUsed,deltas){
     <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}">${esc(correct?t("rightCall"):t("wrongCall"))}</div></div>
     <div class="modal-body">
       ${drText?`<p>${esc(drText)}</p>`:""}
-      <div class="delta-row">${deltas.map(d=>`<span class="delta ${d[0]}">${d[0]==="up"?"▲":"▼"} ${esc(d[1])}</span>`).join("")}</div>
+      <div class="tally">
+        <div class="t-box cred"><div class="t-name">${esc(t("credibility"))}</div><div class="t-num" id="tally-cred">${before.cred}</div></div>
+        <div class="t-box pop"><div class="t-name">${esc(t("popularity"))}</div><div class="t-num" id="tally-pop">${before.pop}</div></div>
+      </div>
+      <div class="delta-row">${events.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}">${e.amt>0?"▲":"▼"} ${esc(e.label)}</span>`).join("")}</div>
       ${evOk?`<div class="ev-note good">${esc(t("evGood"))}</div>`:`<div class="ev-note bad">${esc(t("evBad"))}</div>`}
       ${adUsed?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
@@ -545,6 +592,7 @@ function feedback(c,choice,correct,evOk,adUsed,deltas){
       </div>
       <button class="btn-primary" id="btn-next">${esc(t("nextBtn"))}</button>
     </div></div></div>`;
+  animateTally(events,before);
   $("#btn-next").addEventListener("click",()=>{
     mount.innerHTML=""; state.current=null; $("#lang-top").disabled=false;
     if(!state.meterNudged){
@@ -561,6 +609,40 @@ function feedback(c,choice,correct,evOk,adUsed,deltas){
       toolsIdle(); renderQueue();
     } else frontPage();
   });
+}
+
+/* animated score tally: plays events in narrative order with rising/falling blips */
+function animateTally(events,before){
+  const vals={cred:before.cred,pop:before.pop};
+  const el=m=>document.getElementById("tally-"+m);
+  let ev=0;
+  function runEvent(){
+    if(!el("cred")) return;                     // modal closed — stop silently
+    if(ev>=events.length){
+      const net=events.reduce((s,e)=>s+e.amt,0);
+      (net>=0?chordUp:thudDown)(); return;
+    }
+    const e=events[ev++];
+    const chip=document.querySelector('.delta[data-ev="'+(ev-1)+'"]');
+    if(chip) chip.classList.add("show");
+    const dir=e.amt>0?1:-1, total=Math.abs(e.amt);
+    const stepSize=total>16?2:1, stepMs=total>16?55:65;
+    let done=0, i=0;
+    (function step(){
+      if(!el(e.m)) return;                      // modal closed
+      const inc=Math.min(stepSize,total-done);
+      done+=inc;
+      vals[e.m]=clamp(vals[e.m]+dir*inc);
+      const node=el(e.m);
+      node.textContent=vals[e.m];
+      node.classList.remove("bump-up","bump-down"); void node.offsetWidth;
+      node.classList.add(dir>0?"bump-up":"bump-down");
+      dir>0?tickUp(i):tickDown(i); i++;
+      if(done<total) setTimeout(step,stepMs);
+      else setTimeout(runEvent,320);            // beat between events
+    })();
+  }
+  setTimeout(runEvent,420);                     // let the banner land first
 }
 
 /* ---------- front page + debrief ---------- */
