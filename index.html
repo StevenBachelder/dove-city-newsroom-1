@@ -160,6 +160,16 @@ img,svg,video{display:block;max-width:100%}
 .fb-evcard .fe-label{font-size:12.5px;line-height:1.25;max-width:150px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .fb-evcard .fe-badge{font-size:13px;flex-shrink:0}
 
+.fe-pts{font-family:var(--font-mono);font-size:12.5px;font-weight:600;flex-shrink:0;border-radius:5px;padding:2px 6px}
+.fe-pts.pos{color:#0E5F58;background:#E2F1EE}
+.fe-pts.neg{color:#8E2721;background:#F7E4E1}
+.ev-pts{border:1.5px solid var(--line);border-radius:9px;padding:9px 12px;margin:10px 0 4px;background:var(--paper)}
+.ev-pts .ep-num{font-family:var(--font-mono);font-size:20px;font-weight:700;margin-right:8px}
+.ev-pts.pos .ep-num{color:#0E5F58}
+.ev-pts.neg .ep-num{color:#8E2721}
+.ev-pts .ep-label{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft)}
+.ev-pts .ep-why{font-size:13px;margin-top:5px}
+
 /* meter nudge toast */
 .nudge{position:fixed;top:64px;right:16px;z-index:60;background:var(--ink);color:#fff;border-radius:10px;
   padding:11px 15px;font-size:13.5px;max-width:270px;box-shadow:0 8px 26px rgba(0,0,0,.35);cursor:pointer;
@@ -553,7 +563,7 @@ function renderTextResults(c,qi){
     const j=+b.dataset.ev.split("-")[1], r=c.searchResults[j];
     if(state.evidence.some(e=>e.key==="t"+j)){ b.disabled=true; b.textContent=t("pinnedBtn"); }
     b.addEventListener("click",()=>{
-      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, key:"t"+j}))
+      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, key:"t"+j}))
         { b.disabled=true; b.textContent=t("pinnedBtn"); }
     });
   });
@@ -573,8 +583,18 @@ function renderImgResults(c){
       { b.disabled=true; b.textContent=t("pinnedBtn"); }
   }));
 }
+/* per-pin SOURCE value: authority of the source decides the reward */
+function calcPts(ev){
+  if(ev.isAd) return -4;
+  if(ev.supports){
+    if(ev.kind==="img"||ev.kind==="video") return 3;          // original context found visually
+    return [4,3,2,2][Math.min(Math.max(ev.rIdx||0,0),3)];     // official → weaker outlet
+  }
+  return -1;                                                   // pinned, but beside the point
+}
 function pin(ev){
   if(state.evidence.some(e=>e.key===ev.key)) return false;
+  ev.pts=calcPts(ev);
   if(state.evidence.length>=MAX_PINS){ alert(t("evidenceLimitReached")+" ("+MAX_PINS+"). "+t("qualityOverQuantity")); return false; }
   if(ev.isAd) state.adPinned=true;
   state.evidence.push(ev); renderBoard(); return true;
@@ -600,10 +620,9 @@ function verdict(choice){
     else { dc-=8; dp-=6;
       events.push({m:"cred",amt:-8,label:tf("dCredMinusBuried",{n:8})},{m:"pop",amt:-6,label:tf("dPopMinusScooped",{n:6})}); }
   }
-  let ds=0;
-  if(evOk){ ds+=6; events.push({m:"src",amt:6,label:tf("dSrcPlusBacked",{n:6})}); }
-  else { ds-=3; events.push({m:"src",amt:-3,label:tf("dSrcMinusWeak",{n:3})}); }
-  if(adUsed){ ds-=5; events.push({m:"src",amt:-5,label:tf("dSrcMinusAd",{n:5})}); }
+  const ds=state.evidence.reduce((sum,e)=>sum+(e.pts||0),0);
+  if(ds>0) events.push({m:"src",amt:ds,label:tf("dSrcPlusBacked",{n:ds})});
+  else if(ds<0) events.push({m:"src",amt:ds,label:tf(adUsed?"dSrcMinusAd":"dSrcMinusWeak",{n:Math.abs(ds)})});
   setMeters(dc,dp,ds);
   state.handled[c.id]={choice,correct,evOk};
   const sk=SKILL_MAP[c.technique]||"source";
@@ -637,8 +656,9 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
         const th = e.kind==="img" ? `<div class="fe-thumb"><img src="${esc(e.mediaSrc)}" alt="" onerror="this.style.display='none'"></div>`
                  : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
                  : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
-        const badge = e.isAd ? `<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>` : (e.supports?`<span class="fe-badge">✓</span>`:"");
-        return `<div class="fb-evcard ${e.supports?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
+        const pts=e.pts||0;
+        const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`;
+        return `<div class="fb-evcard ${pts>0?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
       }).join("")}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
@@ -675,6 +695,13 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
 }
 
 /* evidence viewer: click a pinned card to re-inspect it */
+function evPtsReason(e){
+  if(e.isAd) return t("sponsoredResultWarning");
+  if(e.supports && (e.kind==="img"||e.kind==="video")) return t("srcImgStrong");
+  if(e.supports) return t("relevanceReasoning_"+(Math.min(Math.max(e.rIdx||0,0),3)+1));
+  if(e.kind==="img"||e.kind==="video") return t("srcImgWeak");
+  return t("srcTextWeak");
+}
 function openEvidence(i){
   const e=state.evidence[i]; if(!e) return;
   const mount=$("#viewer-mount");
@@ -686,6 +713,11 @@ function openEvidence(i){
       <p style="font-weight:700;font-size:15.5px">${esc(e.label)}</p>
       ${e.desc?`<p>${esc(e.desc)}</p>`:""}
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
+      <div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
+        <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
+        <span class="ep-label">${esc(t("srcValLabel"))}</span>
+        <div class="ep-why">${esc(evPtsReason(e))}</div>
+      </div>
       ${e.isAd?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       <button class="btn-primary" id="ev-close" style="margin-top:12px">${esc(t("close"))}</button>
     </div></div></div>`;

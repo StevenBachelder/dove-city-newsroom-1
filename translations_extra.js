@@ -11,7 +11,11 @@
 const extraStrings = {
 en: {
   srcLabel: "Source",
-  meterSrcBody: "How solid is your sourcing? This meter tracks craft, not luck: +6 whenever your pinned evidence truly settles the question — right or wrong verdict aside, −3 when your pins were beside the point, and −5 if you cited a sponsored result as evidence. A high Source score means your verdicts stand on something.",
+  srcValLabel: "Source value",
+  srcImgStrong: "You traced the media to its original context — the strongest kind of visual evidence.",
+  srcImgWeak: "This image didn\u2019t establish where or when the media really came from.",
+  srcTextWeak: "This result didn\u2019t settle the core question — it adds noise, not weight.",
+  meterSrcBody: "How solid is your sourcing? Every pin has a value based on the authority of the source: +4 for a primary/official source that settles the question, +3\u2013+2 for weaker outlets that still support the right call, +3 for finding the original context through image search \u2014 and \u22121 for pins that are beside the point, \u22124 for citing a sponsored result. With only three pins per story, choose the sources that carry the most weight.",
   dSrcPlusBacked: "Source +{n} — decision backed by solid sourcing",
   dSrcMinusWeak: "Source −{n} — your pins didn't settle the question",
   dSrcMinusAd: "Source −{n} — a sponsored result was cited as evidence",
@@ -200,7 +204,11 @@ en: {
 
 sv: {
   srcLabel: "Källa",
-  meterSrcBody: "Hur solid är din källhantering? Den här mätaren mäter hantverk, inte tur: +6 när dina fastnålade bevis verkligen avgör frågan — oavsett utslag, −3 när nålarna missade poängen, och −5 om du använde ett sponsrat resultat som bevis. Ett högt källvärde betyder att dina utslag står på något.",
+  srcValLabel: "Källvärde",
+  srcImgStrong: "Du spårade materialet till dess ursprungliga sammanhang — den starkaste sortens visuella bevis.",
+  srcImgWeak: "Den här bilden slog inte fast var eller när materialet egentligen kom ifrån.",
+  srcTextWeak: "Det här resultatet avgjorde inte kärnfrågan — det ger brus, inte tyngd.",
+  meterSrcBody: "Hur solid \u00e4r din k\u00e4llhantering? Varje n\u00e5l har ett v\u00e4rde utifr\u00e5n k\u00e4llans tyngd: +4 f\u00f6r en prim\u00e4r/officiell k\u00e4lla som avg\u00f6r fr\u00e5gan, +3\u2013+2 f\u00f6r svagare k\u00e4llor som \u00e4nd\u00e5 st\u00f6djer r\u00e4tt utslag, +3 f\u00f6r att hitta ursprungssammanhanget via bilds\u00f6kning \u2014 och \u22121 f\u00f6r n\u00e5lar som missar po\u00e4ngen, \u22124 f\u00f6r ett sponsrat resultat. Med bara tre n\u00e5lar per artikel: v\u00e4lj de k\u00e4llor som v\u00e4ger tyngst.",
   dSrcPlusBacked: "Källa +{n} — beslutet vilar på solid källhantering",
   dSrcMinusWeak: "Källa −{n} — dina nålar avgjorde inte frågan",
   dSrcMinusAd: "Källa −{n} — ett sponsrat resultat användes som bevis",
@@ -387,7 +395,11 @@ sv: {
 
 fi: {
   srcLabel: "Lähde",
-  meterSrcBody: "Kuinka vankka on lähdetyösi? Tämä mittari mittaa taitoa, ei tuuria: +6 aina kun kiinnittämäsi todisteet todella ratkaisevat kysymyksen — päätöksestä riippumatta, −3 kun nastasi menivät ohi aiheen, ja −5 jos käytit sponsoroitua tulosta todisteena. Korkea lähdearvo tarkoittaa, että päätöksesi seisovat jonkin varassa.",
+  srcValLabel: "Lähdearvo",
+  srcImgStrong: "Jäljitit materiaalin alkuperäiseen asiayhteyteensä — vahvinta visuaalista näyttöä.",
+  srcImgWeak: "Tämä kuva ei osoittanut, mistä tai milloin materiaali todella on peräisin.",
+  srcTextWeak: "Tämä tulos ei ratkaissut ydinkysymystä — se tuo kohinaa, ei painoa.",
+  meterSrcBody: "Kuinka vankka on l\u00e4hdety\u00f6si? Jokaisella nastalla on arvo l\u00e4hteen painoarvon mukaan: +4 ensisijaisesta/virallisesta l\u00e4hteest\u00e4, joka ratkaisee kysymyksen, +3\u2013+2 heikommista l\u00e4hteist\u00e4, jotka silti tukevat oikeaa p\u00e4\u00e4t\u00f6st\u00e4, +3 alkuper\u00e4isen asiayhteyden l\u00f6yt\u00e4misest\u00e4 kuvahaulla \u2014 ja \u22121 nastoista, jotka menev\u00e4t ohi aiheen, \u22124 sponsoroidun tuloksen k\u00e4yt\u00f6st\u00e4. Kun nastoja on vain kolme per juttu: valitse painavimmat l\u00e4hteet.",
   dSrcPlusBacked: "Lähde +{n} — päätös nojaa vankkaan lähdetyöhön",
   dSrcMinusWeak: "Lähde −{n} — nastasi eivät ratkaisseet kysymystä",
   dSrcMinusAd: "Lähde −{n} — sponsoroitua tulosta käytettiin todisteena",
@@ -571,7 +583,11 @@ fi: {
 },
 et: {
   srcLabel: "Allikas",
-  meterSrcBody: "Kui kindel on sinu allikatöö? See mõõdik mõõdab oskust, mitte õnne: +6 alati, kui sinu kinnitatud tõendid tõesti otsustavad küsimuse — otsusest sõltumata, −3 kui su nõelad läksid asjast mööda, ja −5 kui kasutasid tõendina sponsoreeritud tulemust. Kõrge allikaskoor tähendab, et sinu otsused seisavad millegi peal.",
+  srcValLabel: "Allika väärtus",
+  srcImgStrong: "Jälitasid materjali selle algse kontekstini — tugevaim visuaalne tõend.",
+  srcImgWeak: "See pilt ei näidanud, kust või millal materjal tegelikult pärineb.",
+  srcTextWeak: "See tulemus ei otsustanud põhiküsimust — see lisab müra, mitte kaalu.",
+  meterSrcBody: "Kui kindel on sinu allikat\u00f6\u00f6? Igal n\u00f5elal on v\u00e4\u00e4rtus allika kaalu j\u00e4rgi: +4 esmase/ametliku allika eest, mis k\u00fcsimuse otsustab, +3\u2013+2 n\u00f5rgemate allikate eest, mis siiski toetavad \u00f5iget otsust, +3 algse konteksti leidmise eest pildiotsinguga \u2014 ja \u22121 n\u00f5elte eest, mis l\u00e4hevad asjast m\u00f6\u00f6da, \u22124 sponsoreeritud tulemuse kasutamise eest. Kuna n\u00f5elu on vaid kolm loo kohta: vali k\u00f5ige kaalukamad allikad.",
   dSrcPlusBacked: "Allikas +{n} — otsus toetub kindlale allikatööle",
   dSrcMinusWeak: "Allikas −{n} — sinu nõelad ei otsustanud küsimust",
   dSrcMinusAd: "Allikas −{n} — tõendina kasutati sponsoreeritud tulemust",
