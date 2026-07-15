@@ -11,6 +11,7 @@
 const extraStrings = {
 en: {
   srcLabel: "Source",
+  extrimistalertlocation2: "Red Bull secure sir!",
   srcValLabel: "Source value",
   swapTitle: "Source discipline",
   avgPinLine: "Average value of the sources you pinned: {v}",
@@ -210,6 +211,7 @@ en: {
 
 sv: {
   srcLabel: "Källa",
+  extrimistalertlocation2: "Red Bull säkrad, sir!",
   srcValLabel: "Källvärde",
   swapTitle: "Källdisciplin",
   avgPinLine: "Genomsnittligt värde på källorna du nålade fast: {v}",
@@ -407,6 +409,7 @@ sv: {
 
 fi: {
   srcLabel: "Lähde",
+  extrimistalertlocation2: "Red Bull turvattu, sir!",
   srcValLabel: "Lähdearvo",
   swapTitle: "Lähdekuri",
   avgPinLine: "Kiinnittämiesi lähteiden keskimääräinen arvo: {v}",
@@ -601,6 +604,7 @@ fi: {
 },
 et: {
   srcLabel: "Allikas",
+  extrimistalertlocation2: "Red Bull kindlustatud, sir!",
   srcValLabel: "Allika väärtus",
   swapTitle: "Allikadistsipliin",
   avgPinLine: "Sinu kinnitatud allikate keskmine väärtus: {v}",
