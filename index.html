@@ -94,7 +94,17 @@ img,svg,video{display:block;max-width:100%}
 .board{background:var(--paper-dark);border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 14px;min-height:86px}
 .board h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;display:flex;justify-content:space-between}
 .board .b-empty{font-size:13px;color:var(--ink-soft);font-style:italic}
-.evcard{background:var(--card);border-left:4px solid var(--highlight);border-radius:6px;box-shadow:var(--shadow);padding:8px 10px;margin-bottom:7px;font-size:13px;display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.evcard{background:var(--card);border-left:4px solid var(--highlight);border-radius:6px;box-shadow:var(--shadow);padding:8px 10px;margin-bottom:7px;font-size:13px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.evcard:hover{transform:translateX(2px);box-shadow:0 3px 12px rgba(32,41,58,.18)}
+.evcard .e-thumb{width:46px;height:46px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--paper-dark);border:1px solid var(--line);position:relative}
+.evcard .e-thumb img,.evcard .e-thumb video{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.evcard .e-thumb .e-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;background:rgba(20,25,35,.35)}
+.evcard .e-icon{width:30px;height:30px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--paper-dark)}
+.evcard .e-icon img{width:100%;height:100%;object-fit:cover}
+.evcard .e-main{flex:1;min-width:0}
+.evcard .e-label{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-viewer .photo{margin:0 0 12px}
+.ev-viewer .photo img,.ev-viewer .photo video{max-height:52vh;width:100%;object-fit:contain;background:var(--paper-dark)}
 .evcard.is-ad{border-left-color:var(--ad)}
 .evcard .e-src{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);display:block;margin-top:3px}
 .evcard button{background:none;border:none;color:var(--stamp-red);font-size:15px;line-height:1}
@@ -146,8 +156,8 @@ img,svg,video{display:block;max-width:100%}
 .modal{background:var(--card);border-radius:14px;max-width:580px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 18px 60px rgba(0,0,0,.35)}
 .modal-head{padding:18px 22px 0}
 .verdict-banner{font-family:var(--font-display);font-weight:900;font-size:24px;padding:14px 22px;border-radius:10px;text-align:center;transform:rotate(-1.5deg);border:3px solid;margin-bottom:6px}
-.verdict-banner.good{color:var(--verify);border-color:var(--verify);background:#EAF5F3}
-.verdict-banner.bad{color:var(--stamp-red);border-color:var(--stamp-red);background:#F9ECEA}
+.verdict-banner.good{color:#FFFFFF;border-color:#157F3C;background:#1FA84D;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.verdict-banner.bad{color:#FFFFFF;border-color:#A81E14;background:#D93025;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .modal-body{padding:10px 22px 22px}
 .modal-body p{margin-bottom:10px;font-size:14.5px}
 .editor-quote{display:flex;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
@@ -452,11 +462,24 @@ function gateReason(c){
 function renderBoard(){
   const c=caseById(state.current); if(!c) return;
   const el=$("#board-items");
-  el.innerHTML = state.evidence.length ? state.evidence.map((e,i)=>`
-    <div class="evcard ${e.isAd?"is-ad":""}"><div>${esc(e.label)}${e.isAd?` <span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.src)}</span></div>
-    <button title="✖" data-i="${i}">✖</button></div>`).join("")
+  el.innerHTML = state.evidence.length ? state.evidence.map((e,i)=>{
+    const lead = (e.kind==="img")
+      ? `<div class="e-thumb"><img src="${esc(e.mediaSrc)}" alt="" onerror="this.style.display='none'"></div>`
+      : (e.kind==="video")
+      ? `<div class="e-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="e-play">▶</div></div>`
+      : `<div class="e-icon">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:"🔍"}</div>`;
+    return `<div class="evcard ${e.isAd?"is-ad":""}" data-view="${i}" role="button" tabindex="0">
+      ${lead}
+      <div class="e-main"><div class="e-label">${esc(e.label)}</div>${e.isAd?`<span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.date||"")}</span></div>
+      <button title="✖" data-i="${i}">✖</button></div>`;
+  }).join("")
     : `<div class="b-empty">${esc(t("boardEmpty"))}</div>`;
-  el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{state.evidence.splice(+b.dataset.i,1);renderBoard();}));
+  el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{ev.stopPropagation();state.evidence.splice(+b.dataset.i,1);renderBoard();}));
+  el.querySelectorAll(".evcard").forEach(card=>{
+    const open=()=>openEvidence(+card.dataset.view);
+    card.addEventListener("click",open);
+    card.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open();}});
+  });
   $("#pin-count").textContent = t("evidenceUsed")+" "+state.evidence.length+"/"+MAX_PINS;
   const reason=gateReason(c);
   $("#stamp-publish").disabled=!!reason; $("#stamp-flag").disabled=!!reason;
@@ -507,7 +530,7 @@ function renderTextResults(c,qi){
     const j=+b.dataset.ev.split("-")[1], r=c.searchResults[j];
     if(state.evidence.some(e=>e.key==="t"+j)){ b.disabled=true; b.textContent=t("pinnedBtn"); }
     b.addEventListener("click",()=>{
-      if(pin({label:t(r.title), src:(r.date?t(r.date):""), supports:r.supports===true, isAd:r.isAd, key:"t"+j}))
+      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, key:"t"+j}))
         { b.disabled=true; b.textContent=t("pinnedBtn"); }
     });
   });
@@ -523,7 +546,7 @@ function renderImgResults(c){
       </div></div>`).join("");
   box.querySelectorAll(".btn-ev").forEach(b=>b.addEventListener("click",()=>{
     const j=+b.dataset.ev.split("-")[1], r=c.imageResults[j];
-    if(pin({label:String(t(r.location)).slice(0,80), src:t(r.date), supports:r.supports===true, isAd:false, key:"i"+j}))
+    if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, key:"i"+j}))
       { b.disabled=true; b.textContent=t("pinnedBtn"); }
   }));
 }
@@ -609,6 +632,25 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       toolsIdle(); renderQueue();
     } else frontPage();
   });
+}
+
+/* evidence viewer: click a pinned card to re-inspect it */
+function openEvidence(i){
+  const e=state.evidence[i]; if(!e) return;
+  const mount=$("#modal-mount");
+  const media = e.kind==="img" ? `<div class="photo">${mediaTag(e.mediaSrc,"img")}</div>`
+              : e.kind==="video" ? `<div class="photo">${mediaTag(e.mediaSrc,"video")}</div>` : "";
+  mount.innerHTML=`<div class="overlay" id="ev-ov"><div class="modal ev-viewer">
+    <div class="modal-body" style="padding-top:20px">
+      ${media}
+      <p style="font-weight:700;font-size:15.5px">${esc(e.label)}</p>
+      ${e.desc?`<p>${esc(e.desc)}</p>`:""}
+      <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
+      ${e.isAd?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
+      <button class="btn-primary" id="ev-close" style="margin-top:12px">${esc(t("close"))}</button>
+    </div></div></div>`;
+  $("#ev-close").addEventListener("click",()=>mount.innerHTML="");
+  $("#ev-ov").addEventListener("click",ev=>{if(ev.target.id==="ev-ov")mount.innerHTML="";});
 }
 
 /* animated score tally: plays events in narrative order with rising/falling blips */
