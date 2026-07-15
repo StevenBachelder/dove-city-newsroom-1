@@ -242,6 +242,10 @@ img,svg,video{display:block;max-width:100%}
 .badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:12px 0}
 .badge{font-family:var(--font-mono);font-size:12px;border:1.5px solid var(--ink);border-radius:20px;padding:6px 13px;background:var(--card)}
 .badge.missed{opacity:.35;border-style:dashed}
+.discipline{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:18px}
+.discipline h3{font-family:var(--font-display);font-size:16px;margin-bottom:6px}
+.discipline p{font-size:14px;margin-bottom:6px}
+.discipline .disc-praise{background:#E2F1EE;border:1px solid var(--verify);border-radius:8px;padding:8px 11px}
 .takeaways{background:var(--highlight-soft);border:1px solid var(--highlight);border-radius:var(--radius);padding:18px 22px;margin-bottom:18px}
 .takeaways h3{font-family:var(--font-display);font-size:18px;margin-bottom:8px}
 .takeaways p{font-size:14.5px;margin-bottom:8px}
@@ -361,6 +365,7 @@ function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2
 const state = {
   day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
   usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), adPinned:false,
+  unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
 };
 const caseById = id => CASES.find(c=>c.id===id);
@@ -456,7 +461,7 @@ function renderQueue(){
 /* ---------- case desk ---------- */
 function openCase(id){
   if(state.handled[id]) return;
-  state.current=id; state.evidence=[]; state.usedText[id]=state.usedText[id]||false; state.usedImg[id]=state.usedImg[id]||false;
+  state.current=id; state.evidence=[]; state.caseUnpinned=[]; state.usedText[id]=state.usedText[id]||false; state.usedImg[id]=state.usedImg[id]||false;
   $("#lang-top").disabled = true;
   renderQueue();
   const c=caseById(id);
@@ -507,7 +512,12 @@ function renderBoard(){
       <button title="✖" data-i="${i}">✖</button></div>`;
   }).join("")
     : `<div class="b-empty">${esc(t("boardEmpty"))}</div>`;
-  el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{ev.stopPropagation();state.evidence.splice(+b.dataset.i,1);renderBoard();}));
+  el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{
+    ev.stopPropagation();
+    const removed=state.evidence.splice(+b.dataset.i,1)[0];
+    if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0); }
+    renderBoard();
+  }));
   el.querySelectorAll(".evcard").forEach(card=>{
     const open=()=>openEvidence(+card.dataset.view);
     card.addEventListener("click",open);
@@ -595,6 +605,13 @@ function calcPts(ev){
 function pin(ev){
   if(state.evidence.some(e=>e.key===ev.key)) return false;
   ev.pts=calcPts(ev);
+  // swap detection: replacing a previously unpinned, weaker source with a stronger one
+  const weaker=state.caseUnpinned.filter(p=>p<ev.pts);
+  if(weaker.length){
+    const consumed=Math.min(...weaker);
+    state.caseUnpinned.splice(state.caseUnpinned.indexOf(consumed),1);
+    state.upgrades++;
+  }
   if(state.evidence.length>=MAX_PINS){ alert(t("evidenceLimitReached")+" ("+MAX_PINS+"). "+t("qualityOverQuantity")); return false; }
   if(ev.isAd) state.adPinned=true;
   state.evidence.push(ev); renderBoard(); return true;
@@ -621,6 +638,7 @@ function verdict(choice){
       events.push({m:"cred",amt:-8,label:tf("dCredMinusBuried",{n:8})},{m:"pop",amt:-6,label:tf("dPopMinusScooped",{n:6})}); }
   }
   const ds=state.evidence.reduce((sum,e)=>sum+(e.pts||0),0);
+  state.evidence.forEach(e=>{state.pinSum+=(e.pts||0); state.pinCount++;});
   if(ds>0) events.push({m:"src",amt:ds,label:tf("dSrcPlusBacked",{n:ds})});
   else if(ds<0) events.push({m:"src",amt:ds,label:tf(adUsed?"dSrcMinusAd":"dSrcMinusWeak",{n:Math.abs(ds)})});
   setMeters(dc,dp,ds);
@@ -807,6 +825,15 @@ function debrief(fired){
         <p style="margin-top:10px;font-family:var(--font-mono);font-size:13px;color:var(--ink-soft)">${esc(tf("statsLine",{r:right,t:total,c:state.cred,p:state.pop}))}</p>
         <div class="badges">${badgeHtml}</div></div>
       <div class="skillgrid">${skills}</div>
+      <div class="discipline">
+        <h3>${esc(t("swapTitle"))}</h3>
+        <p>${esc(tf("avgPinLine",{v:(state.pinCount?((state.pinSum/state.pinCount>=0?"+":"")+(state.pinSum/state.pinCount).toFixed(1)):"—")}))}</p>
+        ${state.upgrades>0
+          ? `<p class="disc-praise">🔁 ${esc(state.upgrades===1?t("swapPraiseOne"):tf("swapPraiseMany",{n:state.upgrades}))}</p>`
+          : state.unpins>0
+          ? `<p>${esc(state.unpins===1?t("swapNeutralOne"):tf("swapNeutralMany",{n:state.unpins}))}</p>`
+          : ``}
+      </div>
       <div class="takeaways"><h3>${esc(t("takeHead"))}</h3>
         <p><strong>1.</strong> ${esc(t("take1"))}</p><p><strong>2.</strong> ${esc(t("take2"))}</p>
         <p><strong>3.</strong> ${esc(t("take3"))}</p><p><strong>4.</strong> ${esc(t("take4"))}</p>
