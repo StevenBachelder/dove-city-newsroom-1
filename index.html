@@ -48,8 +48,8 @@ img,svg,video{display:block;max-width:100%}
 .rules li.rule-red::before{border-color:var(--stamp-red)}
 .btn-primary{display:inline-block;background:var(--ink);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:17px;font-weight:700;margin-top:16px;transition:transform .08s ease,background .15s}
 .btn-primary:hover{background:#111827}
-.btn-blue{background:#2C5F8A}
-.btn-blue:hover{background:#244E72}
+.btn-blue{background:#0265B7}
+.btn-blue:hover{background:#014E8D}
 .btn-primary:active{transform:scale(.97)}
 
 /* ---------- newsroom ---------- */
@@ -414,7 +414,7 @@ function renderStart(){
         <li class="rule-red">${esc(t("rule4"))}</li>
       </ul>
       <p>${esc(t("welcomeP2"))}</p>
-      <button class="btn-primary" id="btn-start">${esc(t("startBtn"))}</button>
+      <button class="btn-primary btn-blue" id="btn-start">${esc(t("startBtn"))}</button>
     </div>
   </div>`;
   document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>{ lang=b.dataset.lang; renderStart(); }));
@@ -805,7 +805,7 @@ function frontPage(){
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
       ${cs.map(c=>{const h=state.handled[c.id];return `<div class="fp-item"><span class="fp-tag ${h.correct?"ok":"err"}">${esc(h.correct?t("rightCall"):t("wrongCall"))}</span><span>${esc(t(c.title))}</span></div>`;}).join("")}
-      <button class="btn-primary" id="btn-nextday">${esc(state.day<3?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
+      <button class="btn-primary btn-blue" id="btn-nextday">${esc(state.day<3?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
     </div>`;
   show("screen-front");
   $("#fp-home").addEventListener("click",goHome);
@@ -852,7 +852,7 @@ function debrief(fired){
         <p><strong>1.</strong> ${esc(t("take1"))}</p><p><strong>2.</strong> ${esc(t("take2"))}</p>
         <p><strong>3.</strong> ${esc(t("take3"))}</p><p><strong>4.</strong> ${esc(t("take4"))}</p>
         <p><strong>5.</strong> ${esc(t("take5"))}</p></div>
-      <div style="text-align:center"><button class="btn-primary" id="btn-replay">${esc(t("replayBtn"))}</button></div>
+      <div style="text-align:center"><button class="btn-primary btn-blue" id="btn-replay">${esc(t("replayBtn"))}</button></div>
     </div>`;
   show("screen-end");
   $("#btn-replay").addEventListener("click",()=>location.reload());
