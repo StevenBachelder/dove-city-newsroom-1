@@ -48,6 +48,8 @@ img,svg,video{display:block;max-width:100%}
 .rules li.rule-red::before{border-color:var(--stamp-red)}
 .btn-primary{display:inline-block;background:var(--ink);color:#fff;border:none;border-radius:8px;padding:13px 26px;font-size:17px;font-weight:700;margin-top:16px;transition:transform .08s ease,background .15s}
 .btn-primary:hover{background:#111827}
+.btn-blue{background:#2C5F8A}
+.btn-blue:hover{background:#244E72}
 .btn-primary:active{transform:scale(.97)}
 
 /* ---------- newsroom ---------- */
@@ -689,7 +691,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
         <div class="tc-name">${esc(isTech?t("tq_"+c.technique+"_name"):t("genuineName"))}</div>
         <div class="tc-body">${esc(isTech?t("tq_"+c.technique+"_body"):t("tq_genuine_body"))}</div>
       </div>
-      <button class="btn-primary" id="btn-next">${esc(t("nextBtn"))}</button>
+      <button class="btn-primary btn-blue" id="btn-next">${esc(t("nextBtn"))}</button>
     </div></div></div>`;
   animateTally(events,before);
   mount.querySelectorAll(".fb-evcard").forEach(card=>{
