@@ -144,6 +144,21 @@ img,svg,video{display:block;max-width:100%}
 .imgres .im-meta{font-size:12.5px}
 .imgres .im-src{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);margin-top:3px}
 
+#viewer-mount .overlay{z-index:80}
+
+/* pinned-evidence review strip in the feedback modal */
+.fb-ev-head{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 7px}
+.fb-ev{display:flex;flex-wrap:wrap;gap:8px}
+.fb-evcard{display:flex;align-items:center;gap:8px;background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:6px 9px 6px 6px;cursor:pointer;max-width:100%;transition:transform .1s,border-color .1s}
+.fb-evcard:hover{transform:translateY(-1px);border-color:var(--ink-soft)}
+.fb-evcard.backed{border-color:var(--verify)}
+.fb-evcard.is-ad{border-color:var(--ad);border-style:dashed;background:#FBF7EA}
+.fb-evcard .fe-thumb{width:38px;height:38px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--paper-dark);position:relative}
+.fb-evcard .fe-thumb img,.fb-evcard .fe-thumb video{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.fb-evcard .fe-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;background:rgba(20,25,35,.35)}
+.fb-evcard .fe-label{font-size:12.5px;line-height:1.25;max-width:150px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fb-evcard .fe-badge{font-size:13px;flex-shrink:0}
+
 /* meter nudge toast */
 .nudge{position:fixed;top:64px;right:16px;z-index:60;background:var(--ink);color:#fff;border-radius:10px;
   padding:11px 15px;font-size:13.5px;max-width:270px;box-shadow:0 8px 26px rgba(0,0,0,.35);cursor:pointer;
@@ -265,6 +280,7 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
 <div class="screen hidden" id="screen-front"></div>
 <div class="screen hidden" id="screen-end"></div>
 <div id="modal-mount"></div>
+<div id="viewer-mount"></div>
 
 <script src="translation.js"></script>
 <script src="translations_extra.js"></script>
@@ -605,6 +621,14 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <div class="delta-row">${events.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}">${e.amt>0?"▲":"▼"} ${esc(e.label)}</span>`).join("")}</div>
       ${evOk?`<div class="ev-note good">${esc(t("evGood"))}</div>`:`<div class="ev-note bad">${esc(t("evBad"))}</div>`}
       ${adUsed?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
+      ${state.evidence.length?`<div class="fb-ev-head">${esc(t("evReviewHead"))}</div>
+      <div class="fb-ev">${state.evidence.map((e,i)=>{
+        const th = e.kind==="img" ? `<div class="fe-thumb"><img src="${esc(e.mediaSrc)}" alt="" onerror="this.style.display='none'"></div>`
+                 : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
+                 : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
+        const badge = e.isAd ? `<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>` : (e.supports?`<span class="fe-badge">✓</span>`:"");
+        return `<div class="fb-evcard ${e.supports?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
+      }).join("")}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
@@ -616,6 +640,11 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <button class="btn-primary" id="btn-next">${esc(t("nextBtn"))}</button>
     </div></div></div>`;
   animateTally(events,before);
+  mount.querySelectorAll(".fb-evcard").forEach(card=>{
+    const open=()=>openEvidence(+card.dataset.fbev);
+    card.addEventListener("click",open);
+    card.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open();}});
+  });
   $("#btn-next").addEventListener("click",()=>{
     mount.innerHTML=""; state.current=null; $("#lang-top").disabled=false;
     if(!state.meterNudged){
@@ -637,7 +666,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
 /* evidence viewer: click a pinned card to re-inspect it */
 function openEvidence(i){
   const e=state.evidence[i]; if(!e) return;
-  const mount=$("#modal-mount");
+  const mount=$("#viewer-mount");
   const media = e.kind==="img" ? `<div class="photo">${mediaTag(e.mediaSrc,"img")}</div>`
               : e.kind==="video" ? `<div class="photo">${mediaTag(e.mediaSrc,"video")}</div>` : "";
   mount.innerHTML=`<div class="overlay" id="ev-ov"><div class="modal ev-viewer">

@@ -10,6 +10,7 @@
    ===================================================================== */
 const extraStrings = {
 en: {
+  evReviewHead: "The evidence you argued from — tap to review",
   meterNudge: "Your meters just moved ↑ Tap them anytime to see exactly how scoring works.",
   meterHint: "Tap to see how scoring works",
   meterInfoTitle: "Your two meters — and how choices move them",
@@ -193,6 +194,7 @@ en: {
 },
 
 sv: {
+  evReviewHead: "Bevisen du argumenterade med — tryck för att granska",
   meterNudge: "Dina mätare rörde sig just ↑ Tryck på dem när som helst för att se exakt hur poängen fungerar.",
   meterHint: "Tryck för att se hur poängen fungerar",
   meterInfoTitle: "Dina två mätare — och hur dina val påverkar dem",
@@ -374,6 +376,7 @@ sv: {
 },
 
 fi: {
+  evReviewHead: "Todisteet, joilla perustelit — napauta tarkastellaksesi",
   meterNudge: "Mittarisi liikkuivat juuri ↑ Napauta niitä milloin vain nähdäksesi tarkalleen, miten pisteytys toimii.",
   meterHint: "Napauta nähdäksesi miten pisteytys toimii",
   meterInfoTitle: "Kaksi mittariasi — ja miten valintasi liikuttavat niitä",
@@ -552,6 +555,7 @@ fi: {
   vera_genuine_no: "Varovasti — työmme ei ole merkitä kaikkea virheelliseksi. Se on ottaa selvää. Tämä piti paikkansa. Liika epäluulo maksaa uutisia — ja lukijoita."
 },
 et: {
+  evReviewHead: "Tõendid, millele toetusid — puuduta, et üle vaadata",
   meterNudge: "Sinu mõõdikud just liikusid ↑ Puuduta neid ükskõik millal, et näha täpselt kuidas punktid liiguvad.",
   meterHint: "Puuduta, et näha kuidas punktid liiguvad",
   meterInfoTitle: "Sinu kaks mõõdikut — ja kuidas su valikud neid liigutavad",
