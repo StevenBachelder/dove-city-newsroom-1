@@ -10,7 +10,12 @@
    ===================================================================== */
 const extraStrings = {
 en: {
-  evReviewHead: "The evidence you argued from — tap to review",
+  srcLabel: "Source",
+  meterSrcBody: "How solid is your sourcing? This meter tracks craft, not luck: +6 whenever your pinned evidence truly settles the question — right or wrong verdict aside, −3 when your pins were beside the point, and −5 if you cited a sponsored result as evidence. A high Source score means your verdicts stand on something.",
+  dSrcPlusBacked: "Source +{n} — decision backed by solid sourcing",
+  dSrcMinusWeak: "Source −{n} — your pins didn't settle the question",
+  dSrcMinusAd: "Source −{n} — a sponsored result was cited as evidence",
+  evReviewHead: "Sources you based your decision on — tap to review",
   meterNudge: "Your meters just moved ↑ Tap them anytime to see exactly how scoring works.",
   meterHint: "Tap to see how scoring works",
   meterInfoTitle: "Your two meters — and how choices move them",
@@ -194,7 +199,12 @@ en: {
 },
 
 sv: {
-  evReviewHead: "Bevisen du argumenterade med — tryck för att granska",
+  srcLabel: "Källa",
+  meterSrcBody: "Hur solid är din källhantering? Den här mätaren mäter hantverk, inte tur: +6 när dina fastnålade bevis verkligen avgör frågan — oavsett utslag, −3 när nålarna missade poängen, och −5 om du använde ett sponsrat resultat som bevis. Ett högt källvärde betyder att dina utslag står på något.",
+  dSrcPlusBacked: "Källa +{n} — beslutet vilar på solid källhantering",
+  dSrcMinusWeak: "Källa −{n} — dina nålar avgjorde inte frågan",
+  dSrcMinusAd: "Källa −{n} — ett sponsrat resultat användes som bevis",
+  evReviewHead: "Källor du grundade ditt beslut på — tryck för att granska",
   meterNudge: "Dina mätare rörde sig just ↑ Tryck på dem när som helst för att se exakt hur poängen fungerar.",
   meterHint: "Tryck för att se hur poängen fungerar",
   meterInfoTitle: "Dina två mätare — och hur dina val påverkar dem",
@@ -376,7 +386,12 @@ sv: {
 },
 
 fi: {
-  evReviewHead: "Todisteet, joilla perustelit — napauta tarkastellaksesi",
+  srcLabel: "Lähde",
+  meterSrcBody: "Kuinka vankka on lähdetyösi? Tämä mittari mittaa taitoa, ei tuuria: +6 aina kun kiinnittämäsi todisteet todella ratkaisevat kysymyksen — päätöksestä riippumatta, −3 kun nastasi menivät ohi aiheen, ja −5 jos käytit sponsoroitua tulosta todisteena. Korkea lähdearvo tarkoittaa, että päätöksesi seisovat jonkin varassa.",
+  dSrcPlusBacked: "Lähde +{n} — päätös nojaa vankkaan lähdetyöhön",
+  dSrcMinusWeak: "Lähde −{n} — nastasi eivät ratkaisseet kysymystä",
+  dSrcMinusAd: "Lähde −{n} — sponsoroitua tulosta käytettiin todisteena",
+  evReviewHead: "Lähteet, joihin perustit päätöksesi — napauta tarkastellaksesi",
   meterNudge: "Mittarisi liikkuivat juuri ↑ Napauta niitä milloin vain nähdäksesi tarkalleen, miten pisteytys toimii.",
   meterHint: "Napauta nähdäksesi miten pisteytys toimii",
   meterInfoTitle: "Kaksi mittariasi — ja miten valintasi liikuttavat niitä",
@@ -555,7 +570,12 @@ fi: {
   vera_genuine_no: "Varovasti — työmme ei ole merkitä kaikkea virheelliseksi. Se on ottaa selvää. Tämä piti paikkansa. Liika epäluulo maksaa uutisia — ja lukijoita."
 },
 et: {
-  evReviewHead: "Tõendid, millele toetusid — puuduta, et üle vaadata",
+  srcLabel: "Allikas",
+  meterSrcBody: "Kui kindel on sinu allikatöö? See mõõdik mõõdab oskust, mitte õnne: +6 alati, kui sinu kinnitatud tõendid tõesti otsustavad küsimuse — otsusest sõltumata, −3 kui su nõelad läksid asjast mööda, ja −5 kui kasutasid tõendina sponsoreeritud tulemust. Kõrge allikaskoor tähendab, et sinu otsused seisavad millegi peal.",
+  dSrcPlusBacked: "Allikas +{n} — otsus toetub kindlale allikatööle",
+  dSrcMinusWeak: "Allikas −{n} — sinu nõelad ei otsustanud küsimust",
+  dSrcMinusAd: "Allikas −{n} — tõendina kasutati sponsoreeritud tulemust",
+  evReviewHead: "Allikad, millele oma otsuse rajasid — puuduta, et üle vaadata",
   meterNudge: "Sinu mõõdikud just liikusid ↑ Puuduta neid ükskõik millal, et näha täpselt kuidas punktid liiguvad.",
   meterHint: "Puuduta, et näha kuidas punktid liiguvad",
   meterInfoTitle: "Sinu kaks mõõdikut — ja kuidas su valikud neid liigutavad",

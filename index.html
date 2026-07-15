@@ -57,7 +57,7 @@ img,svg,video{display:block;max-width:100%}
 .topbar .brand:hover{opacity:.8}
 .topbar .dayclock{font-family:var(--font-mono);font-size:13px;color:#C7CDDB;white-space:nowrap}
 .meters{display:flex;gap:16px;margin-left:auto;align-items:center;flex-wrap:wrap}
-.meter{min-width:145px;cursor:pointer;border:none;background:none;padding:0;text-align:left}
+.meter{min-width:118px;cursor:pointer;border:none;background:none;padding:0;text-align:left}
 .meter:hover .m-label{color:#fff}
 .m-info{opacity:.75;font-size:10px;margin-left:4px}
 .meter .m-label{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#C7CDDB;margin-bottom:3px}
@@ -65,6 +65,7 @@ img,svg,video{display:block;max-width:100%}
 .meter .m-fill{height:100%;border-radius:4px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
 .meter.cred .m-fill{background:var(--verify)}
 .meter.pop .m-fill{background:var(--pop)}
+.meter.src .m-fill{background:var(--highlight)}
 .btn-guide,#lang-top{background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:6px 10px;font-size:13px;font-family:var(--font-mono)}
 .btn-guide:hover{color:#fff;border-color:#fff}
 #lang-top:disabled{opacity:.45}
@@ -192,6 +193,7 @@ img,svg,video{display:block;max-width:100%}
 .tally .t-num{font-family:var(--font-mono);font-size:26px;font-weight:600;line-height:1.15}
 .tally .t-box.cred .t-num{color:var(--verify)}
 .tally .t-box.pop .t-num{color:var(--pop)}
+.tally .t-box.src .t-num{color:#A8841B}
 .t-num.bump-up{animation:bumpup .18s ease}
 .t-num.bump-down{animation:bumpdown .18s ease}
 @keyframes bumpup{50%{transform:translateY(-3px) scale(1.08)}}
@@ -266,6 +268,10 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
       <button class="meter pop" id="meter-pop" type="button">
         <div class="m-label"><span id="pop-label"></span><span id="pop-num">20</span></div>
         <div class="m-track"><div class="m-fill" id="pop-fill" style="width:20%"></div></div>
+      </button>
+      <button class="meter src" id="meter-src" type="button">
+        <div class="m-label"><span id="src-label"></span><span id="src-num">50</span></div>
+        <div class="m-track"><div class="m-fill" id="src-fill" style="width:50%"></div></div>
       </button>
       <select id="lang-top"></select>
       <button class="btn-guide" id="btn-guide"></button>
@@ -343,7 +349,7 @@ function chordUp(){ blip(880,0.10,"triangle",0.10); setTimeout(()=>blip(1174,0.1
 function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2,"triangle",0.12),90); }
 
 const state = {
-  day:1, cred:50, pop:20, current:null, evidence:[], handled:{},
+  day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
   usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), adPinned:false,
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
 };
@@ -399,8 +405,9 @@ function startGame(){
   $("#brand-top").onclick = goHome;
   $("#cred-label").innerHTML = esc(t("credibility"))+'<span class="m-info">ⓘ</span>';
   $("#pop-label").innerHTML = esc(t("popularity"))+'<span class="m-info">ⓘ</span>';
-  $("#meter-cred").title = t("meterHint"); $("#meter-pop").title = t("meterHint");
-  $("#meter-cred").onclick = openMeterInfo; $("#meter-pop").onclick = openMeterInfo;
+  $("#src-label").innerHTML = esc(t("srcLabel"))+'<span class="m-info">ⓘ</span>';
+  $("#meter-cred").title = $("#meter-pop").title = $("#meter-src").title = t("meterHint");
+  $("#meter-cred").onclick = $("#meter-pop").onclick = $("#meter-src").onclick = openMeterInfo;
   $("#btn-guide").textContent = t("fieldGuideBtn");
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
@@ -414,10 +421,10 @@ function startGame(){
 function deskIdle(msg){ $("#desk").innerHTML = `<div class="empty-desk"><div class="big">🕊️</div>${esc(msg||t("emptyDesk"))}</div>`; }
 function toolsIdle(){ $("#tools").innerHTML = `<h3>${esc(t("toolsHead"))}</h3><div class="tool-note">${esc(t("toolsLocked"))}</div>`; }
 
-function setMeters(dc,dp){
-  state.cred=clamp(state.cred+dc); state.pop=clamp(state.pop+dp);
-  $("#cred-num").textContent=state.cred; $("#pop-num").textContent=state.pop;
-  $("#cred-fill").style.width=state.cred+"%"; $("#pop-fill").style.width=state.pop+"%";
+function setMeters(dc,dp,ds){
+  state.cred=clamp(state.cred+dc); state.pop=clamp(state.pop+dp); state.src=clamp(state.src+(ds||0));
+  $("#cred-num").textContent=state.cred; $("#pop-num").textContent=state.pop; $("#src-num").textContent=state.src;
+  $("#cred-fill").style.width=state.cred+"%"; $("#pop-fill").style.width=state.pop+"%"; $("#src-fill").style.width=state.src+"%";
 }
 
 function renderQueue(){
@@ -580,7 +587,7 @@ function verdict(choice){
   const correct=(choice==="publish")===c.truth;
   const evOk=state.evidence.some(e=>e.supports);
   const adUsed=state.evidence.some(e=>e.isAd);
-  const before={cred:state.cred,pop:state.pop};
+  const before={cred:state.cred,pop:state.pop,src:state.src};
   let events=[], dc=0, dp=0;
   if(correct){
     if(c.truth){ dc+=8; dp+=c.buzz;
@@ -593,8 +600,11 @@ function verdict(choice){
     else { dc-=8; dp-=6;
       events.push({m:"cred",amt:-8,label:tf("dCredMinusBuried",{n:8})},{m:"pop",amt:-6,label:tf("dPopMinusScooped",{n:6})}); }
   }
-  if(evOk&&correct){ dc+=4; events.push({m:"cred",amt:4,label:tf("dEvidenceBonus",{n:4})}); }
-  setMeters(dc,dp);
+  let ds=0;
+  if(evOk){ ds+=6; events.push({m:"src",amt:6,label:tf("dSrcPlusBacked",{n:6})}); }
+  else { ds-=3; events.push({m:"src",amt:-3,label:tf("dSrcMinusWeak",{n:3})}); }
+  if(adUsed){ ds-=5; events.push({m:"src",amt:-5,label:tf("dSrcMinusAd",{n:5})}); }
+  setMeters(dc,dp,ds);
   state.handled[c.id]={choice,correct,evOk};
   const sk=SKILL_MAP[c.technique]||"source";
   state.skills[sk].n++; if(correct) state.skills[sk].ok++;
@@ -617,6 +627,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <div class="tally">
         <div class="t-box cred"><div class="t-name">${esc(t("credibility"))}</div><div class="t-num" id="tally-cred">${before.cred}</div></div>
         <div class="t-box pop"><div class="t-name">${esc(t("popularity"))}</div><div class="t-num" id="tally-pop">${before.pop}</div></div>
+        <div class="t-box src"><div class="t-name">${esc(t("srcLabel"))}</div><div class="t-num" id="tally-src">${before.src}</div></div>
       </div>
       <div class="delta-row">${events.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}">${e.amt>0?"▲":"▼"} ${esc(e.label)}</span>`).join("")}</div>
       ${evOk?`<div class="ev-note good">${esc(t("evGood"))}</div>`:`<div class="ev-note bad">${esc(t("evBad"))}</div>`}
@@ -684,7 +695,7 @@ function openEvidence(i){
 
 /* animated score tally: plays events in narrative order with rising/falling blips */
 function animateTally(events,before){
-  const vals={cred:before.cred,pop:before.pop};
+  const vals={cred:before.cred,pop:before.pop,src:before.src};
   const el=m=>document.getElementById("tally-"+m);
   let ev=0;
   function runEvent(){
@@ -802,6 +813,10 @@ function openMeterInfo(){
       <div class="techcard" style="border-color:var(--pop)">
         <div class="tc-top" style="background:var(--pop)">${esc(t("popularity"))}</div>
         <div class="tc-body">${esc(t("meterPopBody"))}</div>
+      </div>
+      <div class="techcard" style="border-color:var(--highlight)">
+        <div class="tc-top" style="background:#A8841B">${esc(t("srcLabel"))}</div>
+        <div class="tc-body">${esc(t("meterSrcBody"))}</div>
       </div>
       <div class="ev-note warn" style="margin-top:10px">${esc(t("meterTension"))}</div>
       <button class="btn-primary" id="mi-close" style="margin-top:14px">${esc(t("backToDesk"))}</button>
