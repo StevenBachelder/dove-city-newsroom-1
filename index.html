@@ -95,7 +95,8 @@ img,svg,video{display:block;max-width:100%}
 .photo img,.photo video{width:100%;max-height:340px;object-fit:cover}
 .media-missing{padding:26px 14px;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
 .board{background:var(--paper-dark);border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 14px;min-height:86px}
-.board h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;display:flex;justify-content:space-between}
+.board h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;display:flex;justify-content:space-between}
+.board-hint{font-size:12px;font-style:italic;color:var(--ink-soft);margin-bottom:9px}
 .board .b-empty{font-size:13px;color:var(--ink-soft);font-style:italic}
 .evcard{background:var(--card);border-left:4px solid var(--highlight);border-radius:6px;box-shadow:var(--shadow);padding:8px 10px;margin-bottom:7px;font-size:13px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:transform .1s,box-shadow .1s}
 .evcard:hover{transform:translateX(2px);box-shadow:0 3px 12px rgba(32,41,58,.18)}
@@ -487,6 +488,7 @@ function openCase(id){
     </div>
     <div class="board">
       <h4><span>${esc(t("boardHead"))}</span><span id="pin-count">${esc(t("evidenceUsed"))} 0/${MAX_PINS}</span></h4>
+      <div class="board-hint">${esc(t("boardHint"))}</div>
       <div id="board-items"></div>
     </div>
     <div>

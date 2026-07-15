@@ -2158,7 +2158,7 @@ const CASES = [
         "icons": [
           "icons/sportblog.png"
         ],
-        "supports": null
+        "supports": true
       },
       {
         "title": "sportspulsetitle7",
@@ -2738,7 +2738,7 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": true
       },
       {
         "title": "monkeytitle6",
@@ -2978,158 +2978,158 @@ const CASES = [
         "supports": null
       }
     ]
+  },
+  {
+    "id": 16,
+    "title": "nf16_title",
+    "description": "nf16_desc",
+    "image": "updated_images/forest_fire/Forest_Fire_Fake_4.png",
+    "icons": [
+      "icons/alt news.png"
+    ],
+    "truth": false,
+    "technique": "manipulated",
+    "day": 3,
+    "buzz": 15,
+    "needImageTool": true,
+    "needTextTool": false,
+    "searchTerms": [
+      "nf16_term1",
+      "nf16_term2",
+      "nf16_term3",
+      "nf16_term4"
+    ],
+    "searchResults": [
+      {
+        "title": "nf16_r0t",
+        "description": "nf16_r0d",
+        "isAd": false,
+        "date": "nf16_r0dt",
+        "rIdx": 3,
+        "icons": [
+          "icons/patriotcat.png"
+        ],
+        "supports": null
+      },
+      {
+        "title": "nf16_r1t",
+        "description": "nf16_r1d",
+        "isAd": false,
+        "date": "nf16_r1dt",
+        "rIdx": 0,
+        "icons": [
+          "icons/Public Safety Office .png"
+        ],
+        "supports": true
+      },
+      {
+        "title": "nf16_r2t",
+        "description": "nf16_r2d",
+        "isAd": false,
+        "date": "nf16_r2dt",
+        "rIdx": 1,
+        "icons": [
+          "icons/forestcom.png"
+        ],
+        "supports": null
+      },
+      {
+        "title": "nf16_r3t",
+        "description": "nf16_r3d",
+        "isAd": true,
+        "date": "nf16_r3dt",
+        "rIdx": 0,
+        "icons": [
+          "icons/urbansafe.png"
+        ],
+        "supports": null
+      },
+      {
+        "title": "nf16_r4t",
+        "description": "nf16_r4d",
+        "isAd": false,
+        "date": "nf16_r4dt",
+        "rIdx": 0,
+        "icons": [
+          "icons/factchecker.png"
+        ],
+        "supports": true
+      },
+      {
+        "title": "nf16_r5t",
+        "description": "nf16_r5d",
+        "isAd": false,
+        "date": "nf16_r5dt",
+        "rIdx": 3,
+        "icons": [
+          "icons/CityTruthDaily.png"
+        ],
+        "supports": null
+      },
+      {
+        "title": "nf16_r6t",
+        "description": "nf16_r6d",
+        "isAd": false,
+        "date": "nf16_r6dt",
+        "rIdx": 2,
+        "icons": [
+          "icons/X.png"
+        ],
+        "supports": null
+      },
+      {
+        "title": "nf16_r7t",
+        "description": "nf16_r7d",
+        "isAd": false,
+        "date": "nf16_r7dt",
+        "rIdx": 3,
+        "icons": [
+          "icons/insta.png"
+        ],
+        "supports": null
+      }
+    ],
+    "imageResults": [
+      {
+        "src": "updated_images/forest_fire/Camp_Fire_Orig.jpeg",
+        "type": "img",
+        "location": "nf16_i0l",
+        "date": "nf16_i0d",
+        "icons": [
+          "icons/visitsweden.png"
+        ],
+        "supports": true
+      },
+      {
+        "src": "updated_images/forest_fire/Forest_Fire_Fake_2.png",
+        "type": "img",
+        "location": "nf16_i1l",
+        "date": "nf16_i1d",
+        "icons": [
+          "icons/redligtwatch.png"
+        ],
+        "supports": true
+      },
+      {
+        "src": "updated_images/forest_fire/Forest_Fire_Fake_1.png",
+        "type": "img",
+        "location": "nf16_i2l",
+        "date": "nf16_i2d",
+        "icons": [
+          "icons/patriotcat.png"
+        ],
+        "supports": null
+      },
+      {
+        "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
+        "type": "img",
+        "location": "nf16_i3l",
+        "date": "nf16_i3d",
+        "icons": [
+          "icons/CityTruthDaily.png"
+        ],
+        "supports": null
+      }
+    ]
   }
-  ,{
-  "id": 16,
-  "title": "nf16_title",
-  "description": "nf16_desc",
-  "image": "updated_images/forest_fire/Forest_Fire_Fake_4.png",
-  "icons": [
-    "icons/alt news.png"
-  ],
-  "truth": false,
-  "technique": "manipulated",
-  "day": 3,
-  "buzz": 15,
-  "needImageTool": true,
-  "needTextTool": false,
-  "searchTerms": [
-    "nf16_term1",
-    "nf16_term2",
-    "nf16_term3",
-    "nf16_term4"
-  ],
-  "searchResults": [
-    {
-      "title": "nf16_r0t",
-      "description": "nf16_r0d",
-      "isAd": false,
-      "date": "nf16_r0dt",
-      "rIdx": 3,
-      "icons": [
-        "icons/patriotcat.png"
-      ],
-      "supports": null
-    },
-    {
-      "title": "nf16_r1t",
-      "description": "nf16_r1d",
-      "isAd": false,
-      "date": "nf16_r1dt",
-      "rIdx": 0,
-      "icons": [
-        "icons/Public Safety Office .png"
-      ],
-      "supports": true
-    },
-    {
-      "title": "nf16_r2t",
-      "description": "nf16_r2d",
-      "isAd": false,
-      "date": "nf16_r2dt",
-      "rIdx": 1,
-      "icons": [
-        "icons/forestcom.png"
-      ],
-      "supports": null
-    },
-    {
-      "title": "nf16_r3t",
-      "description": "nf16_r3d",
-      "isAd": true,
-      "date": "nf16_r3dt",
-      "rIdx": 0,
-      "icons": [
-        "icons/urbansafe.png"
-      ],
-      "supports": null
-    },
-    {
-      "title": "nf16_r4t",
-      "description": "nf16_r4d",
-      "isAd": false,
-      "date": "nf16_r4dt",
-      "rIdx": 0,
-      "icons": [
-        "icons/factchecker.png"
-      ],
-      "supports": true
-    },
-    {
-      "title": "nf16_r5t",
-      "description": "nf16_r5d",
-      "isAd": false,
-      "date": "nf16_r5dt",
-      "rIdx": 3,
-      "icons": [
-        "icons/CityTruthDaily.png"
-      ],
-      "supports": null
-    },
-    {
-      "title": "nf16_r6t",
-      "description": "nf16_r6d",
-      "isAd": false,
-      "date": "nf16_r6dt",
-      "rIdx": 2,
-      "icons": [
-        "icons/X.png"
-      ],
-      "supports": null
-    },
-    {
-      "title": "nf16_r7t",
-      "description": "nf16_r7d",
-      "isAd": false,
-      "date": "nf16_r7dt",
-      "rIdx": 3,
-      "icons": [
-        "icons/insta.png"
-      ],
-      "supports": null
-    }
-  ],
-  "imageResults": [
-    {
-      "src": "updated_images/forest_fire/Camp_Fire_Orig.jpeg",
-      "type": "img",
-      "location": "nf16_i0l",
-      "date": "nf16_i0d",
-      "icons": [
-        "icons/visitsweden.png"
-      ],
-      "supports": true
-    },
-    {
-      "src": "updated_images/forest_fire/Forest_Fire_Fake_2.png",
-      "type": "img",
-      "location": "nf16_i1l",
-      "date": "nf16_i1d",
-      "icons": [
-        "icons/redligtwatch.png"
-      ],
-      "supports": true
-    },
-    {
-      "src": "updated_images/forest_fire/Forest_Fire_Fake_1.png",
-      "type": "img",
-      "location": "nf16_i2l",
-      "date": "nf16_i2d",
-      "icons": [
-        "icons/patriotcat.png"
-      ],
-      "supports": null
-    },
-    {
-      "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
-      "type": "img",
-      "location": "nf16_i3l",
-      "date": "nf16_i3d",
-      "icons": [
-        "icons/CityTruthDaily.png"
-      ],
-      "supports": null
-    }
-  ]
-}
 ];
