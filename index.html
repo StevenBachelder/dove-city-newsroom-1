@@ -155,6 +155,8 @@ img,svg,video{display:block;max-width:100%}
 
 #viewer-mount .overlay{z-index:80}
 
+.fb-explain{margin:20px 0 22px}
+
 /* pinned-evidence review strip in the feedback modal */
 .fb-ev-head{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 7px}
 .fb-ev{display:flex;flex-wrap:wrap;gap:8px}
@@ -691,7 +693,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
   <div class="overlay"><div class="modal" role="dialog" aria-modal="true">
     <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}"><span>${esc(correct?t("rightCall"):t("wrongCall"))}</span><span class="v-total" id="v-total">${(()=>{const n=events.reduce((s,e)=>s+e.amt,0);return (n>0?"+":"")+n;})()}</span></div></div>
     <div class="modal-body">
-      ${drText?`<p>${esc(drText)}</p>`:""}
+      ${drText?`<p class="fb-explain">${esc(drText)}</p>`:""}
       <div class="tally">
         <div class="t-box cred"><div class="t-name">${esc(t("credibility"))}</div><div class="t-num" id="tally-cred">${before.cred}</div></div>
         <div class="t-box pop"><div class="t-name">${esc(t("popularity"))}</div><div class="t-num" id="tally-pop">${before.pop}</div></div>
