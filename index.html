@@ -266,9 +266,11 @@ img,svg,video{display:block;max-width:100%}
 .takeaways h3{font-family:var(--font-display);font-size:18px;margin-bottom:8px}
 .takeaways p{font-size:14.5px;margin-bottom:8px}
 .guide-list{padding:4px 22px 8px}
-.guide-entry{border-top:1px solid var(--line);padding:12px 0}
-.guide-entry h4{font-family:var(--font-display);font-size:16px}
-.guide-entry p{font-size:14px;margin-top:3px}
+.guide-entry-medal{height:74px;width:auto;display:block;margin:2px auto 8px}
+.guide-entry.locked .guide-entry-medal{filter:grayscale(1) contrast(0.65);opacity:.3}
+.guide-entry{text-align:center;border-top:1px solid var(--line);padding:12px 0}
+.guide-entry h4{text-align:center;font-family:var(--font-display);font-size:16px}
+.guide-entry p{text-align:center;font-size:14px;margin-top:3px}
 .guide-entry.locked,.guide-entry.locked h4{color:var(--ink-soft)}
 
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
@@ -870,7 +872,9 @@ function debrief(fired){
 function openGuide(){
   const entries=TECH_LIST.map(k=>{
     const seen=state.seenTech.has(k);
+    const medal = (k==="sponsored") ? "badge_adspotter" : (k==="genuine") ? "badge_generic" : "badge_"+k;
     return `<div class="guide-entry ${seen?"":"locked"}">
+      <img class="guide-entry-medal" src="Badges/${medal}.png" alt="" onerror="this.style.display='none'">
       <h4>${esc(seen?t("tq_"+k+"_name"):t("guideLockedName"))}</h4>
       <p>${esc(seen?t("tq_"+k+"_body"):t("guideLockedBody"))}</p></div>`;}).join("");
   const mount=$("#modal-mount");
