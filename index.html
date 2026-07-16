@@ -189,7 +189,10 @@ img,svg,video{display:block;max-width:100%}
 .overlay{position:fixed;inset:0;background:rgba(24,30,44,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
 .modal{background:var(--card);border-radius:14px;max-width:580px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 18px 60px rgba(0,0,0,.35)}
 .modal-head{padding:18px 22px 0}
-.verdict-banner{font-family:var(--font-display);font-weight:900;font-size:24px;padding:14px 22px;border-radius:10px;text-align:center;transform:rotate(-1.5deg);border:3px solid;margin-bottom:6px}
+.verdict-banner{font-family:var(--font-display);font-weight:900;font-size:24px;padding:14px 22px;border-radius:10px;text-align:center;transform:rotate(-1.5deg);border:3px solid;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.v-total{font-family:var(--font-mono);font-size:21px;font-weight:700;background:rgba(255,255,255,.22);border:2.5px solid rgba(255,255,255,.85);border-radius:9px;padding:2px 12px;opacity:0;transform:scale(.4)}
+.v-total.show{animation:totalpop .45s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes totalpop{to{opacity:1;transform:scale(1)}}
 .verdict-banner.good{color:#FFFFFF;border-color:#157F3C;background:#1FA84D;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .verdict-banner.bad{color:#FFFFFF;border-color:#A81E14;background:#D93025;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .modal-body{padding:10px 22px 22px}
@@ -677,7 +680,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
   const mount=$("#modal-mount");
   mount.innerHTML=`
   <div class="overlay"><div class="modal" role="dialog" aria-modal="true">
-    <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}">${esc(correct?t("rightCall"):t("wrongCall"))}</div></div>
+    <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}"><span>${esc(correct?t("rightCall"):t("wrongCall"))}</span><span class="v-total" id="v-total">${(()=>{const n=events.reduce((s,e)=>s+e.amt,0);return (n>0?"+":"")+n;})()}</span></div></div>
     <div class="modal-body">
       ${drText?`<p>${esc(drText)}</p>`:""}
       <div class="tally">
@@ -776,7 +779,9 @@ function animateTally(events,before){
     if(!el("cred")) return;                     // modal closed — stop silently
     if(ev>=events.length){
       const net=events.reduce((s,e)=>s+e.amt,0);
-      (net>=0?chordUp:thudDown)(); return;
+      (net>=0?chordUp:thudDown)();
+      const tot=document.getElementById("v-total"); if(tot) tot.classList.add("show");
+      return;
     }
     const e=events[ev++];
     const chip=document.querySelector('.delta[data-ev="'+(ev-1)+'"]');
