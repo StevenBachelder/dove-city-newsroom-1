@@ -251,6 +251,11 @@ img,svg,video{display:block;max-width:100%}
 .skill h4{font-family:var(--font-display);font-size:15px;margin-bottom:6px}
 .skill .s-score{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:5px}
 .badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:12px 0}
+.badge-img{height:64px;width:auto;display:block;margin:0 auto 5px}
+.badge.missed .badge-img{filter:grayscale(1);opacity:.38}
+.earned-medal{height:72px;width:auto;display:block;margin:2px auto 8px;animation:medalpop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.guide-medal{height:56px;width:auto;flex-shrink:0}
 .badge{font-family:var(--font-mono);font-size:12px;border:1.5px solid var(--ink);border-radius:20px;padding:6px 13px;background:var(--card)}
 .badge.missed{opacity:.35;border-style:dashed}
 .discipline{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:18px}
@@ -694,6 +699,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
       <div class="techcard">
+        ${(isTech&&correct)?`<img class="earned-medal" src="Badges/badge_${c.technique}.png" alt="" onerror="this.style.display='none'">`:""}
         <div class="tc-top">${esc(isTech?(correct?t("techniqueTopBadge"):t("techniqueTop")):t("noTrickTop"))}</div>
         <div class="tc-name">${esc(isTech?t("tq_"+c.technique+"_name"):t("genuineName"))}</div>
         <div class="tc-body">${esc(isTech?t("tq_"+c.technique+"_body"):t("tq_genuine_body"))}</div>
@@ -833,8 +839,8 @@ function debrief(fired){
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
   let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
-    `<span class="badge ${state.badges.has(k)?"":"missed"}">${state.badges.has(k)?"🏅":"◌"} ${esc(t("tq_"+k+"_name"))}</span>`).join("");
-  badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}">${state.adPinned?"◌":"🏅"} ${esc(t("badgeAds"))}</span>`;
+    `<span class="badge ${state.badges.has(k)?"":"missed"}"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'">${esc(t("tq_"+k+"_name"))}</span>`).join("");
+  badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'">${esc(t("badgeAds"))}</span>`;
   $("#screen-end").innerHTML=`
     <div class="debrief">
       <div class="ending"><div class="end-emoji">${tier.e}</div><h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
@@ -870,7 +876,7 @@ function openGuide(){
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="g-ov"><div class="modal">
     <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:4px">${esc(t("guideTitle"))}</h2>
-    <p style="font-size:13.5px;color:var(--ink-soft)">${esc(t("guideSub"))}</p></div>
+    <div style="display:flex;gap:12px;align-items:center"><img class="guide-medal" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><p style="font-size:13.5px;color:var(--ink-soft);margin:0">${esc(t("guideSub"))}</p></div></div>
     <div class="guide-list">${entries}</div>
     <div class="modal-body"><button class="btn-primary" id="g-close">${esc(t("backToDesk"))}</button></div></div></div>`;
   $("#g-close").addEventListener("click",()=>mount.innerHTML="");
