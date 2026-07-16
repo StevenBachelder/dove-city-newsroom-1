@@ -212,9 +212,12 @@ img,svg,video{display:block;max-width:100%}
 .tally .t-box{flex:1;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
 .tally .t-name{font-family:var(--font-mono);font-size:14.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink)}
 .tally .t-num{font-family:var(--font-mono);font-size:26px;font-weight:600;line-height:1.15}
-.tally .t-box.cred .t-num{color:var(--verify)}
-.tally .t-box.pop .t-num{color:var(--pop)}
-.tally .t-box.src .t-num{color:#A8841B}
+.tally .t-box.cred{background:#3A7B74}
+.tally .t-box.pop{background:#BD7F41}
+.tally .t-box.src{background:#EBCA62}
+.tally .t-box.cred .t-num{color:#234A46}
+.tally .t-box.pop .t-num{color:#6C4925}
+.tally .t-box.src .t-num{color:#8D7122}
 .t-num.bump-up{animation:bumpup .18s ease}
 .t-num.bump-down{animation:bumpdown .18s ease}
 @keyframes bumpup{50%{transform:translateY(-3px) scale(1.08)}}
