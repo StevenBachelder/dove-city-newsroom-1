@@ -259,7 +259,13 @@ img,svg,video{display:block;max-width:100%}
 .badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:12px 0}
 .badge-img{height:64px;width:auto;display:block;margin:0 auto 5px}
 .badge.missed .badge-img{filter:grayscale(1);opacity:.38}
-.earned-medal{height:72px;width:auto;display:block;margin:2px auto 8px;animation:medalpop .5s cubic-bezier(.2,1.6,.4,1)}
+.earned-medal{height:72px;width:auto;display:block;animation:medalpop .5s cubic-bezier(.2,1.6,.4,1)}
+.techcard.tc-award{margin-top:52px;overflow:visible;border-radius:12px}
+.tca-head{background:#1D2534;border-radius:10px 10px 0 0;padding:54px 16px 14px;text-align:center;position:relative}
+.tca-medalwrap{position:absolute;top:-48px;left:50%;transform:translateX(-50%);width:96px;height:96px;border-radius:50%;background:#1D2534;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.tca-name{font-family:var(--font-display);font-weight:900;font-size:23px;color:#F2C94C;margin-bottom:7px}
+.tca-line{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;color:#FFFFFF;opacity:.95}
+.tc-award .tc-name{margin-top:12px}
 @keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
 .badge{font-family:var(--font-mono);font-size:12px;border:1.5px solid var(--ink);border-radius:20px;padding:6px 13px;background:var(--card)}
@@ -706,9 +712,12 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
-      <div class="techcard">
-        ${(isTech&&correct)?`<img class="earned-medal" src="Badges/badge_${c.technique}.png" alt="" onerror="this.style.display='none'">`:""}
-        <div class="tc-top">${esc(isTech?(correct?t("techniqueTopBadge"):t("techniqueTop")):t("noTrickTop"))}</div>
+      <div class="techcard ${(isTech&&correct)?"tc-award":""}">
+        ${(isTech&&correct)?`<div class="tca-head">
+          <div class="tca-medalwrap"><img class="earned-medal" src="Badges/badge_${c.technique}.png" alt="" onerror="this.style.display='none'"></div>
+          <div class="tca-name">${esc(t("tq_"+c.technique+"_name"))}</div>
+          <div class="tca-line">${esc(t("techniqueTopBadge"))}</div>
+        </div>`:`<div class="tc-top">${esc(isTech?t("techniqueTop"):t("noTrickTop"))}</div>`}
         <div class="tc-name">${esc(isTech?t("tq_"+c.technique+"_name"):t("genuineName"))}</div>
         <div class="tc-body">${esc(isTech?t("tq_"+c.technique+"_body"):t("tq_genuine_body"))}</div>
       </div>
