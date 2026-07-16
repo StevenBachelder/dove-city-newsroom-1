@@ -779,8 +779,11 @@ function animateTally(events,before){
     if(!el("cred")) return;                     // modal closed — stop silently
     if(ev>=events.length){
       const net=events.reduce((s,e)=>s+e.amt,0);
-      (net>=0?chordUp:thudDown)();
-      const tot=document.getElementById("v-total"); if(tot) tot.classList.add("show");
+      setTimeout(()=>{                        // suspense beat before the reveal
+        if(!el("cred")) return;               // modal closed meanwhile
+        (net>=0?chordUp:thudDown)();
+        const tot=document.getElementById("v-total"); if(tot) tot.classList.add("show");
+      },650);
       return;
     }
     const e=events[ev++];
