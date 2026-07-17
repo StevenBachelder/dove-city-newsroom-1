@@ -896,9 +896,13 @@ function debrief(fired){
       <div class="sb-label">${esc(t("scoreTitle"))}</div>
       <div class="sb-total" id="sb-total">0</div>
       <div class="sb-meters">
-        ${[["cred",t("credibility"),state.cred,"#3A7B74"],["pop",t("popularity"),state.pop,"#BD7F41"],["src",t("srcLabel"),state.src,"#EBCA62"]].map(m=>`
+        ${[[t("scoreRight"),right+"/"+total,right/total*100,"#1FA84D"],
+           [t("scoreBadgesBar"),badgeCount+"/8",badgeCount/8*100,"#AF07CD"],
+           [t("credibility"),state.cred,state.cred,"#3A7B74"],
+           [t("popularity"),state.pop,state.pop,"#BD7F41"],
+           [t("srcLabel"),state.src,state.src,"#EBCA62"]].map(m=>`
         <div class="sb-meter">
-          <div class="sbm-head"><span>${esc(m[1])}</span><span class="sbm-num">${m[2]}</span></div>
+          <div class="sbm-head"><span>${esc(m[0])}</span><span class="sbm-num">${m[1]}</span></div>
           <div class="sbm-track"><div class="sbm-fill" style="width:${m[2]}%;background:${m[3]}"></div></div>
         </div>`).join("")}
       </div>
@@ -908,7 +912,6 @@ function debrief(fired){
     <div class="debrief">
       <div class="ending"><div class="end-emoji">${tier.e}</div><h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
         ${scoreHtml}
-        <p style="margin-top:10px;font-family:var(--font-mono);font-size:13px;color:var(--ink-soft)">${esc(tf("statsLine",{r:right,t:total,c:state.cred,p:state.pop}))}</p>
         <div class="badges">${badgeHtml}</div></div>
       <div class="skillgrid">${skills}</div>
       <div class="discipline">
