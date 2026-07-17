@@ -7,7 +7,7 @@ Use these names in design discussions, bug reports, and change requests.
 
 | Term | What it is |
 |---|---|
-| **Start Memo** | The first screen: Vera's welcome memo, the four rules, language flags, and the *Clock-in Button* ("Clock in — start Day 1"). |
+| **Start Memo** | The first screen: Sarah's welcome memo, the four rules, language flags, and the *Clock-in Button* ("Clock in — start Day 1"). |
 | **Tip Desk** (Newsroom) | The main play screen: Queue on the left, Workspace in the middle, Verification Tools and Evidence Board on the right. |
 | **Front Page** | The end-of-day screen showing the morning-after headline and the *Start-Day Button*. |
 | **Debrief** | The end-of-trial screen: Ending, Stats Line, Skills Grid, Source Discipline panel, Badge Case, Takeaways, Replay Button. |
@@ -47,7 +47,7 @@ Use these names in design discussions, bug reports, and change requests.
 | **Delta Chips** | The ▲/▼ lines explaining each scoring event. |
 | **Case Explanation** | The decision-reasoning paragraph for the case. |
 | **Source Review Strip** | "Sources you based your decision on — tap to review": mini-cards with per-pin point values. |
-| **Vera's Note** | The editor-in-chief's quote. |
+| **Sarah's Note** | The editor-in-chief's quote. |
 | **Technique Card** | The named-technique explainer; on a correct call it's topped by the **Badge Reveal** (the medal pop). |
 | **Next Button** | The blue proceed button. |
 
