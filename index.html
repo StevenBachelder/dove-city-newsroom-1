@@ -214,6 +214,7 @@ img,svg,video{display:block;max-width:100%}
 .modal-body{padding:10px 22px 22px}
 .modal-body p{margin-bottom:10px;font-size:14.5px}
 .editor-quote{display:flex;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
+.fp-sarah{text-align:left;max-width:560px;width:100%;margin:16px auto 4px}
 .editor-quote .avatar{width:42px;height:42px;border-radius:50%;background:#E5E0D3;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
 .editor-quote .q-name{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-soft);margin-bottom:3px}
 .editor-quote .q-text{font-size:14.5px;font-style:italic}
@@ -920,6 +921,10 @@ function frontPage(){
   const cs=dayCases(state.day);
   const wrongPub=cs.some(c=>!state.handled[c.id].correct&&state.handled[c.id].choice==="publish");
   const anyWrong=cs.some(c=>!state.handled[c.id].correct);
+  const dayWrong=cs.filter(c=>!state.handled[c.id].correct).length;
+  const tier=dayWrong===0?"Strong":dayWrong===1?"Mid":"Weak";
+  const sday=(state.day===MAX_DAY)?3:Math.min(state.day,2);
+  const sarahLine=t("sarahDay"+sday+tier);
   const head=!anyWrong?t("fpClean"):wrongPub?t("fpCorrections"):t("fpScooped");
   const sub=!anyWrong?t("fpCleanSub"):wrongPub?t("fpCorrectionsSub"):t("fpScoopedSub");
   $("#screen-front").innerHTML=`
@@ -929,6 +934,9 @@ function frontPage(){
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
       ${cs.map(c=>{const h=state.handled[c.id];return `<div class="fp-item"><span class="fp-tag ${h.correct?"ok":"err"}">${esc(h.correct?t("rightCall"):t("wrongCall"))}</span><span>${esc(t(c.title))}</span></div>`;}).join("")}
+      <div class="editor-quote fp-sarah"><div class="avatar">🕊️</div>
+        <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
+        <div class="q-text">“${esc(sarahLine)}”</div></div></div>
       <button class="btn-primary btn-blue" id="btn-nextday">${esc(state.day<MAX_DAY?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
     </div>`;
   show("screen-front");
