@@ -260,10 +260,10 @@ img,svg,video{display:block;max-width:100%}
 .skill .s-score{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:5px}
 .badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:12px 0}
 .badge-img{height:64px;width:auto;display:block;margin:0 auto 5px}
-.badge.missed .badge-img{filter:grayscale(1);opacity:.3}
-.badge .b-pts{font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:#8D7122;margin-top:2px}
-.badge.missed{color:var(--ink-soft);opacity:.75}
-.badge.missed .b-pts{color:var(--ink-soft);opacity:.6}
+.badge.missed .badge-img{filter:grayscale(1) brightness(1.4);opacity:.45}
+.badge .b-pts{font-family:var(--font-mono);font-size:23px;font-weight:700;color:#8D7122;margin-top:0}
+.badge.missed{border-style:dashed;border-color:#CDCDCD;color:#C7C7C7;opacity:1}
+.badge.missed .b-pts{color:#D5D5D5}
 .earned-medal{height:72px;width:auto;display:block;animation:medalpop .5s cubic-bezier(.2,1.6,.4,1)}
 .techcard.tc-award{margin-top:52px;overflow:visible;border-radius:12px}
 .tca-head{background:#10254E;border-radius:10px 10px 0 0;padding:54px 16px 14px;text-align:center;position:relative}
@@ -273,8 +273,7 @@ img,svg,video{display:block;max-width:100%}
 .tc-award .tc-name{margin-top:12px}
 @keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
-.badge{font-family:var(--font-mono);font-size:12px;border:1.5px solid var(--ink);border-radius:20px;padding:6px 13px;background:var(--card)}
-.badge.missed{opacity:.35;border-style:dashed}
+.badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:158px;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
 .scorebox{background:#10254E;border-radius:12px;padding:16px 20px 14px;margin:16px auto 4px;max-width:430px;color:#fff}
 .sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
 .sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
@@ -879,8 +878,8 @@ function debrief(fired){
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
   let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
-    `<span class="badge ${state.badges.has(k)?"":"missed"}"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'">${esc(t("tq_"+k+"_name"))}<span class="b-pts">+25</span></span>`).join("");
-  badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'">${esc(t("badgeAds"))}<span class="b-pts">+25</span></span>`;
+    `<span class="badge ${state.badges.has(k)?"":"missed"}"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span></span>`).join("");
+  badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span></span>`;
   // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
