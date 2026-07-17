@@ -70,6 +70,9 @@ img,svg,video{display:block;max-width:100%}
 .meter.src .m-fill{background:var(--highlight)}
 .btn-guide,#lang-top{background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:6px 10px;font-size:13px;font-family:var(--font-mono)}
 .btn-guide:hover{color:#fff;border-color:#fff}
+.presscard{margin:14px 0 4px;text-align:left}
+.presscard label{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
+.presscard input{width:100%;max-width:340px;font-family:var(--font-mono);font-size:15px;padding:9px 12px;border:1.5px solid var(--ink);border-radius:8px;background:#FFFDF7}
 #lang-top:disabled{opacity:.45}
 
 .workspace{display:grid;grid-template-columns:300px 1fr 360px;min-height:0}
@@ -301,6 +304,8 @@ img,svg,video{display:block;max-width:100%}
 .sbm-frac{position:absolute;top:-16px;transform:translateX(calc(-100% - 6px));font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:#FFFFFF;white-space:nowrap;opacity:.95}
 .sbm-fill{height:100%;border-radius:4.5px}
 .sb-rows{margin-top:10px;text-align:left}
+.sb-export{margin-top:12px;font-family:var(--font-mono);font-size:12px;letter-spacing:1px;background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.4);border-radius:7px;padding:7px 14px;cursor:pointer}
+.sb-export:hover{color:#fff;border-color:#fff}
 .sb-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-top:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
 .sb-row.show{opacity:1;transform:none}
 .sb-row .sb-pts{font-family:var(--font-mono);font-weight:700;color:#F2C94C}
@@ -352,6 +357,7 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
         <div class="m-track"><div class="m-fill" id="src-fill" style="width:50%"></div></div>
       </button>
       <select id="lang-top"></select>
+      <button class="btn-guide" id="btn-mute" aria-pressed="false" title="">🔊</button>
       <button class="btn-guide" id="btn-guide"></button>
     </div>
   </div>
@@ -411,6 +417,7 @@ function _audio(){
   }catch(e){return null;}
 }
 function blip(freq,dur,type,vol){
+  if(state.muted) return;
   const a=_audio(); if(!a) return;
   try{
     const o=a.createOscillator(), g=a.createGain();
@@ -426,8 +433,11 @@ function tickDown(i){ blip(340*Math.pow(2,-Math.min(i,14)/12), 0.06, "square", 0
 function chordUp(){ blip(880,0.10,"triangle",0.10); setTimeout(()=>blip(1174,0.14,"triangle",0.10),70); }
 function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2,"triangle",0.12),90); }
 
+const PARAMS = new URLSearchParams(location.search);
+const EMBEDDED = PARAMS.get("mode")==="embedded";
 const state = {
   day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
+  playerName:(PARAMS.get("name")||"").slice(0,40), pid:(PARAMS.get("pid")||"").slice(0,60), muted:false,
   usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), adPinned:false,
   unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
@@ -468,11 +478,17 @@ function renderStart(){
         <li class="rule-red">${esc(t("rule4"))}</li>
       </ul>
       <p>${esc(t("welcomeP2"))}</p>
+      <div class="presscard"><label for="press-name">${esc(t("pressCard"))}</label>
+        <input id="press-name" maxlength="40" value="${esc(state.playerName)}" placeholder="${esc(t("pressCardPh"))}" autocomplete="off"></div>
       <button class="btn-primary btn-blue" id="btn-start">${esc(t("startBtn"))}</button>
     </div>
   </div>`;
   document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>{ lang=b.dataset.lang; renderStart(); }));
-  $("#btn-start").addEventListener("click", startGame);
+  $("#btn-start").addEventListener("click", ()=>{
+    const f=document.getElementById("press-name");
+    if(f) state.playerName=f.value.trim().slice(0,40);
+    startGame();
+  });
 }
 
 function goHome(){
@@ -920,8 +936,21 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
   if(avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
   if(right===total) scoreRows.push({label:t("scoreSweep"), pts:50});
   const editorScore = corePts + scoreRows.reduce((s,r)=>s+r.pts,0);
+  const RESULTS = {
+    version:"dcn-1.0", timestamp:new Date().toISOString(),
+    pid:state.pid||null, name:state.playerName||null, lang,
+    score:editorScore, rightCalls:right, totalCases:total,
+    badges:[...state.badges], adSpotter:!state.adPinned, masterBadge:(state.badges.size+(state.adPinned?0:1))===8,
+    badgeCount:state.badges.size+(state.adPinned?0:1),
+    credibility:state.cred, popularity:state.pop, source:state.src,
+    avgPinValue:state.pinCount?+(state.pinSum/state.pinCount).toFixed(2):0,
+    pinsPlaced:state.pinCount, upgrades:state.upgrades,
+    skills:state.skills
+  };
+  window.SOURCE_RESULTS = RESULTS;
+  try{ if(window.parent&&window.parent!==window) window.parent.postMessage({type:"SOURCE_MINIGAME_RESULTS",payload:RESULTS},"*"); }catch(e){}
   const scoreHtml = `<div class="scorebox">
-      <div class="sb-label">${esc(t("scoreTitle"))}</div>
+      <div class="sb-label">${esc(t("scoreTitle"))}${state.playerName?` — ${esc(state.playerName)}`:""}</div>
       <div class="sb-total" id="sb-total">0</div>
       <div class="sb-meters">
         ${[[t("scoreRight"),right*10,right/total*100,"#1FA84D",right+"/"+total],
@@ -935,6 +964,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
         </div>`).join("")}
       </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
+      <button class="sb-export" id="sb-export">${esc(t("resultsCopy"))}</button>
     </div>`;
   $("#screen-end").innerHTML=`
     <div class="debrief">
@@ -958,6 +988,17 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       <div style="text-align:center"><button class="btn-primary btn-blue" id="btn-replay">${esc(t("replayBtn"))}</button></div>
     </div>`;
   show("screen-end");
+  const exBtn=document.getElementById("sb-export");
+  if(exBtn) exBtn.addEventListener("click",()=>{
+    const txt=JSON.stringify(RESULTS,null,2);
+    const done=()=>{ exBtn.textContent=t("resultsCopied"); setTimeout(()=>{exBtn.textContent=t("resultsCopy");},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,()=>fallback()); }
+    else fallback();
+    function fallback(){
+      const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta);
+      ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta); done();
+    }
+  });
   document.querySelectorAll(".flipcard").forEach(card=>{
     const flip=()=>card.classList.toggle("flipped");
     card.addEventListener("click",flip);
@@ -1026,8 +1067,18 @@ function openMeterInfo(){
   $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov")mount.innerHTML="";});
 }
 $("#btn-guide").addEventListener("click",openGuide);
+$("#btn-mute").addEventListener("click",()=>{
+  state.muted=!state.muted;
+  const b=$("#btn-mute"); b.textContent=state.muted?"🔇":"🔊"; b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn");
+});
+$("#btn-mute").title=t("soundOn");
 
-renderStart();
+(function boot(){
+  const pl=PARAMS.get("lang");
+  if(pl && ["en","sv","fi","et"].includes(pl)) lang=pl;
+  renderStart();
+  if(EMBEDDED) startGame();
+})();
 </script>
 </body>
 </html>
