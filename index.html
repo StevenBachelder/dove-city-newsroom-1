@@ -272,6 +272,14 @@ img,svg,video{display:block;max-width:100%}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
 .badge{font-family:var(--font-mono);font-size:12px;border:1.5px solid var(--ink);border-radius:20px;padding:6px 13px;background:var(--card)}
 .badge.missed{opacity:.35;border-style:dashed}
+.scorebox{background:#10254E;border-radius:12px;padding:16px 20px 14px;margin:16px auto 4px;max-width:430px;color:#fff}
+.sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
+.sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.sb-total.done{animation:totalpop .4s ease}
+.sb-rows{margin-top:8px;text-align:left}
+.sb-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-top:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
+.sb-row.show{opacity:1;transform:none}
+.sb-row .sb-pts{font-family:var(--font-mono);font-weight:700;color:#F2C94C}
 .discipline{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-bottom:18px}
 .discipline h3{font-family:var(--font-display);font-size:16px;margin-bottom:6px}
 .discipline p{font-size:14px;margin-bottom:6px}
@@ -865,9 +873,27 @@ function debrief(fired){
   let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
     `<span class="badge ${state.badges.has(k)?"":"missed"}"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'">${esc(t("tq_"+k+"_name"))}</span>`).join("");
   badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'">${esc(t("badgeAds"))}</span>`;
+  // Editor's Score: meters + badges + craft bonuses
+  const badgeCount = state.badges.size + (state.adPinned?0:1);
+  const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
+  const scoreRows = [
+    {label:t("scoreMeters"), pts:state.cred+state.pop+state.src},
+    {label:tf("scoreBadges",{n:badgeCount}), pts:badgeCount*25},
+  ];
+  if(state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
+  const avgBonus = avgPin>=3?30:avgPin>=2?15:0;
+  if(avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
+  if(right===total) scoreRows.push({label:t("scoreSweep"), pts:50});
+  const editorScore = scoreRows.reduce((s,r)=>s+r.pts,0);
+  const scoreHtml = `<div class="scorebox">
+      <div class="sb-label">${esc(t("scoreTitle"))}</div>
+      <div class="sb-total" id="sb-total">0</div>
+      <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
+    </div>`;
   $("#screen-end").innerHTML=`
     <div class="debrief">
       <div class="ending"><div class="end-emoji">${tier.e}</div><h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
+        ${scoreHtml}
         <p style="margin-top:10px;font-family:var(--font-mono);font-size:13px;color:var(--ink-soft)">${esc(tf("statsLine",{r:right,t:total,c:state.cred,p:state.pop}))}</p>
         <div class="badges">${badgeHtml}</div></div>
       <div class="skillgrid">${skills}</div>
@@ -887,6 +913,24 @@ function debrief(fired){
       <div style="text-align:center"><button class="btn-primary btn-blue" id="btn-replay">${esc(t("replayBtn"))}</button></div>
     </div>`;
   show("screen-end");
+  (function animateScore(){
+    const totalEl=document.getElementById("sb-total"); if(!totalEl) return;
+    const rows=[...document.querySelectorAll(".sb-row")];
+    const target=scoreRows.reduce((a,r)=>a+r.pts,0);
+    let shown=0, val=0;
+    (function revealRow(){
+      if(shown<rows.length){ rows[shown].classList.add("show"); shown++; setTimeout(revealRow,340); return; }
+      const step=Math.max(1,Math.round(target/60));
+      let i=0;
+      (function tick(){
+        if(!document.getElementById("sb-total")) return;
+        val=Math.min(target,val+step);
+        totalEl.textContent=val;
+        if(i%3===0) tickUp(Math.min(i/3,14)); i++;
+        if(val<target) setTimeout(tick,28); else { setTimeout(chordUp,180); totalEl.classList.add("done"); }
+      })();
+    })();
+  })();
   $("#btn-replay").addEventListener("click",()=>location.reload());
 }
 
