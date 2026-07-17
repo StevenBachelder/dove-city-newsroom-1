@@ -274,14 +274,16 @@ img,svg,video{display:block;max-width:100%}
 @keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
 .badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:158px;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
-.scorebox{background:#10254E;border-radius:12px;padding:16px 20px 14px;margin:16px auto 4px;max-width:430px;color:#fff}
+.scorebox{background:#10254E;border-radius:12px;padding:18px 22px 16px;margin:16px 0 4px;color:#fff}
 .sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
 .sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .sb-total.done{animation:totalpop .4s ease}
 .sb-meters{margin:10px 0 4px;display:flex;flex-direction:column;gap:7px;text-align:left}
 .sb-meter .sbm-head{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;opacity:.95}
 .sb-meter .sbm-num{font-weight:700;color:#F2C94C}
-.sbm-track{height:9px;border-radius:4.5px;background:rgba(255,255,255,.16)}
+.sbm-track{height:9px;border-radius:4.5px;background:rgba(255,255,255,.16);position:relative}
+.sbm-track.has-frac{margin-top:16px;overflow:visible}
+.sbm-frac{position:absolute;top:-16px;transform:translateX(calc(-100% - 6px));font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:#FFFFFF;white-space:nowrap;opacity:.95}
 .sbm-fill{height:100%;border-radius:4.5px}
 .sb-rows{margin-top:10px;text-align:left}
 .sb-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-top:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
@@ -884,6 +886,7 @@ function debrief(fired){
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
   const scoreRows = [
+    {label:tf("scoreRightRow",{n:right}), pts:right*10},
     {label:t("scoreMeters"), pts:state.cred+state.pop+state.src},
     {label:tf("scoreBadges",{n:badgeCount}), pts:badgeCount*25},
   ];
@@ -896,14 +899,14 @@ function debrief(fired){
       <div class="sb-label">${esc(t("scoreTitle"))}</div>
       <div class="sb-total" id="sb-total">0</div>
       <div class="sb-meters">
-        ${[[t("scoreRight"),right+"/"+total,right/total*100,"#1FA84D"],
-           [t("scoreBadgesBar"),badgeCount+"/8",badgeCount/8*100,"#AF07CD"],
-           [t("credibility"),state.cred,state.cred,"#3A7B74"],
-           [t("popularity"),state.pop,state.pop,"#BD7F41"],
-           [t("srcLabel"),state.src,state.src,"#EBCA62"]].map(m=>`
+        ${[[t("scoreRight"),right*10,right/total*100,"#1FA84D",right+"/"+total],
+           [t("scoreBadgesBar"),badgeCount*25,badgeCount/8*100,"#8C3E9A",badgeCount+"/8"],
+           [t("credibility"),state.cred,state.cred,"#3A7B74",null],
+           [t("popularity"),state.pop,state.pop,"#BD7F41",null],
+           [t("srcLabel"),state.src,state.src,"#EBCA62",null]].map(m=>`
         <div class="sb-meter">
           <div class="sbm-head"><span>${esc(m[0])}</span><span class="sbm-num">${m[1]}</span></div>
-          <div class="sbm-track"><div class="sbm-fill" style="width:${m[2]}%;background:${m[3]}"></div></div>
+          <div class="sbm-track ${m[4]?"has-frac":""}">${m[4]?`<span class="sbm-frac" style="left:clamp(36px, ${m[2]}%, 100%)">${m[4]}</span>`:""}<div class="sbm-fill" style="width:${m[2]}%;background:${m[3]}"></div></div>
         </div>`).join("")}
       </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
