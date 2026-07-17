@@ -57,13 +57,16 @@ Payload shape (`version: "dcn-1.0"`):
   "adSpotter": true, "masterBadge": true, "badgeCount": 8,
   "credibility": 100, "popularity": 100, "source": 100,
   "avgPinValue": 3.19, "pinsPlaced": 16, "upgrades": 0,
+  "replies": { "helpful": 7, "blunt": 0, "ignored": 1 },
   "skills": { "source": {"ok":4,"n":4}, "image": {…}, "claims": {…}, "evidence": {…} }
 }
 ```
 
 Research-relevant measures: `badges`/`badgeCount` (technique recognition),
 `avgPinValue` (sourcing quality), `upgrades` (revision behavior),
-`rightCalls` (outcome accuracy), plus the three meters.
+`rightCalls` (outcome accuracy), `replies` (prosocial correction behavior:
+how the player answers tipsters after flagging fakes — helpful requires pinned
+evidence, so it also proxies receipts-based persuasion), plus the three meters.
 
 ## Manual collection (no host integration needed)
 

@@ -159,6 +159,17 @@ img,svg,video{display:block;max-width:100%}
 #viewer-mount .overlay{z-index:80}
 
 .fb-explain{margin:20px 0 22px}
+.replybeat{background:#F4F7FB;border:1.5px solid #B9C6D8;border-radius:10px;padding:12px 14px;margin:14px 0}
+.rb-prompt{font-size:14px;font-weight:600;margin-bottom:9px}
+.rb-btns{display:flex;flex-wrap:wrap;gap:8px}
+.rb-btn{font-family:var(--font-mono);font-size:12.5px;padding:8px 12px;border:1.5px solid var(--ink);border-radius:8px;background:#fff;cursor:pointer}
+.rb-btn:hover:not(:disabled){background:var(--ink);color:#fff}
+.rb-btn:disabled{opacity:.45;cursor:not-allowed}
+.rb-btn.rb-helpful{border-color:#0E5F58;color:#0E5F58}
+.rb-btn.rb-helpful:hover:not(:disabled){background:#0E5F58;color:#fff}
+.rb-need{font-size:12px;color:var(--ink-soft);margin-top:7px;font-style:italic}
+.rb-out{font-size:13.5px;line-height:1.5}
+.rb-out.good{color:#0E5F58}
 
 /* pinned-evidence review strip in the feedback modal */
 .fb-ev-head{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 7px}
@@ -442,6 +453,7 @@ const state = {
   playerName:(PARAMS.get("name")||"").slice(0,40), pid:(PARAMS.get("pid")||"").slice(0,60), muted:false,
   usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), adPinned:false,
   unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
+  replies:{helpful:0,blunt:0,ignored:0},
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
 };
 (function shortShift(){
@@ -777,6 +789,15 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
+      ${(correct&&choice==="flag"&&isTech)?`<div class="replybeat" id="replybeat">
+        <div class="rb-prompt">💬 ${esc(t("replyPrompt"))}</div>
+        <div class="rb-btns">
+          <button class="rb-btn" data-reply="ignored">${esc(t("replyIgnore"))}</button>
+          <button class="rb-btn" data-reply="blunt">${esc(t("replyBlunt"))}</button>
+          <button class="rb-btn rb-helpful" data-reply="helpful" ${evOk?"":`disabled title="${esc(t("replyHelpfulNeed"))}"`}>${esc(t("replyHelpful"))}</button>
+        </div>
+        ${evOk?"":`<div class="rb-need">${esc(t("replyHelpfulNeed"))}</div>`}
+      </div>`:""}
       <div class="techcard ${(isTech&&correct&&FLAG_BADGES)?"tc-award":""}">
         ${(isTech&&correct&&FLAG_BADGES)?`<div class="tca-head">
           <div class="tca-medalwrap"><img class="earned-medal" src="Badges/badge_${c.technique}.png" alt="" onerror="this.style.display='none'"></div>
@@ -789,6 +810,14 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       <button class="btn-primary btn-blue" id="btn-next">${esc(t("nextBtn"))}</button>
     </div></div></div>`;
   animateTally(shown,before);
+  document.querySelectorAll(".rb-btn").forEach(btn=>btn.addEventListener("click",()=>{
+    const kind=btn.dataset.reply;
+    state.replies[kind]++;
+    const beat=document.getElementById("replybeat"); if(!beat) return;
+    let out=t(kind==="helpful"?"replyOutHelpful":kind==="blunt"?"replyOutBlunt":"replyOutIgnore");
+    if(kind==="helpful"){ setMeters(2,0,0); blip(720,.09,"triangle",.10); }
+    beat.innerHTML=`<div class="rb-out ${kind==="helpful"?"good":""}">${esc(out)}</div>`;
+  }));
   mount.querySelectorAll(".fb-evcard").forEach(card=>{
     const open=()=>openEvidence(+card.dataset.fbev);
     card.addEventListener("click",open);
@@ -959,6 +988,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
     badgeCount:state.badges.size+(state.adPinned?0:1),
     credibility:state.cred, popularity:state.pop, source:state.src,
     avgPinValue:state.pinCount?+(state.pinSum/state.pinCount).toFixed(2):0,
+    replies:Object.assign({},state.replies),
     pinsPlaced:state.pinCount, upgrades:state.upgrades,
     skills:state.skills
   };
@@ -996,6 +1026,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
           ? `<p>${esc(state.unpins===1?t("swapNeutralOne"):tf("swapNeutralMany",{n:state.unpins}))}</p>`
           : ``}
       </div>`:""}
+      ${state.replies.helpful>0?`<div class="discipline"><h3>${esc(t("replyTitle"))}</h3><p class="disc-praise">💬 ${esc(tf("replyDebrief",{n:state.replies.helpful}))}</p></div>`:""}
       <div class="takeaways"><h3>${esc(t("takeHead"))}</h3>
         <p><strong>1.</strong> ${esc(t("take1"))}</p><p><strong>2.</strong> ${esc(t("take2"))}</p>
         <p><strong>3.</strong> ${esc(t("take3"))}</p><p><strong>4.</strong> ${esc(t("take4"))}</p>
