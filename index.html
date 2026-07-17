@@ -262,6 +262,20 @@ img,svg,video{display:block;max-width:100%}
 .badge-img{height:64px;width:auto;display:block;margin:0 auto 5px}
 .badge.missed .badge-img{filter:grayscale(1) brightness(1.4);opacity:.45}
 .badge .b-pts{font-family:var(--font-mono);font-size:23px;font-weight:700;color:#8D7122;margin-top:0}
+.b-medalrow{display:flex;align-items:center;gap:7px}
+.b-name{line-height:1.25}
+.badge.flipcard{height:212px;padding:0;perspective:900px;cursor:pointer;background:transparent;border:none}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.9,.4,1);transform-style:preserve-3d}
+.badge.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;border-radius:16px;background:#FFFFFF}
+.flip-front{gap:7px;justify-content:center;padding:14px 12px 12px;border:3px solid var(--ink)}
+.badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD}
+.flip-back{transform:rotateY(180deg);border:3px solid var(--ink);padding:11px 12px;text-align:left;overflow-y:auto;color:var(--ink)}
+.badge.missed .flip-back{border-style:dashed;border-color:#9AA0AA}
+.fbk-name{font-size:12.5px;font-weight:700;margin-bottom:5px;display:block}
+.fbk-body{font-size:11px;font-weight:400;line-height:1.4;letter-spacing:0;text-transform:none;display:block}
+.flip-cue{position:absolute;top:7px;right:10px;font-size:13px;color:var(--ink-soft);opacity:.6}
+.badge.missed .flip-cue{color:#C7C7C7}
 .badge.missed{border-style:dashed;border-color:#CDCDCD;color:#C7C7C7;opacity:1}
 .badge.missed .b-pts{color:#D5D5D5}
 .earned-medal{height:72px;width:auto;display:block;animation:medalpop .5s cubic-bezier(.2,1.6,.4,1)}
