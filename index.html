@@ -885,16 +885,13 @@ function debrief(fired){
   // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
-  const scoreRows = [
-    {label:tf("scoreRightRow",{n:right}), pts:right*10},
-    {label:t("scoreMeters"), pts:state.cred+state.pop+state.src},
-    {label:tf("scoreBadges",{n:badgeCount}), pts:badgeCount*25},
-  ];
+  const corePts = right*10 + state.cred+state.pop+state.src + badgeCount*25;
+  const scoreRows = [];
   if(state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
   const avgBonus = avgPin>=3?30:avgPin>=2?15:0;
   if(avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
   if(right===total) scoreRows.push({label:t("scoreSweep"), pts:50});
-  const editorScore = scoreRows.reduce((s,r)=>s+r.pts,0);
+  const editorScore = corePts + scoreRows.reduce((s,r)=>s+r.pts,0);
   const scoreHtml = `<div class="scorebox">
       <div class="sb-label">${esc(t("scoreTitle"))}</div>
       <div class="sb-total" id="sb-total">0</div>
@@ -936,7 +933,7 @@ function debrief(fired){
   (function animateScore(){
     const totalEl=document.getElementById("sb-total"); if(!totalEl) return;
     const rows=[...document.querySelectorAll(".sb-row")];
-    const target=scoreRows.reduce((a,r)=>a+r.pts,0);
+    const target=editorScore;
     let shown=0, val=0;
     (function revealRow(){
       if(shown<rows.length){ rows[shown].classList.add("show"); shown++; setTimeout(revealRow,340); return; }
