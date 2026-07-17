@@ -273,7 +273,7 @@ img,svg,video{display:block;max-width:100%}
 .tc-award .tc-name{margin-top:12px}
 @keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
-.badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:158px;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
+.badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:176px;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
 .scorebox{background:#10254E;border-radius:12px;padding:18px 22px 16px;margin:16px 0 4px;color:#fff}
 .sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
 .sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
@@ -880,8 +880,14 @@ function debrief(fired){
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
   let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
-    `<span class="badge ${state.badges.has(k)?"":"missed"}"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span></span>`).join("");
-  badgeHtml+=`<span class="badge ${state.adPinned?"missed":""}"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span></span>`;
+    `<span class="badge flipcard ${state.badges.has(k)?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
+      <span class="flip-front"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span><span class="flip-cue">↻</span></span>
+      <span class="flip-back"><span class="fbk-name">${esc(t("tq_"+k+"_name"))}</span><span class="fbk-body">${esc(t("tq_"+k+"_body"))}</span></span>
+    </span></span>`).join("");
+  badgeHtml+=`<span class="badge flipcard ${state.adPinned?"missed":""}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
+      <span class="flip-front"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span><span class="flip-cue">↻</span></span>
+      <span class="flip-back"><span class="fbk-name">${esc(t("badgeAds"))}</span><span class="fbk-body">${esc(t("tq_sponsored_body"))}</span></span>
+    </span></span>`;
   // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
@@ -930,6 +936,11 @@ function debrief(fired){
       <div style="text-align:center"><button class="btn-primary btn-blue" id="btn-replay">${esc(t("replayBtn"))}</button></div>
     </div>`;
   show("screen-end");
+  document.querySelectorAll(".flipcard").forEach(card=>{
+    const flip=()=>card.classList.toggle("flipped");
+    card.addEventListener("click",flip);
+    card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip();}});
+  });
   (function animateScore(){
     const totalEl=document.getElementById("sb-total"); if(!totalEl) return;
     const rows=[...document.querySelectorAll(".sb-row")];
