@@ -258,22 +258,23 @@ img,svg,video{display:block;max-width:100%}
 .skill{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .skill h4{font-family:var(--font-display);font-size:15px;margin-bottom:6px}
 .skill .s-score{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:5px}
-.badges{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:12px 0}
-.badge-img{height:64px;width:auto;display:block;margin:0 auto 5px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
+.badge-img{height:118px;width:auto;display:block;margin:0 auto 5px}
 .badge.missed .badge-img{filter:grayscale(1) brightness(1.4);opacity:.45}
-.badge .b-pts{font-family:var(--font-mono);font-size:23px;font-weight:700;color:#8D7122;margin-top:0}
+.badge .b-pts{font-family:var(--font-mono);font-size:27px;font-weight:700;color:#8D7122;margin-top:0}
 .b-medalrow{display:flex;align-items:center;gap:7px}
 .b-name{line-height:1.25}
-.badge.flipcard{height:212px;padding:0;perspective:900px;cursor:pointer;background:transparent;border:none}
+.badge.flipcard{height:258px;padding:0;perspective:900px;cursor:pointer;background:transparent;border:none}
 .flip-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.9,.4,1);transform-style:preserve-3d}
 .badge.flipped .flip-inner{transform:rotateY(180deg)}
 .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;border-radius:16px;background:#FFFFFF}
 .flip-front{gap:7px;justify-content:center;padding:14px 12px 12px;border:3px solid var(--ink)}
 .badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD}
-.flip-back{transform:rotateY(180deg);border:3px solid var(--ink);padding:11px 12px;text-align:left;overflow-y:auto;color:var(--ink)}
+.flip-back{transform:rotateY(180deg);border:3px solid var(--ink);padding:0;text-align:left;overflow:hidden;color:var(--ink)}
+.fbk-head{display:block;width:100%;padding:9px 13px;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:var(--ink);border-bottom:2px solid rgba(32,41,58,.18)}
+.badge.missed .fbk-head{filter:saturate(.35)}
 .badge.missed .flip-back{border-style:dashed;border-color:#9AA0AA}
-.fbk-name{font-size:12.5px;font-weight:700;margin-bottom:5px;display:block}
-.fbk-body{font-size:11px;font-weight:400;line-height:1.4;letter-spacing:0;text-transform:none;display:block}
+.fbk-body{display:block;padding:10px 13px 12px;font-size:11.5px;font-weight:400;line-height:1.5;letter-spacing:0;text-transform:none;overflow-y:auto;max-height:196px}
 .flip-cue{position:absolute;top:7px;right:10px;font-size:13px;color:var(--ink-soft);opacity:.6}
 .badge.missed .flip-cue{color:#C7C7C7}
 .badge.missed{border-style:dashed;border-color:#CDCDCD;color:#C7C7C7;opacity:1}
@@ -287,7 +288,7 @@ img,svg,video{display:block;max-width:100%}
 .tc-award .tc-name{margin-top:12px}
 @keyframes medalpop{0%{transform:scale(.3) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
 .guide-medal{height:56px;width:auto;flex-shrink:0}
-.badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:176px;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
+.badge{display:inline-flex;flex-direction:column;align-items:center;text-align:center;gap:7px;width:auto;font-family:var(--font-mono);font-size:13.5px;font-weight:600;border:3px solid var(--ink);border-radius:16px;padding:14px 12px 12px;background:#FFFFFF;color:var(--ink)}
 .scorebox{background:#10254E;border-radius:12px;padding:18px 22px 16px;margin:16px 0 4px;color:#fff}
 .sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
 .sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
@@ -893,20 +894,27 @@ function debrief(fired){
     return `<div class="skill"><h4>${esc(t(meta[k][0]))}</h4>
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
+const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#7F9DB5",hoax:"#9DA5AE",conspiracy:"#C5FEAC",emotionaltrue:"#FEA7A1",unverified:"#BEC2FD",adspotter:"#FACBB4",master:"#69C7BE"};
   let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
     `<span class="badge flipcard ${state.badges.has(k)?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
-      <span class="flip-front"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span><span class="flip-cue">↻</span></span>
-      <span class="flip-back"><span class="fbk-name">${esc(t("tq_"+k+"_name"))}</span><span class="fbk-body">${esc(t("tq_"+k+"_body"))}</span></span>
+      <span class="flip-front"${state.badges.has(k)?` style="background:${BADGE_COLORS[k]}"`:""}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span><span class="flip-cue">↻</span></span>
+      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS[k]}">${esc(t("tq_"+k+"_name"))}</span><span class="fbk-body">${esc(t("tq_"+k+"_body"))}</span></span>
     </span></span>`).join("");
   badgeHtml+=`<span class="badge flipcard ${state.adPinned?"missed":""}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
-      <span class="flip-front"><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span><span class="flip-cue">↻</span></span>
-      <span class="flip-back"><span class="fbk-name">${esc(t("badgeAds"))}</span><span class="fbk-body">${esc(t("tq_sponsored_body"))}</span></span>
+      <span class="flip-front"${state.adPinned?"":` style="background:${BADGE_COLORS.adspotter}"`}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span><span class="flip-cue">↻</span></span>
+      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS.adspotter}">${esc(t("badgeAds"))}</span><span class="fbk-body">${esc(t("tq_sponsored_body"))}</span></span>
+    </span></span>`;
+  const masterEarned = (state.badges.size + (state.adPinned?0:1))===8;
+  badgeHtml+=`<span class="badge flipcard ${masterEarned?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
+      <span class="flip-front"${masterEarned?` style="background:${BADGE_COLORS.master}"`:""}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeMaster"))}</span><span class="flip-cue">↻</span></span>
+      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS.master}">${esc(t("badgeMaster"))}</span><span class="fbk-body">${esc(t("badgeMasterBody"))}</span></span>
     </span></span>`;
   // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
   const corePts = right*10 + state.cred+state.pop+state.src + badgeCount*25;
   const scoreRows = [];
+  if(badgeCount===8) scoreRows.push({label:t("scoreMaster"), pts:25});
   if(state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
   const avgBonus = avgPin>=3?30:avgPin>=2?15:0;
   if(avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
