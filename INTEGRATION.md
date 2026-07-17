@@ -23,6 +23,20 @@ index.html?mode=embedded&name=PLAYERNAME&pid=STUDYID&lang=sv
 | `pid=` | Participant/study ID. Carried untouched into the results payload. Max 60 chars. |
 | `lang=` | `en`, `sv`, `fi`, or `et`. Also works in standalone mode. |
 
+## Research parameters (work in both modes)
+
+| Param | Effect |
+|---|---|
+| `cases=N` | **Short shift**: trims the trial to N cases (3–15), chosen to cover as many distinct techniques as possible, in original order. N ≤ 6 compresses to a single day — fits one lesson. Day clock, endings, and score bars adapt. Example: `?cases=6`. |
+| `badges=off` | **Ablation — badge treatment off**: no badge reveal on correct calls, no medals in the field guide, no badge case or badge points in the debrief. The engine still records badges earned; the payload is unchanged, so recognition remains measurable across conditions. |
+| `src=off` | **Ablation — source treatment off**: hides the SOURCE meter, per-pin point values, source tally box and delta lines, the Source-value panel in the evidence viewer, the source score bar, sourcing bonuses, and the source-discipline panel. Pinning still works and the engine still records `source`, `avgPinValue`, and `upgrades` in the payload — behavior stays measurable without the didactic feedback. |
+
+**Design note for study comparisons:** toggles remove the *treatment* (visible feedback),
+never the *measurement* — every payload field is populated identically in every condition.
+Because the headline `score` composition changes with the flags, compare groups on the
+payload measures (`rightCalls`, `badgeCount`, `avgPinValue`, `upgrades`, meters), not on `score`.
+Combine freely: `?cases=6&badges=off&pid=UPP-042&lang=sv`.
+
 ## Reading the results
 
 When the Debrief renders, the game:
@@ -38,7 +52,7 @@ Payload shape (`version: "dcn-1.0"`):
   "version": "dcn-1.0",
   "timestamp": "2026-07-18T…",
   "pid": "UPP-042", "name": "Kim Ek", "lang": "sv",
-  "score": 765, "rightCalls": 16, "totalCases": 16,
+  "score": 765, "rightCalls": 16, "totalCases": 16,   // totalCases reflects ?cases= if used
   "badges": ["manipulated", "outofcontext", "…"],
   "adSpotter": true, "masterBadge": true, "badgeCount": 8,
   "credibility": 100, "popularity": 100, "source": 100,

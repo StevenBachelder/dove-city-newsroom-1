@@ -435,6 +435,8 @@ function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2
 
 const PARAMS = new URLSearchParams(location.search);
 const EMBEDDED = PARAMS.get("mode")==="embedded";
+const FLAG_BADGES = PARAMS.get("badges")!=="off";
+const FLAG_SRC = PARAMS.get("src")!=="off";
 const state = {
   day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
   playerName:(PARAMS.get("name")||"").slice(0,40), pid:(PARAMS.get("pid")||"").slice(0,60), muted:false,
@@ -442,6 +444,17 @@ const state = {
   unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
 };
+(function shortShift(){
+  const n=parseInt(PARAMS.get("cases"));
+  if(!(n>=3&&n<CASES.length)) return;
+  const seen=new Set(), pick=[];
+  for(const c of CASES){ if(!seen.has(c.technique)){ seen.add(c.technique); pick.push(c); } if(pick.length>=n) break; }
+  for(const c of CASES){ if(pick.length>=n) break; if(!pick.includes(c)) pick.push(c); }
+  pick.sort((a,b)=>CASES.indexOf(a)-CASES.indexOf(b));
+  const subset=pick.map((c,i)=>Object.assign({},c,{day:Math.floor(i/6)+1}));
+  CASES.length=0; subset.forEach(c=>CASES.push(c));
+})();
+const MAX_DAY = Math.max(...CASES.map(c=>c.day));
 const caseById = id => CASES.find(c=>c.id===id);
 const dayCases = d => CASES.filter(c=>c.day===d);
 
@@ -503,12 +516,13 @@ function startGame(){
   $("#src-label").innerHTML = esc(t("srcLabel"))+'<span class="m-info">ⓘ</span>';
   $("#meter-cred").title = $("#meter-pop").title = $("#meter-src").title = t("meterHint");
   $("#meter-cred").onclick = $("#meter-pop").onclick = $("#meter-src").onclick = openMeterInfo;
+  if(!FLAG_SRC) $("#meter-src").style.display="none";
   $("#btn-guide").textContent = t("fieldGuideBtn");
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
   sel.onchange = ()=>{ lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
   $("#queue-head").textContent = t("incomingTips");
-  $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf");
+  $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
   renderQueue();
   if(!state.current){ deskIdle(); toolsIdle(); }
   show("screen-news");
@@ -535,7 +549,7 @@ function renderQueue(){
     if(!done) b.addEventListener("click",()=>openCase(c.id));
     list.appendChild(b);
   });
-  $("#dayclock").textContent=t("dayLabel")+" "+state.day+" "+t("dayOf");
+  $("#dayclock").textContent=t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
 }
 
 /* ---------- case desk ---------- */
@@ -736,18 +750,19 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
   const drKey="decisionReasoning_"+c.id+"_"+(correct?"correct":"incorrect")+"_"+choice;
   const dr=t(drKey); const drText = (dr===drKey)?"":dr;
   const isTech=c.technique!=="genuine";
+  const shown=FLAG_SRC?events:events.filter(e=>e.m!=="src");
   const mount=$("#modal-mount");
   mount.innerHTML=`
   <div class="overlay"><div class="modal" role="dialog" aria-modal="true">
-    <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}"><span>${esc(correct?t("rightCall"):t("wrongCall"))}</span><span class="v-total" id="v-total">${(()=>{const n=events.reduce((s,e)=>s+e.amt,0);return (n>0?"+":"")+n;})()}</span></div></div>
+    <div class="modal-head"><div class="verdict-banner ${correct?"good":"bad"}"><span>${esc(correct?t("rightCall"):t("wrongCall"))}</span><span class="v-total" id="v-total">${(()=>{const n=shown.reduce((s,e)=>s+e.amt,0);return (n>0?"+":"")+n;})()}</span></div></div>
     <div class="modal-body">
       ${drText?`<p class="fb-explain">${esc(drText)}</p>`:""}
       <div class="tally">
         <div class="t-box cred"><div class="t-name">${esc(t("credibility"))}</div><div class="t-num" id="tally-cred">${before.cred}</div></div>
         <div class="t-box pop"><div class="t-name">${esc(t("popularity"))}</div><div class="t-num" id="tally-pop">${before.pop}</div></div>
-        <div class="t-box src"><div class="t-name">${esc(t("srcLabel"))}</div><div class="t-num" id="tally-src">${before.src}</div></div>
+        ${FLAG_SRC?`<div class="t-box src"><div class="t-name">${esc(t("srcLabel"))}</div><div class="t-num" id="tally-src">${before.src}</div></div>`:""}
       </div>
-      <div class="delta-row">${events.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}"><span class="d-arrow">${e.amt>0?"▲":"▼"}</span>${esc(e.label)}</span>`).join("")}</div>
+      <div class="delta-row">${shown.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}"><span class="d-arrow">${e.amt>0?"▲":"▼"}</span>${esc(e.label)}</span>`).join("")}</div>
       ${evOk?`<div class="ev-note good">${esc(t("evGood"))}</div>`:`<div class="ev-note bad">${esc(t("evBad"))}</div>`}
       ${adUsed?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       ${state.evidence.length?`<div class="fb-ev-head">${esc(t("evReviewHead"))}</div>
@@ -756,14 +771,14 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
                  : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
                  : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
         const pts=e.pts||0;
-        const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`;
+        const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}${FLAG_SRC?`<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`:""}`;
         return `<div class="fb-evcard ${pts>0?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
       }).join("")}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
-      <div class="techcard ${(isTech&&correct)?"tc-award":""}">
-        ${(isTech&&correct)?`<div class="tca-head">
+      <div class="techcard ${(isTech&&correct&&FLAG_BADGES)?"tc-award":""}">
+        ${(isTech&&correct&&FLAG_BADGES)?`<div class="tca-head">
           <div class="tca-medalwrap"><img class="earned-medal" src="Badges/badge_${c.technique}.png" alt="" onerror="this.style.display='none'"></div>
           <div class="tca-name">${esc(t("tq_"+c.technique+"_name"))}</div>
           <div class="tca-line">${esc(t("techniqueTopBadge"))}</div>
@@ -773,7 +788,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       </div>
       <button class="btn-primary btn-blue" id="btn-next">${esc(t("nextBtn"))}</button>
     </div></div></div>`;
-  animateTally(events,before);
+  animateTally(shown,before);
   mount.querySelectorAll(".fb-evcard").forEach(card=>{
     const open=()=>openEvidence(+card.dataset.fbev);
     card.addEventListener("click",open);
@@ -820,11 +835,11 @@ function openEvidence(i){
       </div>
       ${e.desc?`<p>${esc(e.desc)}</p>`:""}
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
-      <div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
+      ${FLAG_SRC?`<div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
         <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
         <span class="ep-label">${esc(t("srcValLabel"))}</span>
         <div class="ep-why">${esc(evPtsReason(e))}</div>
-      </div>
+      </div>`:""}
       ${e.isAd?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       <button class="btn-primary" id="ev-close" style="margin-top:12px">${esc(t("close"))}</button>
     </div></div></div>`;
@@ -885,14 +900,14 @@ function frontPage(){
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
       ${cs.map(c=>{const h=state.handled[c.id];return `<div class="fp-item"><span class="fp-tag ${h.correct?"ok":"err"}">${esc(h.correct?t("rightCall"):t("wrongCall"))}</span><span>${esc(t(c.title))}</span></div>`;}).join("")}
-      <button class="btn-primary btn-blue" id="btn-nextday">${esc(state.day<3?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
+      <button class="btn-primary btn-blue" id="btn-nextday">${esc(state.day<MAX_DAY?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
     </div>`;
   show("screen-front");
   $("#fp-home").addEventListener("click",goHome);
   $("#fp-home").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")goHome();});
   $("#btn-nextday").addEventListener("click",()=>{
     if(state.cred<=0){ debrief(true); return; }
-    if(state.day<3){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})); toolsIdle(); show("screen-news"); }
+    if(state.day<MAX_DAY){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})); toolsIdle(); show("screen-news"); }
     else debrief(false);
   });
 }
@@ -928,12 +943,12 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
   // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
-  const corePts = right*10 + state.cred+state.pop+state.src + badgeCount*25;
+  const corePts = right*10 + state.cred + state.pop + (FLAG_SRC?state.src:0) + (FLAG_BADGES?badgeCount*25:0);
   const scoreRows = [];
-  if(badgeCount===8) scoreRows.push({label:t("scoreMaster"), pts:25});
-  if(state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
+  if(FLAG_BADGES && badgeCount===8) scoreRows.push({label:t("scoreMaster"), pts:25});
+  if(FLAG_SRC && state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
   const avgBonus = avgPin>=3?30:avgPin>=2?15:0;
-  if(avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
+  if(FLAG_SRC && avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
   if(right===total) scoreRows.push({label:t("scoreSweep"), pts:50});
   const editorScore = corePts + scoreRows.reduce((s,r)=>s+r.pts,0);
   const RESULTS = {
@@ -953,11 +968,11 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       <div class="sb-label">${esc(t("scoreTitle"))}${state.playerName?` — ${esc(state.playerName)}`:""}</div>
       <div class="sb-total" id="sb-total">0</div>
       <div class="sb-meters">
-        ${[[t("scoreRight"),right*10,right/total*100,"#1FA84D",right+"/"+total],
-           [t("scoreBadgesBar"),badgeCount*25,badgeCount/8*100,"#8C3E9A",badgeCount+"/8"],
-           [t("credibility"),state.cred,state.cred,"#3A7B74",null],
-           [t("popularity"),state.pop,state.pop,"#BD7F41",null],
-           [t("srcLabel"),state.src,state.src,"#EBCA62",null]].map(m=>`
+        ${[[t("scoreRight"),right*10,right/total*100,"#1FA84D",right+"/"+total]]
+          .concat(FLAG_BADGES?[[t("scoreBadgesBar"),badgeCount*25,badgeCount/8*100,"#8C3E9A",badgeCount+"/8"]]:[])
+          .concat([[t("credibility"),state.cred,state.cred,"#3A7B74",null],
+                   [t("popularity"),state.pop,state.pop,"#BD7F41",null]])
+          .concat(FLAG_SRC?[[t("srcLabel"),state.src,state.src,"#EBCA62",null]]:[]).map(m=>`
         <div class="sb-meter">
           <div class="sbm-head"><span>${esc(m[0])}</span><span class="sbm-num">${m[1]}</span></div>
           <div class="sbm-track ${m[4]?"has-frac":""}">${m[4]?`<span class="sbm-frac" style="left:clamp(36px, ${m[2]}%, 100%)">${m[4]}</span>`:""}<div class="sbm-fill" style="width:${m[2]}%;background:${m[3]}"></div></div>
@@ -970,9 +985,9 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
     <div class="debrief">
       <div class="ending"><div class="end-emoji">${tier.e}</div><h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
         ${scoreHtml}
-        <div class="badges">${badgeHtml}</div></div>
+        ${FLAG_BADGES?`<div class="badges">${badgeHtml}</div>`:""}</div>
       <div class="skillgrid">${skills}</div>
-      <div class="discipline">
+      ${FLAG_SRC?`<div class="discipline">
         <h3>${esc(t("swapTitle"))}</h3>
         <p>${esc(tf("avgPinLine",{v:(state.pinCount?((state.pinSum/state.pinCount>=0?"+":"")+(state.pinSum/state.pinCount).toFixed(1)):"—")}))}</p>
         ${state.upgrades>0
@@ -980,7 +995,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
           : state.unpins>0
           ? `<p>${esc(state.unpins===1?t("swapNeutralOne"):tf("swapNeutralMany",{n:state.unpins}))}</p>`
           : ``}
-      </div>
+      </div>`:""}
       <div class="takeaways"><h3>${esc(t("takeHead"))}</h3>
         <p><strong>1.</strong> ${esc(t("take1"))}</p><p><strong>2.</strong> ${esc(t("take2"))}</p>
         <p><strong>3.</strong> ${esc(t("take3"))}</p><p><strong>4.</strong> ${esc(t("take4"))}</p>
@@ -1031,13 +1046,13 @@ function openGuide(){
     const seen=state.seenTech.has(k);
     const medal = (k==="sponsored") ? "badge_adspotter" : (k==="genuine") ? "badge_generic" : "badge_"+k;
     return `<div class="guide-entry ${seen?"":"locked"}">
-      <img class="guide-entry-medal" src="Badges/${medal}.png" alt="" onerror="this.style.display='none'">
+      ${FLAG_BADGES?`<img class="guide-entry-medal" src="Badges/${medal}.png" alt="" onerror="this.style.display='none'">`:""}
       ${seen?`<h4>${esc(t("tq_"+k+"_name"))}</h4>`:""}
-      <p>${esc(seen?t("tq_"+k+"_body"):t("guideLockedBody"))}</p></div>`;}).join("");
+      <p>${esc(seen?t("tq_"+k+"_body"):t(FLAG_BADGES?"guideLockedBody":"guideLockedBodyPlain"))}</p></div>`;}).join("");
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="g-ov"><div class="modal">
     <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:4px">${esc(t("guideTitle"))}</h2>
-    <div style="display:flex;gap:12px;align-items:center"><img class="guide-medal" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><p style="font-size:13.5px;color:var(--ink-soft);margin:0">${esc(t("guideSub"))}</p></div></div>
+    <div style="display:flex;gap:12px;align-items:center">${FLAG_BADGES?`<img class="guide-medal" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'">`:""}<p style="font-size:13.5px;color:var(--ink-soft);margin:0">${esc(t("guideSub"))}</p></div></div>
     <div class="guide-list">${entries}</div>
     <div class="modal-body"><button class="btn-primary" id="g-close">${esc(t("backToDesk"))}</button></div></div></div>`;
   $("#g-close").addEventListener("click",()=>mount.innerHTML="");
