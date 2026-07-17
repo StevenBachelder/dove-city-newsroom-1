@@ -279,7 +279,12 @@ img,svg,video{display:block;max-width:100%}
 .sb-label{font-family:var(--font-mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.9}
 .sb-total{font-family:var(--font-mono);font-size:44px;font-weight:700;color:#F2C94C;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
 .sb-total.done{animation:totalpop .4s ease}
-.sb-rows{margin-top:8px;text-align:left}
+.sb-meters{margin:10px 0 4px;display:flex;flex-direction:column;gap:7px;text-align:left}
+.sb-meter .sbm-head{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;opacity:.95}
+.sb-meter .sbm-num{font-weight:700;color:#F2C94C}
+.sbm-track{height:9px;border-radius:4.5px;background:rgba(255,255,255,.16)}
+.sbm-fill{height:100%;border-radius:4.5px}
+.sb-rows{margin-top:10px;text-align:left}
 .sb-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-top:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
 .sb-row.show{opacity:1;transform:none}
 .sb-row .sb-pts{font-family:var(--font-mono);font-weight:700;color:#F2C94C}
@@ -891,6 +896,13 @@ function debrief(fired){
   const scoreHtml = `<div class="scorebox">
       <div class="sb-label">${esc(t("scoreTitle"))}</div>
       <div class="sb-total" id="sb-total">0</div>
+      <div class="sb-meters">
+        ${[["cred",t("credibility"),state.cred,"#3A7B74"],["pop",t("popularity"),state.pop,"#BD7F41"],["src",t("srcLabel"),state.src,"#EBCA62"]].map(m=>`
+        <div class="sb-meter">
+          <div class="sbm-head"><span>${esc(m[1])}</span><span class="sbm-num">${m[2]}</span></div>
+          <div class="sbm-track"><div class="sbm-fill" style="width:${m[2]}%;background:${m[3]}"></div></div>
+        </div>`).join("")}
+      </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
     </div>`;
   $("#screen-end").innerHTML=`
@@ -944,7 +956,7 @@ function openGuide(){
     const medal = (k==="sponsored") ? "badge_adspotter" : (k==="genuine") ? "badge_generic" : "badge_"+k;
     return `<div class="guide-entry ${seen?"":"locked"}">
       <img class="guide-entry-medal" src="Badges/${medal}.png" alt="" onerror="this.style.display='none'">
-      <h4>${esc(seen?t("tq_"+k+"_name"):t("guideLockedName"))}</h4>
+      ${seen?`<h4>${esc(t("tq_"+k+"_name"))}</h4>`:""}
       <p>${esc(seen?t("tq_"+k+"_body"):t("guideLockedBody"))}</p></div>`;}).join("");
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="g-ov"><div class="modal">
