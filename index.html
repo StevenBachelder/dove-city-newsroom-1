@@ -70,6 +70,7 @@ img,svg,video{display:block;max-width:100%}
 .meter.src .m-fill{background:var(--highlight)}
 .btn-guide,#lang-top{background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:6px 10px;font-size:13px;font-family:var(--font-mono)}
 .btn-guide:hover{color:#fff;border-color:#fff}
+.memo-ps{font-style:italic;font-size:13.5px;color:var(--ink-soft);margin-top:10px}
 .presscard{margin:14px 0 4px;text-align:left}
 .presscard label{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
 .presscard input{width:100%;max-width:340px;font-family:var(--font-mono);font-size:15px;padding:9px 12px;border:1.5px solid var(--ink);border-radius:8px;background:#FFFDF7}
@@ -159,6 +160,9 @@ img,svg,video{display:block;max-width:100%}
 #viewer-mount .overlay{z-index:80}
 
 .fb-explain{margin:20px 0 22px}
+.ripple{border-radius:8px;padding:9px 12px;margin:10px 0;font-size:13px;border:1.5px solid}
+.ripple.bad{background:#FBF3E4;border-color:#D9A441;color:#7A5A17}
+.ripple.good{background:#EEF7EE;border-color:#8FC79A;color:#2F6B3A}
 .replybeat{background:#F4F7FB;border:1.5px solid #B9C6D8;border-radius:10px;padding:12px 14px;margin:14px 0}
 .rb-prompt{font-size:14px;font-weight:600;margin-bottom:9px}
 .rb-btns{display:flex;flex-wrap:wrap;gap:8px}
@@ -215,6 +219,13 @@ img,svg,video{display:block;max-width:100%}
 .modal-body p{margin-bottom:10px;font-size:14.5px}
 .editor-quote{display:flex;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
 .fp-sarah{text-align:left;max-width:560px;width:100%;margin:16px auto 4px}
+.letter{text-align:left;max-width:560px;width:100%;margin:16px auto 0;border-radius:10px;padding:13px 15px;border:1.5px solid}
+.letter.hurt{background:#FBF0EE;border-color:#D9968C}
+.letter.thanks{background:#EEF7EE;border-color:#8FC79A}
+.letter.miffed{background:#F4F1E4;border-color:#CBBE8A}
+.letter .l-head{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.letter .l-text{font-size:14px;font-style:italic;line-height:1.5}
+.letter .l-who{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:6px;text-align:right}
 .editor-quote .avatar{width:42px;height:42px;border-radius:50%;background:#E5E0D3;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
 .editor-quote .q-name{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-soft);margin-bottom:3px}
 .editor-quote .q-text{font-size:14.5px;font-style:italic}
@@ -470,6 +481,12 @@ const state = {
   CASES.length=0; subset.forEach(c=>CASES.push(c));
 })();
 const MAX_DAY = Math.max(...CASES.map(c=>c.day));
+const RIPPLES = (()=>{
+  const firstFake=d=>CASES.find(c=>c.day===d&&!c.truth);
+  const out=[];
+  for(let d=1;d<MAX_DAY;d++){ const a=firstFake(d),b=firstFake(d+1); if(a&&b) out.push({src:a.id,dst:b.id}); }
+  return out;
+})();
 const caseById = id => CASES.find(c=>c.id===id);
 const dayCases = d => CASES.filter(c=>c.day===d);
 
@@ -506,6 +523,7 @@ function renderStart(){
         <li class="rule-red">${esc(t("rule4"))}</li>
       </ul>
       <p>${esc(t("welcomeP2"))}</p>
+      <p class="memo-ps">${esc(t("memoAmbient"))}</p>
       <div class="presscard"><label for="press-name">${esc(t("pressCard"))}</label>
         <input id="press-name" maxlength="40" value="${esc(state.playerName)}" placeholder="${esc(t("pressCardPh"))}" autocomplete="off"></div>
       <button class="btn-primary btn-blue" id="btn-start">${esc(t("startBtn"))}</button>
@@ -618,6 +636,10 @@ function renderQueue(){
 /* ---------- case desk ---------- */
 function openCase(id){
   if(state.handled[id]) return;
+  const rp=RIPPLES.find(r=>r.dst===id);
+  if(rp && state.handled[rp.src] && !state.handled[rp.src].correct && state.handled[rp.src].choice==="publish" && !state["rippled"+id]){
+    state["rippled"+id]=true; const cc=caseById(id); cc.buzz=Math.min(5,(cc.buzz||1)+1);
+  }
   state.current=id; state.evidence=[]; state.caseUnpinned=[]; state.usedText[id]=state.usedText[id]||false; state.usedImg[id]=state.usedImg[id]||false;
   $("#lang-top").disabled = true;
   renderQueue();
@@ -630,6 +652,12 @@ function openCase(id){
         <div class="p-title">${esc(t(c.title))}</div>
       </div>
       ${desc.trim()?`<div class="post-body">${esc(desc)}</div>`:""}
+      ${(()=>{const r=RIPPLES.find(r=>r.dst===id); if(!r) return "";
+        const h=state.handled[r.src]; if(!h) return "";
+        const srcT=t(caseById(r.src).title);
+        if(!h.correct&&h.choice==="publish") return `<div class="ripple bad">🔗 ${esc(tf("rippleBad",{title:srcT}))}</div>`;
+        if(h.correct&&h.choice==="flag") return `<div class="ripple good">🔗 ${esc(tf("rippleGood",{title:srcT}))}</div>`;
+        return "";})()}
       <div class="photo">${mediaTag(c.image,"img")}</div>
     </div>
     <div class="board">
@@ -972,6 +1000,13 @@ function frontPage(){
   const wrongPub=cs.some(c=>!state.handled[c.id].correct&&state.handled[c.id].choice==="publish");
   const anyWrong=cs.some(c=>!state.handled[c.id].correct);
   const dayWrong=cs.filter(c=>!state.handled[c.id].correct).length;
+  const pubFake=cs.find(c=>!c.truth&&state.handled[c.id].choice==="publish");
+  const buriedTrue=cs.find(c=>c.truth&&state.handled[c.id].choice==="flag");
+  const stoppedBig=cs.find(c=>!c.truth&&state.handled[c.id].correct&&(c.buzz||0)>=3);
+  const letter = pubFake ? {cls:"hurt",  who:t("letterHurtWho"),  txt:tf("letterHurt",{title:t(pubFake.title)})}
+             : buriedTrue ? {cls:"miffed",who:t("letterScoopWho"), txt:tf("letterScoop",{title:t(buriedTrue.title)})}
+             : stoppedBig ? {cls:"thanks",who:t("letterThanksWho"),txt:tf("letterThanks",{title:t(stoppedBig.title)})}
+             : null;
   const tier=dayWrong===0?"Strong":dayWrong===1?"Mid":"Weak";
   const sday=(state.day===MAX_DAY)?3:Math.min(state.day,2);
   const sarahLine=t("sarahDay"+sday+tier);
@@ -984,6 +1019,7 @@ function frontPage(){
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
       ${cs.map(c=>{const h=state.handled[c.id];return `<div class="fp-item"><span class="fp-tag ${h.correct?"ok":"err"}">${esc(h.correct?t("rightCall"):t("wrongCall"))}</span><span>${esc(t(c.title))}</span></div>`;}).join("")}
+      ${letter?`<div class="letter ${letter.cls}"><div class="l-head">✉️ ${esc(t("letterHead"))}</div><div class="l-text">“${esc(letter.txt)}”</div><div class="l-who">— ${esc(letter.who)}</div></div>`:""}
       <div class="editor-quote fp-sarah"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(sarahLine)}”</div></div></div>
@@ -994,7 +1030,7 @@ function frontPage(){
   $("#fp-home").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")goHome();});
   $("#btn-nextday").addEventListener("click",()=>{
     if(state.cred<=0){ debrief(true); return; }
-    if(state.day<MAX_DAY){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})); toolsIdle(); show("screen-news"); }
+    if(state.day<MAX_DAY){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})+(state.day===2?" "+t("day2Ambient"):"")); toolsIdle(); show("screen-news"); }
     else debrief(false);
   });
 }

@@ -66,3 +66,13 @@ Use these names in design discussions, bug reports, and change requests.
 | **Credibility** | Verdict correctness: +8 publish-true, +12 flag-fake, −18 publish-fake (correction), −8 flag-true (buried scoop). Collapse ends the trial. |
 | **Popularity** | Readership: +buzz publish-true, viral-then-crash on publish-fake (+buzz, then −1.5×buzz), −6 flag-true. |
 | **Source** | Craft, per pin: +4 primary/official, +3–+2 weaker supporting, +3 original context via image search, −1 beside the point, −4 sponsored. Case delta = sum of pins. Swaps to stronger sources are counted as **Upgrades** and honored in the Debrief's **Source Discipline** panel. |
+
+## Consequence & immersion layer
+
+| Term | What it is |
+|---|---|
+| **Reply Beat** | The tipster-answer choice after correctly flagging a fake (Ignore / blunt / “show your work” — the last requires pinned evidence). |
+| **Sarah'"'"'s Day Report** | Her performance-tiered quote on each Front Page (Strong / Mid / Weak × day). |
+| **Reader Letter** | The morning-mail note on the Front Page reacting to the day'"'"'s most significant call (hurt / thanks / scooped). |
+| **Ripple Banner** | The notice on a case that references an earlier story — amber if you published the fake it builds on (its buzz rises), green if your flag broke the chain. |
+| **Press Card** | Signed at clock-in, downloadable from the Debrief as a two-sided PNG (credential front, eight-techniques field guide back). |
