@@ -1,4 +1,9 @@
-# The Storming Case — Draft & Scaffold
+# The Storming Case — IMPLEMENTED (this doc now describes what is live, and the TAD design rule)
+
+**Status: implemented** as case 17, day 2, with placeholder illustrations at updated_images/Storming/ (replace with your art at the same paths whenever ready — the game needs no other change).
+
+## The TAD design rule
+In the wider fiction, 'Tad' is not a person but the Tactical Advance Division — an organization of coerced workers, each a victim held by debt. The mini-game honors this in two ways. First, the shadow is **organizational, never personal**: the astroturf trail in case 17 ends at three letters — T.A.D. — signed by a *ring* of accounts, never a named individual. Nothing in the mini-game demonizes a person the player will later be asked to free; the enemy on this desk is the machine, which keeps the Level 3 investigator arc (and the compassion it requires) coherent. Second, Sarah's correct-call line plants the investigation seed without resolving it: *'Someone organized this. Hold that thought.'* — the sentence the player carries into Level 3.
 
 **Why this case exists.** In Level 1, the player personally witnessed the storming of
 the news station. This is the only event in the whole game where the player knows the

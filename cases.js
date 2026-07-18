@@ -3132,4 +3132,45 @@ const CASES = [
       }
     ]
   }
+  ,{
+    "id": 17,
+    "title": "stormingTitle",
+    "description": "stormingDescription",
+    "image": "updated_images/Storming/storming_cropped.png",
+    "icons": ["icons/CityTruthDaily.png"],
+    "truth": false,
+    "technique": "outofcontext",
+    "day": 2,
+    "buzz": 4,
+    "needImageTool": true,
+    "needTextTool": false,
+    "searchTerms": [
+      "stormingsearchTerms1",
+      "stormingsearchTerms2",
+      "stormingsearchTerms3",
+      "stormingsearchTerms4"
+    ],
+    "searchResults": [
+      { "title": "stormingtitle1", "description": "stormingdescription1",
+        "isAd": false, "date": "stormingdate1", "rIdx": 0,
+        "icons": ["icons/police.png"], "supports": true },
+      { "title": "stormingtitle2", "description": "stormingdescription2",
+        "isAd": false, "date": "stormingdate2", "rIdx": 1,
+        "icons": ["icons/Channel1.png"], "supports": true },
+      { "title": "stormingtitle3", "description": "stormingdescription3",
+        "isAd": false, "date": "stormingdate3", "rIdx": 2,
+        "icons": ["icons/CityTruthDaily.png"], "supports": false },
+      { "title": "stormingtitle4", "description": "stormingdescription4",
+        "isAd": true, "date": null, "rIdx": 0,
+        "icons": ["icons/urbansafe.png"], "supports": null }
+    ],
+    "imageResults": [
+      { "src": "updated_images/Storming/storming_wide_original.png", "type": "img",
+        "location": "stormingimglocation1", "date": "stormingimgdate1",
+        "icons": ["icons/Channel1.png"], "supports": true },
+      { "src": "updated_images/Storming/storming_cropped.png", "type": "img",
+        "location": "stormingimglocation2", "date": "stormingimgdate2",
+        "icons": ["icons/CityTruthDaily.png"], "supports": false }
+    ]
+  }
 ];

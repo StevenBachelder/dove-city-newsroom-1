@@ -867,7 +867,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       }).join("")}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
-        <div class="q-text">“${esc(t("vera_"+c.technique+"_"+(correct?"ok":"no")))}”</div></div></div>
+        <div class="q-text">“${esc((()=>{const k="vera_case"+c.id+"_"+(correct?"ok":"no");const v=t(k);return v!==k?v:t("vera_"+c.technique+"_"+(correct?"ok":"no"));})())}”</div></div></div>
       ${(correct&&choice==="flag"&&isTech)?`<div class="replybeat" id="replybeat">
         <div class="rb-prompt">💬 ${esc(t("replyPrompt"))}</div>
         <div class="rb-btns">
