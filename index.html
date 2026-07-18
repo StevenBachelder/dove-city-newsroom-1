@@ -252,6 +252,7 @@ img,svg,video{display:block;max-width:100%}
 @keyframes bumpdown{50%{transform:translateY(3px) scale(0.94)}}
 .delta{font-family:var(--font-mono);font-size:13px;border-radius:6px;padding:6px 10px;border:1px solid var(--line);background:var(--paper)}
 .delta.up{color:var(--verify);border-color:var(--verify)}
+.delta .d-range{font-family:var(--font-mono);font-size:11.5px;opacity:.75;margin-left:8px;white-space:nowrap}
 .delta .d-arrow{font-size:18px;line-height:1;vertical-align:-2.5px;margin-right:5px;font-weight:700}
 .delta.up .d-arrow{color:#1FA84D}
 .delta.down .d-arrow{color:#D93025}
@@ -441,7 +442,20 @@ function _audio(){
     return _ac;
   }catch(e){return null;}
 }
-function blip(freq,dur,type,vol){
+let _verbNode=null;
+function _verb(a){
+  if(_verbNode) return _verbNode;
+  try{
+    const len=Math.floor(a.sampleRate*1.4), buf=a.createBuffer(2,len,a.sampleRate);
+    for(let ch=0;ch<2;ch++){ const d=buf.getChannelData(ch);
+      for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6); }
+    const cv=a.createConvolver(); cv.buffer=buf;
+    const wet=a.createGain(); wet.gain.value=0.55;
+    cv.connect(wet); wet.connect(a.destination);
+    _verbNode=cv; return cv;
+  }catch(e){ return null; }
+}
+function blip(freq,dur,type,vol,wet){
   if(state.muted) return;
   const a=_audio(); if(!a) return;
   try{
@@ -450,13 +464,29 @@ function blip(freq,dur,type,vol){
     g.gain.setValueAtTime(vol||0.09,a.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+(dur||0.05));
     o.connect(g); g.connect(a.destination);
+    if(wet){ const v=_verb(a); if(v) g.connect(v); }
     o.start(); o.stop(a.currentTime+(dur||0.05)+0.01);
   }catch(e){}
 }
+function sweep(f1,f2,dur,vol){
+  if(state.muted) return;
+  const a=_audio(); if(!a) return;
+  try{
+    const o=a.createOscillator(), g=a.createGain();
+    o.type="sine"; o.frequency.setValueAtTime(f1,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(f2,a.currentTime+dur);
+    g.gain.setValueAtTime(vol,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(); o.stop(a.currentTime+dur+0.01);
+  }catch(e){}
+}
+function uiClick(){ blip(340,0.045,"triangle",0.09); setTimeout(()=>blip(520,0.05,"triangle",0.07),40); }
+function flipSound(open){ open?sweep(420,760,0.14,0.08):sweep(760,420,0.13,0.07); }
 function tickUp(i){ blip(500*Math.pow(2,Math.min(i,14)/14), 0.045, "square", 0.085); }
 function tickDown(i){ blip(340*Math.pow(2,-Math.min(i,14)/12), 0.06, "square", 0.10); }
-function chordUp(){ blip(880,0.10,"triangle",0.10); setTimeout(()=>blip(1174,0.14,"triangle",0.10),70); }
-function thudDown(){ blip(160,0.16,"triangle",0.13); setTimeout(()=>blip(120,0.2,"triangle",0.12),90); }
+function chordUp(){ blip(880,0.10,"triangle",0.10,true); setTimeout(()=>blip(1174,0.34,"triangle",0.10,true),70); }
+function thudDown(){ blip(160,0.16,"triangle",0.13,true); setTimeout(()=>blip(120,0.4,"triangle",0.12,true),90); }
 
 const PARAMS = new URLSearchParams(location.search);
 const EMBEDDED = PARAMS.get("mode")==="embedded";
@@ -853,7 +883,9 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
         <div class="t-box pop"><div class="t-name">${esc(t("popularity"))}</div><div class="t-num" id="tally-pop">${before.pop}</div></div>
         ${FLAG_SRC?`<div class="t-box src"><div class="t-name">${esc(t("srcLabel"))}</div><div class="t-num" id="tally-src">${before.src}</div></div>`:""}
       </div>
-      <div class="delta-row">${shown.map((e,i)=>`<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}"><span class="d-arrow">${e.amt>0?"▲":"▼"}</span>${esc(e.label)}</span>`).join("")}</div>
+      <div class="delta-row">${(()=>{const run={cred:before.cred,pop:before.pop,src:before.src};
+        return shown.map((e,i)=>{const from=run[e.m], to=clamp(from+e.amt); run[e.m]=to;
+          return `<span class="delta ${e.amt>0?"up":"down"}" data-ev="${i}"><span class="d-arrow">${e.amt>0?"▲":"▼"}</span>${esc(e.label)}<span class="d-range">${from} → ${to}</span></span>`;}).join("");})()}</div>
       ${evOk?`<div class="ev-note good">${esc(t("evGood"))}</div>`:`<div class="ev-note bad">${esc(t("evBad"))}</div>`}
       ${adUsed?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       ${state.evidence.length?`<div class="fb-ev-head">${esc(t("evReviewHead"))}</div>
@@ -903,6 +935,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
     card.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open();}});
   });
   $("#btn-next").addEventListener("click",()=>{
+    uiClick();
     mount.innerHTML=""; state.current=null; $("#lang-top").disabled=false;
     if(!state.meterNudged){
       state.meterNudged=true;
@@ -1160,7 +1193,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
     }
   });
   document.querySelectorAll(".flipcard").forEach(card=>{
-    const flip=()=>card.classList.toggle("flipped");
+    const flip=()=>{ card.classList.toggle("flipped"); flipSound(card.classList.contains("flipped")); };
     card.addEventListener("click",flip);
     card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip();}});
   });
