@@ -318,6 +318,8 @@ img,svg,video{display:block;max-width:100%}
 .sb-rows{margin-top:10px;text-align:left}
 .sb-export{margin-top:12px;font-family:var(--font-mono);font-size:12px;letter-spacing:1px;background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.4);border-radius:7px;padding:7px 14px;cursor:pointer}
 .sb-export:hover{color:#fff;border-color:#fff}
+.sb-card{margin-left:10px;border-color:rgba(242,201,76,.55);color:#F2C94C}
+.sb-card:hover{color:#10254E;background:#F2C94C;border-color:#F2C94C}
 .sb-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;border-top:1px solid rgba(255,255,255,.14);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
 .sb-row.show{opacity:1;transform:none}
 .sb-row .sb-pts{font-family:var(--font-mono);font-weight:700;color:#F2C94C}
@@ -543,6 +545,54 @@ function startGame(){
 function deskIdle(msg){ $("#desk").innerHTML = `<div class="empty-desk"><div class="big">🕊️</div>${esc(msg||t("emptyDesk"))}</div>`; }
 function toolsIdle(){ $("#tools").innerHTML = `<h3>${esc(t("toolsHead"))}</h3><div class="tool-note">${esc(t("toolsLocked"))}</div>`; }
 
+function roundRect(x,r,a,b,w,h){ x.beginPath(); x.moveTo(a+r,b); x.arcTo(a+w,b,a+w,b+h,r); x.arcTo(a+w,b+h,a,b+h,r); x.arcTo(a,b+h,a,b,r); x.arcTo(a,b,a+w,b,r); x.closePath(); }
+function loadImg(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
+async function drawPressCard(o){
+  const W=1000,H=1330;
+  const c=document.createElement("canvas"); c.width=W; c.height=H;
+  const x=c.getContext&&c.getContext("2d"); if(!x) return null;
+  x.fillStyle="#E9E6DC"; x.fillRect(0,0,W,H);
+  // ---- front ----
+  x.save();
+  roundRect(x,26,40,40,920,600); x.fillStyle="#FFFDF7"; x.fill(); x.lineWidth=7; x.strokeStyle="#20293A"; x.stroke();
+  x.fillStyle="#20293A"; x.textAlign="center";
+  x.font="700 46px Georgia,serif"; x.fillText(o.brand.toUpperCase(),W/2,132);
+  x.fillRect(120,156,760,3);
+  x.font="700 26px monospace"; x.fillText("P R E S S",W/2,200);
+  x.fillRect(120,222,760,1.5);
+  x.font="italic 600 54px Georgia,serif"; x.fillText(o.name,W/2,318);
+  x.font="22px monospace"; x.fillStyle="#5B6377"; x.fillText(o.role,W/2,362);
+  // status stamp
+  x.save(); x.translate(W/2,455); x.rotate(-0.05);
+  x.font="800 40px Georgia,serif";
+  const sw=x.measureText(o.status).width+56;
+  x.strokeStyle=o.hired?"#1FA84D":"#20293A"; x.lineWidth=5; x.fillStyle=o.hired?"#1FA84D":"#20293A";
+  x.strokeRect(-sw/2,-42,sw,64);
+  x.fillText(o.status,0,6); x.restore();
+  x.font="24px monospace"; x.fillStyle="#5B6377";
+  x.fillText("Editor’s Score: "+o.score,W/2,540);
+  // earned medals row
+  const imgs=(await Promise.all(o.earned.map(loadImg))).filter(Boolean);
+  if(imgs.length){
+    const mh=76, gap=14, tw=imgs.reduce((s,im)=>s+mh*im.width/im.height,0)+gap*(imgs.length-1);
+    let mx=(W-tw)/2;
+    imgs.forEach(im=>{ const mw=mh*im.width/im.height; x.drawImage(im,mx,556,mw,mh); mx+=mw+gap; });
+  }
+  x.restore();
+  // ---- back ----
+  roundRect(x,26,40,690,920,600); x.fillStyle="#10254E"; x.fill(); x.lineWidth=7; x.strokeStyle="#20293A"; x.stroke();
+  x.textAlign="center"; x.fillStyle="#F2C94C"; x.font="700 38px Georgia,serif";
+  x.fillText(o.backTitle,W/2,768);
+  x.textAlign="left"; x.fillStyle="#FFFFFF";
+  o.techs.forEach((name,i)=>{
+    x.font="26px monospace";
+    if(x.measureText("•  "+name).width>720) x.font="21px monospace";
+    x.fillText("•  "+name,120,830+i*52);
+  });
+  x.textAlign="center"; x.font="italic 26px Georgia,serif"; x.fillStyle="#C7CDDB";
+  x.fillText(o.backFoot,W/2,1258);
+  return c;
+}
 function setMeters(dc,dp,ds){
   state.cred=clamp(state.cred+dc); state.pop=clamp(state.pop+dp); state.src=clamp(state.src+(ds||0));
   $("#cred-num").textContent=state.cred; $("#pop-num").textContent=state.pop; $("#src-num").textContent=state.src;
@@ -1018,6 +1068,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
       <button class="sb-export" id="sb-export">${esc(t("resultsCopy"))}</button>
+      <button class="sb-export sb-card" id="card-download">🪪 ${esc(t("cardDownload"))}</button>
     </div>`;
   $("#screen-end").innerHTML=`
     <div class="debrief">
@@ -1042,6 +1093,25 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       <div style="text-align:center"><button class="btn-primary btn-blue" id="btn-replay">${esc(t("replayBtn"))}</button></div>
     </div>`;
   show("screen-end");
+  const cardBtn=document.getElementById("card-download");
+  if(cardBtn) cardBtn.addEventListener("click",async()=>{
+    try{
+      const canvas=await drawPressCard({
+        name:state.playerName||"—",
+        status:tier.t, hired:state.cred>=60&&!(fired||state.cred<25),
+        score:editorScore, brand:t("brandName"), role:t("cardRole"),
+        backTitle:t("cardBackTitle"), backFoot:t("cardBackFoot"),
+        techs:TECH_LIST.filter(k=>k!=="sponsored").map(k=>t("tq_"+k+"_name")).concat([t("badgeAds")]),
+        earned:TECH_LIST.filter(k=>k!=="sponsored"&&state.badges.has(k)).map(k=>"Badges/badge_"+k+".png")
+          .concat(state.adPinned?[]:["Badges/badge_adspotter.png"])
+          .concat((state.badges.size+(state.adPinned?0:1))===8?["Badges/badge_generic.png"]:[])
+      });
+      if(!canvas){ cardBtn.textContent=t("cardUnavailable"); return; }
+      const dl=b=>{ const a=document.createElement("a"); a.href=b; a.download="dove-city-press-card.png"; document.body.appendChild(a); a.click(); a.remove(); };
+      if(canvas.toBlob) canvas.toBlob(b=>{ if(b) dl(URL.createObjectURL(b)); else dl(canvas.toDataURL("image/png")); },"image/png");
+      else dl(canvas.toDataURL("image/png"));
+    }catch(e){ cardBtn.textContent=t("cardUnavailable"); }
+  });
   const exBtn=document.getElementById("sb-export");
   if(exBtn) exBtn.addEventListener("click",()=>{
     const txt=JSON.stringify(RESULTS,null,2);
