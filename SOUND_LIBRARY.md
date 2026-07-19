@@ -24,7 +24,8 @@ mute toggle and degrades silently where audio is unavailable.
 | `sfxSearch` | falling air whoosh (flip-to-front character, no landing) | Running a Text Search term or Reverse Image Search |
 | `sfxPin` | high tack + soft body — a pushpin | Pinning a result to the Evidence Board |
 | `sfxUnpin` | descending two-tone pluck | Removing a pin from the board |
-| `sfxStamp` | air snap + heavy low thunk — rubber stamp on paper | PUBLISH or FLAG verdict stamps |
+| `sfxStampPub` | brighter snap + higher thunk — an approving stamp | PUBLISH verdict |
+| `sfxStampFlag` | darker snap + low thunk — a rejecting stamp | FLAG AS FALSE verdict |
 | `tickUp` / `tickDown` | accelerating counter ticks | Score Tally counting; Editor's Score count-up |
 | `chordUp` **(reverb)** | two rising triangle notes with a blooming tail | Right-call finish; Editor's Score landing |
 | `thudDown` **(reverb)** | two falling low notes with a dark tail | Wrong-call finish |

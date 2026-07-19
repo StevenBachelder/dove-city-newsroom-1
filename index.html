@@ -561,14 +561,15 @@ function swish(f1,f2,dur,vol,q){          // filtered-noise whoosh; low q = broa
     src.start(t0); src.stop(t0+dur+0.02);
   }catch(e){}
 }
-function thump(vol){                       // landing: low knock + air tick
+function thump(vol,f0){                    // landing: low knock + air tick (f0 sets the pitch)
   if(state.muted) return;
   const a=_audio(); if(!a) return;
   try{
     const o=a.createOscillator(), g=a.createGain();
     const t0=a.currentTime+0.02;
-    o.type="sine"; o.frequency.setValueAtTime(175,t0);
-    o.frequency.exponentialRampToValueAtTime(105,t0+0.07);
+    f0=f0||175;
+    o.type="sine"; o.frequency.setValueAtTime(f0,t0);
+    o.frequency.exponentialRampToValueAtTime(f0*0.6,t0+0.07);
     g.gain.setValueAtTime(vol,t0);
     g.gain.exponentialRampToValueAtTime(0.001,t0+0.09);
     o.connect(g); g.connect(a.destination); o.start(t0); o.stop(t0+0.1);
@@ -587,7 +588,8 @@ function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06);
 function sfxSearch(){ swish(1500,420,0.18,0.09); }        // flip-to-front whoosh, no landing
 function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
 function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
-function sfxStamp(){ swish(1600,300,0.07,0.12); setTimeout(()=>thump(0.18),30); }
+function sfxStampPub(){ swish(2300,650,0.06,0.11); setTimeout(()=>thump(0.17,265),30); }   // PUBLISH: higher, approving
+function sfxStampFlag(){ swish(1600,300,0.07,0.12); setTimeout(()=>thump(0.18,150),30); }   // FLAG: lower, rejecting
 function sfxOpen(){ swish(450,1300,0.14,0.07); }      // rising whoosh, no landing
 function sfxClose(){ swish(1300,430,0.13,0.06); }     // falling whoosh, no landing
 function sfxDay(){ uiClick(); setTimeout(()=>swish(600,1500,0.14,0.06),60); }
@@ -848,8 +850,8 @@ function openCase(id){
         <button class="stamp flag" id="stamp-flag">${esc(t("flagStamp"))}</button>
       </div>
     </div>`;
-  $("#stamp-publish").addEventListener("click",()=>{ sfxStamp(); verdict("publish"); });
-  $("#stamp-flag").addEventListener("click",()=>{ sfxStamp(); verdict("flag"); });
+  $("#stamp-publish").addEventListener("click",()=>{ sfxStampPub(); verdict("publish"); });
+  $("#stamp-flag").addEventListener("click",()=>{ sfxStampFlag(); verdict("flag"); });
   renderTools(c); renderBoard();
 }
 
