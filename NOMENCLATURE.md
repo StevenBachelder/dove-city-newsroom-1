@@ -75,4 +75,6 @@ Use these names in design discussions, bug reports, and change requests.
 | **Sarah'"'"'s Day Report** | Her performance-tiered quote on each Front Page (Strong / Mid / Weak × day). |
 | **Reader Letter** | The morning-mail note on the Front Page reacting to the day'"'"'s most significant call (hurt / thanks / scooped). |
 | **Ripple Banner** | The notice on a case that references an earlier story — amber if you published the fake it builds on (its buzz rises), green if your flag broke the chain. |
+| **Inside Note** | The unsigned 03:47 note in the morning mail after correctly flagging the storming case — the TAD thread made personal, organizational rule intact. |
+| **Investigations Seed** | The “Filed under: ongoing” debrief panel forwarding the TAD evidence upstairs — the Level 3 doorway. |
 | **Press Card** | Signed at clock-in, downloadable from the Debrief as a two-sided PNG (credential front, eight-techniques field guide back). |

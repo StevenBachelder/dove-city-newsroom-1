@@ -163,6 +163,11 @@ img,svg,video{display:block;max-width:100%}
 .ripple{border-radius:8px;padding:9px 12px;margin:10px 0;font-size:13px;border:1.5px solid}
 .ripple.bad{background:#FBF3E4;border-color:#D9A441;color:#7A5A17}
 .ripple.good{background:#EEF7EE;border-color:#8FC79A;color:#2F6B3A}
+img[data-zoom]{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;background:rgba(14,18,28,.93);z-index:130;display:flex;align-items:center;justify-content:center;padding:22px;cursor:zoom-out}
+.lightbox img{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.55);background:#fff}
+.lb-close{position:fixed;top:14px;right:18px;font-size:30px;color:#fff;background:none;border:none;cursor:pointer;line-height:1;opacity:.85}
+.lb-close:hover{opacity:1}
 .replybeat{background:#F4F7FB;border:1.5px solid #B9C6D8;border-radius:10px;padding:12px 14px;margin:14px 0}
 .rb-prompt{font-size:14px;font-weight:600;margin-bottom:9px}
 .rb-btns{display:flex;flex-wrap:wrap;gap:8px}
@@ -562,7 +567,7 @@ const dayCases = d => CASES.filter(c=>c.day===d);
 /* ---------- media helpers (graceful if a file is missing) ---------- */
 function mediaTag(src, type, cls){
   if(type==="video") return `<video src="${esc(src)}" controls muted playsinline preload="metadata" onerror="this.outerHTML='<div class=media-missing>🎬 '+this.getAttribute('src')+'</div>'"></video>`;
-  return `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.outerHTML='<div class=media-missing>🖼 '+this.getAttribute('src')+'</div>'">`;
+  return `<img src="${esc(src)}" alt=""${arguments[3]?` title="${esc(t("tapZoom"))}" data-zoom="1"`:""} loading="lazy" onerror="this.outerHTML='<div class=media-missing>🖼 '+this.getAttribute('src')+'</div>'">`;
 }
 function iconTag(icons){
   const src = (icons&&icons[0]) || "";
@@ -727,7 +732,7 @@ function openCase(id){
         if(!h.correct&&h.choice==="publish") return `<div class="ripple bad">🔗 ${esc(tf("rippleBad",{title:srcT}))}</div>`;
         if(h.correct&&h.choice==="flag") return `<div class="ripple good">🔗 ${esc(tf("rippleGood",{title:srcT}))}</div>`;
         return "";})()}
-      <div class="photo">${mediaTag(c.image,"img")}</div>
+      <div class="photo">${mediaTag(c.image,"img",null,true)}</div>
     </div>
     <div class="board">
       <h4><span>${esc(t("boardHead"))}</span><span id="pin-count">${esc(t("evidenceUsed"))} 0/${MAX_PINS}</span></h4>
@@ -1003,7 +1008,7 @@ function evPtsReason(e){
 function openEvidence(i){
   const e=state.evidence[i]; if(!e) return;
   const mount=$("#viewer-mount");
-  const media = e.kind==="img" ? `<div class="photo">${mediaTag(e.mediaSrc,"img")}</div>`
+  const media = e.kind==="img" ? `<div class="photo">${mediaTag(e.mediaSrc,"img",null,true)}</div>`
               : e.kind==="video" ? `<div class="photo">${mediaTag(e.mediaSrc,"video")}</div>` : "";
   mount.innerHTML=`<div class="overlay" id="ev-ov"><div class="modal ev-viewer ${e.isAd?"is-ad":""}">
     <div class="modal-body" style="padding-top:20px">
@@ -1305,6 +1310,20 @@ function openMeterInfo(){
   $("#mi-close").addEventListener("click",()=>mount.innerHTML="");
   $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov")mount.innerHTML="";});
 }
+function openLightbox(src){
+  const old=document.getElementById("lightbox"); if(old) old.remove();
+  const lb=document.createElement("div"); lb.className="lightbox"; lb.id="lightbox";
+  lb.innerHTML=`<button class="lb-close" aria-label="${esc(t("close"))}">✕</button><img src="${esc(src)}" alt="">`;
+  lb.addEventListener("click",()=>lb.remove());
+  document.body.appendChild(lb);
+}
+document.addEventListener("click",e=>{
+  const im=e.target.closest&&e.target.closest("img[data-zoom]");
+  if(im&&im.getAttribute("src")) openLightbox(im.getAttribute("src"));
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb) lb.remove(); }
+});
 $("#btn-guide").addEventListener("click",openGuide);
 $("#btn-mute").addEventListener("click",()=>{
   state.muted=!state.muted;
