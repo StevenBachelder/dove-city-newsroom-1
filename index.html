@@ -640,49 +640,79 @@ function toolsIdle(){ $("#tools").innerHTML = `<h3>${esc(t("toolsHead"))}</h3><d
 function roundRect(x,r,a,b,w,h){ x.beginPath(); x.moveTo(a+r,b); x.arcTo(a+w,b,a+w,b+h,r); x.arcTo(a+w,b+h,a,b+h,r); x.arcTo(a,b+h,a,b,r); x.arcTo(a,b,a+w,b,r); x.closePath(); }
 function loadImg(src){ return new Promise(res=>{ const im=new Image(); im.onload=()=>res(im); im.onerror=()=>res(null); im.src=src; }); }
 async function drawPressCard(o){
-  const W=1000,H=1330;
+  const W=1000;
+  const c0=document.createElement("canvas"); const probe=c0.getContext&&c0.getContext("2d");
+  if(!probe) return null;
+  probe.font="24px monospace";
+  const wrap=(x,txt,maxw,font)=>{ x.font=font; const words=String(txt).split(" "); const out=[]; let line="";
+    for(const wd of words){ const t2=line?line+" "+wd:wd;
+      if(x.measureText(t2).width>maxw && line){ out.push(line); line=wd; } else line=t2; }
+    if(line) out.push(line); return out; };
+  // pre-measure wrapped sections for dynamic height
+  const wellLines=[], impLines=[];
+  o.well.forEach(t2=>wrap(probe,"✔  "+t2,830,"24px monospace").forEach((l,i)=>wellLines.push(i?("    "+l):l)));
+  o.improve.forEach(t2=>wrap(probe,"➤  "+t2,830,"24px monospace").forEach((l,i)=>impLines.push(i?("    "+l):l)));
+  const ledgerH=40+o.ledger.length*30;
+  const H=660 + 260 + (56+wellLines.length*32+24) + (56+impLines.length*32+24) + (56+ledgerH) + 640 + 60;
   const c=document.createElement("canvas"); c.width=W; c.height=H;
-  const x=c.getContext&&c.getContext("2d"); if(!x) return null;
+  const x=c.getContext("2d");
   x.fillStyle="#E9E6DC"; x.fillRect(0,0,W,H);
-  // ---- front ----
-  x.save();
-  roundRect(x,26,40,40,920,600); x.fillStyle="#FFFDF7"; x.fill(); x.lineWidth=7; x.strokeStyle="#20293A"; x.stroke();
-  x.fillStyle="#20293A"; x.textAlign="center";
-  x.font="700 46px Georgia,serif"; x.fillText(o.brand.toUpperCase(),W/2,132);
-  x.fillRect(120,156,760,3);
-  x.font="700 26px monospace"; x.fillText("P R E S S",W/2,200);
-  x.fillRect(120,222,760,1.5);
-  x.font="italic 600 54px Georgia,serif"; x.fillText(o.name,W/2,318);
-  x.font="22px monospace"; x.fillStyle="#5B6377"; x.fillText(o.role,W/2,362);
-  // status stamp
-  x.save(); x.translate(W/2,455); x.rotate(-0.05);
-  x.font="800 40px Georgia,serif";
+  const ink="#20293A", soft="#5B6377", gold="#F2C94C";
+  // ---- header card ----
+  roundRect(x,26,40,40,920,600); x.fillStyle="#FFFDF7"; x.fill(); x.lineWidth=7; x.strokeStyle=ink; x.stroke();
+  x.fillStyle=ink; x.textAlign="center";
+  x.font="700 44px Georgia,serif"; x.fillText(o.brand.toUpperCase(),W/2,128);
+  x.fillRect(120,152,760,3);
+  x.font="700 26px monospace";
+  x.fillText(o.hired ? "P R E S S" : o.reportTitle.toUpperCase(), W/2, 198);
+  x.fillRect(120,220,760,1.5);
+  x.font="italic 600 52px Georgia,serif"; x.fillText(o.name,W/2,312);
+  x.font="22px monospace"; x.fillStyle=soft; x.fillText(o.role,W/2,354);
+  x.save(); x.translate(W/2,448); x.rotate(-0.05);
+  x.font="800 38px Georgia,serif";
   const sw=x.measureText(o.status).width+56;
-  x.strokeStyle=o.hired?"#1FA84D":"#20293A"; x.lineWidth=5; x.fillStyle=o.hired?"#1FA84D":"#20293A";
-  x.strokeRect(-sw/2,-42,sw,64);
-  x.fillText(o.status,0,6); x.restore();
-  x.font="24px monospace"; x.fillStyle="#5B6377";
-  x.fillText("Editor’s Score: "+o.score,W/2,540);
-  // earned medals row
+  const scol=o.hired?"#1FA84D":ink;
+  x.strokeStyle=scol; x.lineWidth=5; x.fillStyle=scol;
+  x.strokeRect(-sw/2,-40,sw,60); x.fillText(o.status,0,4); x.restore();
+  x.font="23px monospace"; x.fillStyle=soft; x.fillText(o.scoreLabel+": "+o.score,W/2,528);
   const imgs=(await Promise.all(o.earned.map(loadImg))).filter(Boolean);
-  if(imgs.length){
-    const mh=76, gap=14, tw=imgs.reduce((s,im)=>s+mh*im.width/im.height,0)+gap*(imgs.length-1);
-    let mx=(W-tw)/2;
-    imgs.forEach(im=>{ const mw=mh*im.width/im.height; x.drawImage(im,mx,556,mw,mh); mx+=mw+gap; });
-  }
-  x.restore();
-  // ---- back ----
-  roundRect(x,26,40,690,920,600); x.fillStyle="#10254E"; x.fill(); x.lineWidth=7; x.strokeStyle="#20293A"; x.stroke();
-  x.textAlign="center"; x.fillStyle="#F2C94C"; x.font="700 38px Georgia,serif";
-  x.fillText(o.backTitle,W/2,768);
+  if(imgs.length){ const mh=70,gap=12,tw=imgs.reduce((a,im)=>a+mh*im.width/im.height,0)+gap*(imgs.length-1);
+    let mx=(W-tw)/2; imgs.forEach(im=>{const mw=mh*im.width/im.height; x.drawImage(im,mx,556,mw,mh); mx+=mw+gap;}); }
+  let y=700;
+  const section=(title)=>{ x.textAlign="left"; x.fillStyle=ink; x.font="700 30px Georgia,serif"; x.fillText(title,70,y+34); x.fillStyle=ink; x.fillRect(70,y+46,860,2); return y+46+34; };
+  // ---- session record: two-column stats ----
+  let yy=section(o.secSession);
+  x.font="24px monospace";
+  const col=(cx,label,val)=>{ x.fillStyle=soft; x.fillText(label,cx,yy); x.fillStyle=ink; x.textAlign="right"; x.fillText(String(val),cx+400,yy); x.textAlign="left"; };
+  const L=o.stats;
+  col(70,L[0][0],L[0][1]); col(530,L[1][0],L[1][1]); yy+=38;
+  col(70,L[2][0],L[2][1]); col(530,L[3][0],L[3][1]); yy+=38;
+  col(70,L[4][0],L[4][1]); col(530,L[5][0],L[5][1]); yy+=38;
+  col(70,L[6][0],L[6][1]); col(530,L[7][0],L[7][1]); yy+=38;
+  y=yy+18;
+  // ---- what went well ----
+  yy=section(o.secWell); x.font="24px monospace"; x.fillStyle=ink;
+  wellLines.forEach(l=>{ x.fillText(l,70,yy); yy+=32; });
+  y=yy+24;
+  // ---- areas for improvement ----
+  yy=section(o.secImprove); x.font="24px monospace"; x.fillStyle=ink;
+  impLines.forEach(l=>{ x.fillText(l,70,yy); yy+=32; });
+  y=yy+24;
+  // ---- case ledger ----
+  yy=section(o.secLedger); x.font="22px monospace";
+  o.ledger.forEach(r=>{ x.fillStyle=r.ok?"#1FA84D":"#B3352C"; x.fillText(r.ok?"✔":"✘",70,yy);
+    x.fillStyle=ink; x.fillText(r.title,110,yy); yy+=30; });
+  y=yy+20;
+  // ---- back card: the pocket field guide ----
+  roundRect(x,26,40,y,920,600); x.fillStyle="#10254E"; x.fill(); x.lineWidth=7; x.strokeStyle=ink; x.stroke();
+  x.textAlign="center"; x.fillStyle=gold; x.font="700 38px Georgia,serif";
+  x.fillText(o.backTitle,W/2,y+78);
   x.textAlign="left"; x.fillStyle="#FFFFFF";
-  o.techs.forEach((name,i)=>{
-    x.font="26px monospace";
+  o.techs.forEach((name,i)=>{ x.font="26px monospace";
     if(x.measureText("•  "+name).width>720) x.font="21px monospace";
-    x.fillText("•  "+name,120,830+i*52);
-  });
+    x.fillText("•  "+name,120,y+140+i*52); });
   x.textAlign="center"; x.font="italic 26px Georgia,serif"; x.fillStyle="#C7CDDB";
-  x.fillText(o.backFoot,W/2,1258);
+  x.fillText(o.backFoot,W/2,y+568);
   return c;
 }
 function setMeters(dc,dp,ds){
@@ -1187,7 +1217,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
       <button class="sb-export" id="sb-export">${esc(t("resultsCopy"))}</button>
-      <button class="sb-export sb-card" id="card-download">🪪 ${esc(t("cardDownload"))}</button>
+      <button class="sb-export sb-card" id="card-download">🪪 ${esc(t((state.cred>=60&&!(fired||state.cred<25))?"cardDownload":"reportDownload"))}</button>
     </div>`;
   $("#screen-end").innerHTML=`
     <div class="debrief">
@@ -1216,18 +1246,49 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
   const cardBtn=document.getElementById("card-download");
   if(cardBtn) cardBtn.addEventListener("click",async()=>{
     try{
+      const hired = state.cred>=60 && !(fired||state.cred<25);
+      const missedT = TECH_LIST.filter(k=>k!=="sponsored"&&!state.badges.has(k)).map(k=>t("tq_"+k+"_name"));
+      const wrongPub = CASES.filter(c=>state.handled[c.id]&&!c.truth&&state.handled[c.id].choice==="publish").length;
+      const wrongFlag = CASES.filter(c=>state.handled[c.id]&&c.truth&&state.handled[c.id].choice==="flag").length;
+      const well=[], improve=[];
+      if(right>=Math.ceil(total*0.75)) well.push(tf("repWellRight",{r:right,t:total}));
+      if(badgeCount>0) well.push(tf("repWellBadges",{n:badgeCount}));
+      if(!state.adPinned) well.push(t("repWellAds"));
+      if(avgPin>=3) well.push(tf("repWellAvg",{v:avgPin.toFixed(1)}));
+      if(state.upgrades>0) well.push(tf("repWellUpgrades",{n:state.upgrades}));
+      if(state.replies.helpful>0) well.push(tf("repWellReplies",{n:state.replies.helpful}));
+      if(!well.length) well.push(t("repWellShowedUp"));
+      if(missedT.length) improve.push(tf("repImpTechs",{list:missedT.join(" · ")}));
+      if(state.adPinned) improve.push(t("repImpAds"));
+      if(avgPin>0&&avgPin<2.5) improve.push(tf("repImpAvg",{v:avgPin.toFixed(1)}));
+      if(wrongPub>0) improve.push(tf("repImpPublished",{n:wrongPub}));
+      if(wrongFlag>0) improve.push(tf("repImpBuried",{n:wrongFlag}));
+      if(state.replies.blunt>state.replies.helpful) improve.push(t("repImpReplies"));
+      if(!improve.length) improve.push(t("repImpNone"));
+      const ledger = CASES.filter(c=>state.handled[c.id]).map(c=>{
+        let ti=t(c.title); if(ti.length>52) ti=ti.slice(0,50)+"…";
+        return {ok:state.handled[c.id].correct, title:ti}; });
       const canvas=await drawPressCard({
-        name:state.playerName||"—",
-        status:tier.t, hired:state.cred>=60&&!(fired||state.cred<25),
-        score:editorScore, brand:t("brandName"), role:t("cardRole"),
+        hired, name:state.playerName||"—",
+        status:tier.t, reportTitle:t("repTitle"),
+        score:editorScore, scoreLabel:t("scoreTitle"),
+        brand:t("brandName"), role:t("cardRole"),
+        secSession:t("repSecSession"), secWell:t("repSecWell"),
+        secImprove:t("repSecImprove"), secLedger:t("repSecLedger"),
+        stats:[[t("scoreRight"),right+" / "+total],[t("scoreBadgesBar"),badgeCount+" / 8"],
+               [t("credibility"),state.cred],[t("popularity"),state.pop],
+               [t("srcLabel"),state.src],[t("avgPinShort"),avgPin?avgPin.toFixed(2):"—"],
+               [t("upgradesShort"),state.upgrades],[t("repliesShort"),state.replies.helpful]],
+        well, improve, ledger,
         backTitle:t("cardBackTitle"), backFoot:t("cardBackFoot"),
         techs:TECH_LIST.filter(k=>k!=="sponsored").map(k=>t("tq_"+k+"_name")).concat([t("badgeAds")]),
         earned:TECH_LIST.filter(k=>k!=="sponsored"&&state.badges.has(k)).map(k=>"Badges/badge_"+k+".png")
           .concat(state.adPinned?[]:["Badges/badge_adspotter.png"])
-          .concat((state.badges.size+(state.adPinned?0:1))===8?["Badges/badge_generic.png"]:[])
+          .concat(badgeCount===8?["Badges/badge_generic.png"]:[])
       });
       if(!canvas){ cardBtn.textContent=t("cardUnavailable"); return; }
-      const dl=b=>{ const a=document.createElement("a"); a.href=b; a.download="dove-city-press-card.png"; document.body.appendChild(a); a.click(); a.remove(); };
+      const fname = hired ? "dove-city-press-card.png" : "dove-city-applicant-report.png";
+      const dl=b=>{ const a=document.createElement("a"); a.href=b; a.download=fname; document.body.appendChild(a); a.click(); a.remove(); };
       if(canvas.toBlob) canvas.toBlob(b=>{ if(b) dl(URL.createObjectURL(b)); else dl(canvas.toDataURL("image/png")); },"image/png");
       else dl(canvas.toDataURL("image/png"));
     }catch(e){ cardBtn.textContent=t("cardUnavailable"); }
