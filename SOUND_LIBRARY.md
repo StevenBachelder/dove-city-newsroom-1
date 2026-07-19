@@ -18,10 +18,10 @@ mute toggle and degrades silently where audio is unavailable.
 
 | Name | Character | Heard when |
 |---|---|---|
-| `sfxLang` | tiny tick | Choosing a language flag on the Start Memo |
+| `sfxLang` | clear tick (boosted for noisy rooms) | Choosing a language flag on the Start Memo |
 | `sfxStart` | page-turn + bright rising note | Clock-in button — the trial begins |
 | `sfxSelect` | light paper swish + soft tap | Opening a tip from the Queue |
-| `sfxSearch` | two quick keystroke ticks | Running a Text Search term or Reverse Image Search |
+| `sfxSearch` | falling air whoosh (flip-to-front character, no landing) | Running a Text Search term or Reverse Image Search |
 | `sfxPin` | high tack + soft body — a pushpin | Pinning a result to the Evidence Board |
 | `sfxUnpin` | descending two-tone pluck | Removing a pin from the board |
 | `sfxStamp` | air snap + heavy low thunk — rubber stamp on paper | PUBLISH or FLAG verdict stamps |
@@ -32,8 +32,8 @@ mute toggle and degrades silently where audio is unavailable.
 | *(reply chime)* | brighter single note | The "show your work" helpful reply specifically |
 | `uiClick` | soft two-tone page turn | Next button; Replay; report/card download |
 | `sfxDay` | page turn + rising air | Start-next-day button on the Front Page |
-| `sfxOpen` | short upward sine glide | Field Guide, Meter Explainer, Evidence Viewer, Lightbox opening |
-| `sfxClose` | short downward sine glide | Any of the above closing (button, backdrop, or Esc) |
+| `sfxOpen` | rising air whoosh (smaller sibling of the card flip) | Field Guide, Meter Explainer, Evidence Viewer, Lightbox opening |
+| `sfxClose` | falling air whoosh, softer than the search | Any of the above closing (button, backdrop, or Esc) |
 | `flipSound` | **whoosh** (rising noise sweep to the back, falling to the front) then **thump landing** timed to the card settling at 0.6 s | Badge review cards flipping, both directions |
 | `sfxToggle` | single confirming note | Sound switched back ON (muting itself is silent, as it should be) |
 | `sfxCopy` | two-note success chime | "Copy results (for research)" completes |
@@ -44,7 +44,8 @@ mute toggle and degrades silently where audio is unavailable.
    commitment sounds (stamp, verdicts) are heavy; only the three finale sounds get
    reverb — gravitas is rationed so it stays meaningful.
 2. **Direction encodes meaning.** Opens rise, closes fall; pins tack up, unpins
-   pluck down; the flip whooshes up going to the back and down coming home.
+   pluck down. The whoosh family now spans three sizes — modal (small), search
+   (medium), card flip (large, with landing) — one gesture at three scales.
 3. **One family.** Everything is triangle/sine/filtered noise in the same loudness
    range, so twenty sounds read as one instrument, not a slot machine.
 4. **Silence is honored.** Mute silences everything at the source; muting makes no
