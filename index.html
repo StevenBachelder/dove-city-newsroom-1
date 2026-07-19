@@ -588,7 +588,7 @@ function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06);
 function sfxSearch(){ swish(1500,420,0.18,0.09); }        // flip-to-front whoosh, no landing
 function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
 function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
-function sfxStampPub(){ swish(2300,650,0.06,0.11); setTimeout(()=>thump(0.17,265),30); }   // PUBLISH: higher, approving
+function sfxStampPub(){ swish(2300,650,0.06,0.11); setTimeout(()=>thump(0.17,265),30); setTimeout(()=>swish(800,2200,0.09,0.07,0.8),95); }   // PUBLISH: stamp, then a rising tail — approval ends high
 function sfxStampFlag(){ swish(1600,300,0.07,0.12); setTimeout(()=>thump(0.18,150),30); }   // FLAG: lower, rejecting
 function sfxOpen(){ swish(450,1300,0.14,0.07); }      // rising whoosh, no landing
 function sfxClose(){ swish(1300,430,0.13,0.06); }     // falling whoosh, no landing
