@@ -695,7 +695,7 @@ function startGame(){
   $("#btn-guide").textContent = t("fieldGuideBtn");
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
-  sel.onchange = ()=>{ lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
+  sel.onchange = ()=>{ sfxLang(); lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
   $("#queue-head").textContent = t("incomingTips");
   $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
   renderQueue();
