@@ -70,6 +70,11 @@ img,svg,video{display:block;max-width:100%}
 .meter.src .m-fill{background:var(--highlight)}
 .btn-guide,#lang-top{background:transparent;color:#C7CDDB;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:6px 10px;font-size:13px;font-family:var(--font-mono)}
 .btn-guide:hover{color:#fff;border-color:#fff}
+.btn-sw{padding:5px 7px;display:inline-flex;align-items:center}
+.sw{width:42px;height:20px;border-radius:10px;background:#1FA84D;position:relative;display:inline-block;transition:background .22s}
+.sw.off{background:#D93025}
+.sw-knob{position:absolute;top:2px;left:24px;width:16px;height:16px;border-radius:50%;background:#FFFFFF;transition:left .22s cubic-bezier(.3,1.3,.5,1);box-shadow:0 1px 2px rgba(0,0,0,.4)}
+.sw.off .sw-knob{left:2px}
 .memo-ps{font-style:italic;font-size:13.5px;color:var(--ink-soft);margin-top:10px}
 .presscard{margin:14px 0 4px;text-align:left}
 .presscard label{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px}
@@ -427,7 +432,7 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
         <div class="m-track"><div class="m-fill" id="src-fill" style="width:50%"></div></div>
       </button>
       <select id="lang-top"></select>
-      <button class="btn-guide" id="btn-mute" aria-pressed="false" title="">🔊</button>
+      <button class="btn-guide btn-sw" id="btn-mute" aria-pressed="false" title=""><span class="sw" id="sw-sound"><span class="sw-knob"></span></span></button>
       <button class="btn-guide" id="btn-guide"></button>
     </div>
   </div>
@@ -1460,7 +1465,8 @@ $("#btn-guide").addEventListener("click",()=>{ sfxOpen(); openGuide(); });
 $("#btn-mute").addEventListener("click",()=>{
   state.muted=!state.muted;
   if(!state.muted) sfxToggle();
-  const b=$("#btn-mute"); b.textContent=state.muted?"🔇":"🔊"; b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn");
+  const b=$("#btn-mute"); document.getElementById("sw-sound").classList.toggle("off",state.muted);
+  b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn");
 });
 $("#btn-mute").title=t("soundOn");
 
