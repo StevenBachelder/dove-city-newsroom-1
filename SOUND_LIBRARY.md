@@ -18,7 +18,7 @@ mute toggle and degrades silently where audio is unavailable.
 
 | Name | Character | Heard when |
 |---|---|---|
-| `sfxLang` | clear tick (boosted for noisy rooms) | Choosing a language flag on the Start Memo |
+| `sfxLang` | slide-and-snap: a rising glide, then a latch seating with a low body — “moved into the correct position” | Choosing a language flag on the Start Memo, or switching language in the top-bar drop-down |
 | `sfxStart` | page-turn + bright rising note | Clock-in button — the trial begins |
 | `sfxSelect` | light paper swish + soft tap | Opening a tip from the Queue |
 | `sfxSearch` | falling air whoosh (flip-to-front character, no landing) | Running a Text Search term or Reverse Image Search |
