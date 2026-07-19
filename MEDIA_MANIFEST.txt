@@ -1,0 +1,131 @@
+# Every media path the game expects (relative to repo root, case- and space-sensitive)
+icons/Channel1.png
+icons/Channel9.png
+icons/CityTruthDaily.png
+icons/DN clean1920.png
+icons/DN eng.png
+icons/DoveTransport.png
+icons/GNN logo.png
+icons/Public Safety Office .png
+icons/X.png
+icons/alt news.png
+icons/aquabasement.png
+icons/boostfollowers.png
+icons/celebrity gossip news.png
+icons/cityvet.png
+icons/cleanflow.png
+icons/companyfirealarm.png
+icons/companyfireex.png
+icons/defenceforces.png
+icons/dn.png
+icons/dove_city_ftc_logo.png
+icons/eurosport.png
+icons/factchecker.png
+icons/firedpt.png
+icons/fisshybuyfollowers.png
+icons/forestcom.png
+icons/forestfirecom.png
+icons/goalline.png
+icons/home.png
+icons/insta.png
+icons/patriotcat.png
+icons/petcare.png
+icons/pethealtk.png
+icons/petlarm.png
+icons/petsafe.png
+icons/police.png
+icons/preppersunite.png
+icons/puppy.png
+icons/puppy2.png
+icons/rainsafe.png
+icons/redligtwatch.png
+icons/safechem.png
+icons/safedrive.png
+icons/securelibrary.png
+icons/security.png
+icons/sportblog.png
+icons/sportpulse.png
+icons/stockphoto.png
+icons/survivalgear.png
+icons/tapwater.png
+icons/toxicsafe.png
+icons/urbansafe.png
+icons/valestudio.png
+icons/visitsweden.png
+icons/vitalheart.png
+icons/waterfilter.png
+icons/watertesting.png
+icons/weather service.png
+icons/weatherEU.png
+icons/weathershield.png
+icons/worshippersunited.png
+img/fire1.png
+img/fire2.png
+img/fire3.png
+img/fire4.png
+img/gasleak_intro.png
+img/memorial.png
+img/pets.png
+img/storm_intro.jpeg
+updated_images/Storming/storming_cropped.png
+updated_images/Storming/storming_wide_original.png
+updated_images/Street_Fire_Images/Fire_Fake.png
+updated_images/Street_Fire_Images/Orig_Street_Party.jpeg
+updated_images/Street_Fire_Images/Orig_W_AI-Fake_Fire_Added.png
+updated_images/Street_Fire_Images/Street_Party_2_Yrs_ago.jpeg
+updated_images/Street_Fire_Images/Street_Party_Last_Yr.jpeg
+updated_images/Terror_At_Library_Images/Fake_Threat_1_Dark.png
+updated_images/Terror_At_Library_Images/Fake_Threat_2_Flash.png
+updated_images/Terror_At_Library_Images/Stag_Party_1_Dark.png
+updated_images/Terror_At_Library_Images/Stag_party_2_Flash.png
+updated_images/Terror_At_Library_Images/Waterguns_2_Flash.png
+updated_images/actor_dead/actor_crop.png
+updated_images/actor_dead/actordied.png
+updated_images/actor_dead/actordied2.png
+updated_images/actor_dead/actordied6.png
+updated_images/bad_dog/Bad-Dog_Miss-them.mp4
+updated_images/bad_dog/Bad-Dog_Music_Video_5.mp4
+updated_images/bad_dog/Bad-Dog_News_Loved-by-many.mp4
+updated_images/bad_dog/Bad_Dog_Film_BASE.png
+updated_images/bad_dog/News_Bad-Dog_to_Hospital.mp4
+updated_images/bad_water/Bad_Water_Glas_6.jpeg
+updated_images/bad_water/Fake_Steam_Black.png
+updated_images/bad_water/Fake_Steam_Green.png
+updated_images/bad_water/badwater_main.png
+updated_images/bad_water/clean.png
+updated_images/dogfluencer/dog_crop.png
+updated_images/dogfluencer/dogfluencer.png
+updated_images/dogfluencer/fluffygoldieChannel1.png
+updated_images/dogfluencer/fluffygoldiev3.jpg.png
+updated_images/football/Football_Falsify_11_cut_2.png
+updated_images/football/Football_fixd_ESCORTED.png
+updated_images/football/Football_fixed_.png
+updated_images/football/Footboll_Film_Falsify.mp4
+updated_images/football/walkofshame2.png
+updated_images/forest_fire/Camp_Fire_Orig.jpeg
+updated_images/forest_fire/Forest_Fire_Fake_1.png
+updated_images/forest_fire/Forest_Fire_Fake_2.png
+updated_images/forest_fire/Forest_Fire_Fake_3.png
+updated_images/forest_fire/Forest_Fire_Fake_4.png
+updated_images/gas_leak/gasleakbest2.png
+updated_images/gas_leak/gasleaklocal best.png
+updated_images/heavy_rain/flooding_fixed.mp4
+updated_images/heavy_rain/heavy rain 1.png
+updated_images/heavy_rain/heavy rain 3.png
+updated_images/heavy_rain/heavy rain 4.png
+updated_images/military/Military_1_Base_1.jpeg
+updated_images/military/Military_Comercial_Complete_Music.mp4
+updated_images/military/Military_Comercial_Shrt_Music.mp4
+updated_images/military/Military_Comercial_Shrt_No_Music.mp4
+updated_images/military/Military_Redbull.jpeg
+updated_images/monkey/Monkey_Sthlm_6.png
+updated_images/monkey/Skate_Meme_1_Dancers_2.mp4
+updated_images/monkey/Skate_Meme_1_Ny-City_2.mp4
+updated_images/monkey/Skate_Meme_1_Vest.mp4
+updated_images/pets/petilllab.png
+updated_images/pets/petillroom.png
+updated_images/pets/petillroom2.png
+updated_images/winter_storm/Winter_Storm_1.mp4
+updated_images/winter_storm/Winter_Storm_2.mp4
+updated_images/winter_storm/Winter_Storm_Coast_2.jpeg
+# plus: Badges/badge_<technique>.png for the 9 badges, referenced dynamically

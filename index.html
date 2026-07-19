@@ -223,6 +223,9 @@ img,svg,video{display:block;max-width:100%}
 .letter.hurt{background:#FBF0EE;border-color:#D9968C}
 .letter.thanks{background:#EEF7EE;border-color:#8FC79A}
 .letter.miffed{background:#F4F1E4;border-color:#CBBE8A}
+.letter.inside{background:#F7F5EE;border:1.5px dashed #9AA0AA}
+.tadseed{border-left:4px solid #10254E}
+.letter.inside .l-text{font-family:var(--font-mono);font-style:normal;font-size:13px;line-height:1.55}
 .letter .l-head{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
 .letter .l-text{font-size:14px;font-style:italic;line-height:1.5}
 .letter .l-who{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:6px;text-align:right}
@@ -358,6 +361,42 @@ img,svg,video{display:block;max-width:100%}
   .tools{border-left:none;border-top:1px solid var(--line)}
   .pane{overflow:visible}
   .skillgrid{grid-template-columns:1fr}
+}
+/* ---- phone / small-tablet pass: the original's grab-and-play virtue ---- */
+@media (max-width: 720px){
+  .badges{grid-template-columns:repeat(2,1fr);gap:10px}
+  .badge-img{height:88px}
+  .badge .b-pts{font-size:21px}
+  .badge.flipcard{height:224px}
+  .fbk-body{font-size:10.5px;max-height:160px}
+  .tally{flex-wrap:wrap;gap:10px}
+  .tally .t-box{flex:1 1 30%;min-width:96px}
+  .tally .t-num{font-size:21px}
+  .verdict-banner{font-size:19px;padding:11px 14px;gap:7px}
+  .v-total{font-size:inherit}
+  .topbar{gap:10px;padding:8px 10px}
+  .meter{min-width:88px}
+  .meter .m-label{font-size:10px}
+  .scorebox{padding:14px 14px 12px}
+  .sb-total{font-size:36px}
+  .sbm-frac{font-size:10.5px}
+  .sb-export,.sb-card{display:block;width:100%;margin:8px 0 0}
+  .tca-medalwrap{width:80px;height:80px;top:-40px}
+  .earned-medal{height:60px}
+  .techcard.tc-award{margin-top:44px}
+  .tca-head{padding:46px 12px 12px}
+  .tca-name{font-size:19px}
+  .tca-line{font-size:10px;letter-spacing:1.6px}
+  .rb-btns{flex-direction:column}
+  .rb-btn{width:100%;text-align:left}
+  .presscard input{max-width:100%}
+  .guide-entry-medal{height:60px}
+}
+@media (max-width: 420px){
+  .badges{grid-template-columns:1fr}
+  .badge.flipcard{height:212px}
+  .delta{font-size:12px}
+  .delta .d-range{display:block;margin-left:26px}
 }
 button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
 </style>
@@ -1036,7 +1075,11 @@ function frontPage(){
   const pubFake=cs.find(c=>!c.truth&&state.handled[c.id].choice==="publish");
   const buriedTrue=cs.find(c=>c.truth&&state.handled[c.id].choice==="flag");
   const stoppedBig=cs.find(c=>!c.truth&&state.handled[c.id].correct&&(c.buzz||0)>=3);
-  const letter = pubFake ? {cls:"hurt",  who:t("letterHurtWho"),  txt:tf("letterHurt",{title:t(pubFake.title)})}
+  const h17=state.handled[17];
+  const inside = (h17 && h17.correct && h17.choice==="flag" && caseById(17) && caseById(17).day===state.day)
+    ? {cls:"inside", head:t("letterInsideHead"), who:t("letterInsideWho"), txt:t("letterInside")} : null;
+  const letter = inside ? inside
+             : pubFake ? {cls:"hurt",  who:t("letterHurtWho"),  txt:tf("letterHurt",{title:t(pubFake.title)})}
              : buriedTrue ? {cls:"miffed",who:t("letterScoopWho"), txt:tf("letterScoop",{title:t(buriedTrue.title)})}
              : stoppedBig ? {cls:"thanks",who:t("letterThanksWho"),txt:tf("letterThanks",{title:t(stoppedBig.title)})}
              : null;
@@ -1052,7 +1095,7 @@ function frontPage(){
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
       ${cs.map(c=>{const h=state.handled[c.id];return `<div class="fp-item"><span class="fp-tag ${h.correct?"ok":"err"}">${esc(h.correct?t("rightCall"):t("wrongCall"))}</span><span>${esc(t(c.title))}</span></div>`;}).join("")}
-      ${letter?`<div class="letter ${letter.cls}"><div class="l-head">✉️ ${esc(t("letterHead"))}</div><div class="l-text">“${esc(letter.txt)}”</div><div class="l-who">— ${esc(letter.who)}</div></div>`:""}
+      ${letter?`<div class="letter ${letter.cls}"><div class="l-head">${letter.cls==="inside"?"📄":"✉️"} ${esc(letter.head||t("letterHead"))}</div><div class="l-text">“${esc(letter.txt)}”</div><div class="l-who">— ${esc(letter.who)}</div></div>`:""}
       <div class="editor-quote fp-sarah"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(sarahLine)}”</div></div></div>
@@ -1116,6 +1159,8 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
     credibility:state.cred, popularity:state.pop, source:state.src,
     avgPinValue:state.pinCount?+(state.pinSum/state.pinCount).toFixed(2):0,
     replies:Object.assign({},state.replies),
+    tadThread:{ stormingCorrect:!!(state.handled[17]&&state.handled[17].correct&&state.handled[17].choice==="flag"),
+                insideNoteShown:!!(state.handled[17]&&state.handled[17].correct&&state.handled[17].choice==="flag") },
     pinsPlaced:state.pinCount, upgrades:state.upgrades,
     skills:state.skills
   };
@@ -1155,6 +1200,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
           : ``}
       </div>`:""}
       ${state.replies.helpful>0?`<div class="discipline"><h3>${esc(t("replyTitle"))}</h3><p class="disc-praise">💬 ${esc(tf("replyDebrief",{n:state.replies.helpful}))}</p></div>`:""}
+      ${(state.handled[17]&&state.handled[17].correct&&state.handled[17].choice==="flag")?`<div class="discipline tadseed"><h3>${esc(t("tadSeedTitle"))}</h3><p>${esc(t("tadSeedBody"))}</p></div>`:""}
       <div class="takeaways"><h3>${esc(t("takeHead"))}</h3>
         <p><strong>1.</strong> ${esc(t("take1"))}</p><p><strong>2.</strong> ${esc(t("take2"))}</p>
         <p><strong>3.</strong> ${esc(t("take3"))}</p><p><strong>4.</strong> ${esc(t("take4"))}</p>
