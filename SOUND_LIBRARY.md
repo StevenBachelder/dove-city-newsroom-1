@@ -32,7 +32,7 @@ mute toggle and degrades silently where audio is unavailable.
 | *(reply chime)* | brighter single note | The "show your work" helpful reply specifically |
 | `uiClick` | soft two-tone page turn | Next button; Replay; report/card download |
 | `sfxDay` | page turn + rising air | Start-next-day button on the Front Page |
-| `sfxOpen` | rising air whoosh (smaller sibling of the card flip) | Field Guide, Meter Explainer, Evidence Viewer, Lightbox opening |
+| `sfxOpen` | rising air whoosh (smaller sibling of the card flip) | Field Guide, Meter Explainer (tapping Credibility / Popularity / Source in the header), Evidence Viewer, Lightbox opening |
 | `sfxClose` | falling air whoosh, softer than the search | Any of the above closing (button, backdrop, or Esc) |
 | `flipSound` | **whoosh** (rising noise sweep to the back, falling to the front) then **thump landing** timed to the card settling at 0.6 s | Badge review cards flipping, both directions |
 | `sfxToggle` | single confirming note | Sound switched back ON (muting itself is silent, as it should be) |

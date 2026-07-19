@@ -676,7 +676,7 @@ function startGame(){
   $("#pop-label").innerHTML = esc(t("popularity"))+'<span class="m-info">ⓘ</span>';
   $("#src-label").innerHTML = esc(t("srcLabel"))+'<span class="m-info">ⓘ</span>';
   $("#meter-cred").title = $("#meter-pop").title = $("#meter-src").title = t("meterHint");
-  $("#meter-cred").onclick = $("#meter-pop").onclick = $("#meter-src").onclick = openMeterInfo;
+  $("#meter-cred").onclick = $("#meter-pop").onclick = $("#meter-src").onclick = ()=>{ sfxOpen(); openMeterInfo(); };
   if(!FLAG_SRC) $("#meter-src").style.display="none";
   $("#btn-guide").textContent = t("fieldGuideBtn");
   const sel = $("#lang-top");
