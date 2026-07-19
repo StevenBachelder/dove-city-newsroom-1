@@ -525,8 +525,61 @@ function sweep(f1,f2,dur,vol){
     o.start(); o.stop(a.currentTime+dur+0.01);
   }catch(e){}
 }
+let _noiseB=null;
+function _noise(a){
+  if(_noiseB) return _noiseB;
+  const len=Math.floor(a.sampleRate*0.5), b=a.createBuffer(1,len,a.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+  _noiseB=b; return b;
+}
+function swish(f1,f2,dur,vol){            // filtered-noise whoosh
+  if(state.muted) return;
+  const a=_audio(); if(!a) return;
+  try{
+    const src=a.createBufferSource(); src.buffer=_noise(a); src.loop=true;
+    const f=a.createBiquadFilter(); f.type="bandpass"; f.Q.value=1.4;
+    f.frequency.setValueAtTime(f1,a.currentTime);
+    f.frequency.exponentialRampToValueAtTime(f2,a.currentTime+dur);
+    const g=a.createGain();
+    g.gain.setValueAtTime(0.0001,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(vol,a.currentTime+dur*0.35);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+dur);
+    src.connect(f); f.connect(g); g.connect(a.destination);
+    src.start(); src.stop(a.currentTime+dur+0.02);
+  }catch(e){}
+}
+function thump(vol){                       // landing: low knock + air tick
+  if(state.muted) return;
+  const a=_audio(); if(!a) return;
+  try{
+    const o=a.createOscillator(), g=a.createGain();
+    o.type="sine"; o.frequency.setValueAtTime(175,a.currentTime);
+    o.frequency.exponentialRampToValueAtTime(105,a.currentTime+0.07);
+    g.gain.setValueAtTime(vol,a.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,a.currentTime+0.09);
+    o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime+0.1);
+  }catch(e){}
+  swish(900,500,0.04,0.05);
+}
+/* ---------- named UI palette (see SOUND_LIBRARY.md) ---------- */
 function uiClick(){ blip(340,0.045,"triangle",0.09); setTimeout(()=>blip(520,0.05,"triangle",0.07),40); }
-function flipSound(open){ open?sweep(420,760,0.14,0.08):sweep(760,420,0.13,0.07); }
+function sfxStart(){ uiClick(); setTimeout(()=>blip(784,0.09,"triangle",0.08),90); }
+function sfxLang(){ blip(760,0.035,"triangle",0.06); }
+function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06); }
+function sfxSearch(){ blip(620,0.035,"square",0.06); setTimeout(()=>blip(540,0.04,"square",0.05),55); }
+function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
+function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
+function sfxStamp(){ swish(1600,300,0.07,0.12); setTimeout(()=>thump(0.18),30); }
+function sfxOpen(){ sweep(360,560,0.10,0.06); }
+function sfxClose(){ sweep(560,340,0.09,0.05); }
+function sfxDay(){ uiClick(); setTimeout(()=>swish(600,1500,0.14,0.06),60); }
+function sfxSend(){ blip(600,0.04,"triangle",0.07); setTimeout(()=>blip(800,0.05,"triangle",0.06),60); }
+function sfxToggle(){ blip(660,0.06,"triangle",0.08); }
+function sfxCopy(){ blip(880,0.05,"triangle",0.08); setTimeout(()=>blip(1174,0.06,"triangle",0.07),70); }
+function flipSound(open){
+  open ? swish(450,1600,0.20,0.10) : swish(1500,420,0.18,0.09);   // the whoosh
+  setTimeout(()=>thump(0.14),560);                                 // the landing (flip transition is .6s)
+}
 function tickUp(i){ blip(500*Math.pow(2,Math.min(i,14)/14), 0.045, "square", 0.085); }
 function tickDown(i){ blip(340*Math.pow(2,-Math.min(i,14)/12), 0.06, "square", 0.10); }
 function chordUp(){ blip(880,0.10,"triangle",0.10,true); setTimeout(()=>blip(1174,0.34,"triangle",0.10,true),70); }
@@ -603,8 +656,9 @@ function renderStart(){
       <button class="btn-primary btn-blue" id="btn-start">${esc(t("startBtn"))}</button>
     </div>
   </div>`;
-  document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>{ lang=b.dataset.lang; renderStart(); }));
+  document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>{ sfxLang(); lang=b.dataset.lang; renderStart(); }));
   $("#btn-start").addEventListener("click", ()=>{
+    sfxStart();
     const f=document.getElementById("press-name");
     if(f) state.playerName=f.value.trim().slice(0,40);
     startGame();
@@ -731,7 +785,7 @@ function renderQueue(){
       <div><div class="t-title">${esc(t(c.title))}</div>
       <div class="t-buzz">🔥 ${esc(t("buzzLabel"))} ${"▮".repeat(Math.round(c.buzz/4))}${"▯".repeat(Math.max(0,4-Math.round(c.buzz/4)))}</div></div>
       ${done?`<span class="t-done">${esc(t("handledTag"))}</span>`:""}`;
-    if(!done) b.addEventListener("click",()=>openCase(c.id));
+    if(!done) b.addEventListener("click",()=>{ sfxSelect(); openCase(c.id); });
     list.appendChild(b);
   });
   $("#dayclock").textContent=t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
@@ -776,8 +830,8 @@ function openCase(id){
         <button class="stamp flag" id="stamp-flag">${esc(t("flagStamp"))}</button>
       </div>
     </div>`;
-  $("#stamp-publish").addEventListener("click",()=>verdict("publish"));
-  $("#stamp-flag").addEventListener("click",()=>verdict("flag"));
+  $("#stamp-publish").addEventListener("click",()=>{ sfxStamp(); verdict("publish"); });
+  $("#stamp-flag").addEventListener("click",()=>{ sfxStamp(); verdict("flag"); });
   renderTools(c); renderBoard();
 }
 
@@ -803,13 +857,13 @@ function renderBoard(){
   }).join("")
     : `<div class="b-empty">${esc(t("boardEmpty"))}</div>`;
   el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{
-    ev.stopPropagation();
+    ev.stopPropagation(); sfxUnpin();
     const removed=state.evidence.splice(+b.dataset.i,1)[0];
     if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0); }
     renderBoard();
   }));
   el.querySelectorAll(".evcard").forEach(card=>{
-    const open=()=>openEvidence(+card.dataset.view);
+    const open=()=>{ sfxOpen(); openEvidence(+card.dataset.view); };
     card.addEventListener("click",open);
     card.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open();}});
   });
@@ -835,9 +889,11 @@ function renderTools(c){
       <div id="results-img"></div>
     </div>`;
   document.querySelectorAll(".termbtn[data-q]").forEach(btn=>btn.addEventListener("click",()=>{
+    sfxSearch();
     btn.classList.add("used"); state.usedText[c.id]=true; renderTextResults(c,+btn.dataset.q); renderBoard();
   }));
   $("#btn-imgsearch").addEventListener("click",()=>{
+    sfxSearch();
     $("#btn-imgsearch").classList.add("used"); state.usedImg[c.id]=true; renderImgResults(c); renderBoard();
   });
 }
@@ -863,6 +919,7 @@ function renderTextResults(c,qi){
     const j=+b.dataset.ev.split("-")[1], r=c.searchResults[j];
     if(state.evidence.some(e=>e.key==="t"+j)){ b.disabled=true; b.textContent=t("pinnedBtn"); }
     b.addEventListener("click",()=>{
+      sfxPin();
       if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, key:"t"+j}))
         { b.disabled=true; b.textContent=t("pinnedBtn"); }
     });
@@ -878,6 +935,7 @@ function renderImgResults(c){
         <button class="btn-ev" style="margin-top:6px" data-ev="i-${j}">${esc(t("pinBtn"))}</button>
       </div></div>`).join("");
   box.querySelectorAll(".btn-ev").forEach(b=>b.addEventListener("click",()=>{
+    sfxPin();
     const j=+b.dataset.ev.split("-")[1], r=c.imageResults[j];
     if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, key:"i"+j}))
       { b.disabled=true; b.textContent=t("pinnedBtn"); }
@@ -996,6 +1054,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
     </div></div></div>`;
   animateTally(shown,before);
   document.querySelectorAll(".rb-btn").forEach(btn=>btn.addEventListener("click",()=>{
+    sfxSend();
     const kind=btn.dataset.reply;
     state.replies[kind]++;
     const beat=document.getElementById("replybeat"); if(!beat) return;
@@ -1004,7 +1063,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
     beat.innerHTML=`<div class="rb-out ${kind==="helpful"?"good":""}">${esc(out)}</div>`;
   }));
   mount.querySelectorAll(".fb-evcard").forEach(card=>{
-    const open=()=>openEvidence(+card.dataset.fbev);
+    const open=()=>{ sfxOpen(); openEvidence(+card.dataset.fbev); };
     card.addEventListener("click",open);
     card.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();open();}});
   });
@@ -1058,8 +1117,8 @@ function openEvidence(i){
       ${e.isAd?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       <button class="btn-primary" id="ev-close" style="margin-top:12px">${esc(t("close"))}</button>
     </div></div></div>`;
-  $("#ev-close").addEventListener("click",()=>mount.innerHTML="");
-  $("#ev-ov").addEventListener("click",ev=>{if(ev.target.id==="ev-ov")mount.innerHTML="";});
+  $("#ev-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
+  $("#ev-ov").addEventListener("click",ev=>{if(ev.target.id==="ev-ov"){ sfxClose(); mount.innerHTML=""; }});
 }
 
 /* animated score tally: plays events in narrative order with rising/falling blips */
@@ -1140,6 +1199,7 @@ function frontPage(){
   $("#fp-home").addEventListener("click",goHome);
   $("#fp-home").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")goHome();});
   $("#btn-nextday").addEventListener("click",()=>{
+    sfxDay();
     if(state.cred<=0){ debrief(true); return; }
     if(state.day<MAX_DAY){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})+(state.day===2?" "+t("day2Ambient"):"")); toolsIdle(); show("screen-news"); }
     else debrief(false);
@@ -1245,6 +1305,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
   show("screen-end");
   const cardBtn=document.getElementById("card-download");
   if(cardBtn) cardBtn.addEventListener("click",async()=>{
+    uiClick();
     try{
       const hired = state.cred>=60 && !(fired||state.cred<25);
       const missedT = TECH_LIST.filter(k=>k!=="sponsored"&&!state.badges.has(k)).map(k=>t("tq_"+k+"_name"));
@@ -1296,7 +1357,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
   const exBtn=document.getElementById("sb-export");
   if(exBtn) exBtn.addEventListener("click",()=>{
     const txt=JSON.stringify(RESULTS,null,2);
-    const done=()=>{ exBtn.textContent=t("resultsCopied"); setTimeout(()=>{exBtn.textContent=t("resultsCopy");},1800); };
+    const done=()=>{ sfxCopy(); exBtn.textContent=t("resultsCopied"); setTimeout(()=>{exBtn.textContent=t("resultsCopy");},1800); };
     if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,()=>fallback()); }
     else fallback();
     function fallback(){
@@ -1327,7 +1388,7 @@ const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#
       })();
     })();
   })();
-  $("#btn-replay").addEventListener("click",()=>location.reload());
+  $("#btn-replay").addEventListener("click",()=>{ uiClick(); setTimeout(()=>location.reload(),120); });
 }
 
 /* ---------- field guide ---------- */
@@ -1345,8 +1406,8 @@ function openGuide(){
     <div style="display:flex;gap:12px;align-items:center">${FLAG_BADGES?`<img class="guide-medal" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'">`:""}<p style="font-size:13.5px;color:var(--ink-soft);margin:0">${esc(t("guideSub"))}</p></div></div>
     <div class="guide-list">${entries}</div>
     <div class="modal-body"><button class="btn-primary" id="g-close">${esc(t("backToDesk"))}</button></div></div></div>`;
-  $("#g-close").addEventListener("click",()=>mount.innerHTML="");
-  $("#g-ov").addEventListener("click",e=>{if(e.target.id==="g-ov")mount.innerHTML="";});
+  $("#g-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
+  $("#g-ov").addEventListener("click",e=>{if(e.target.id==="g-ov"){ sfxClose(); mount.innerHTML=""; }});
 }
 function openMeterInfo(){
   const mount=$("#modal-mount");
@@ -1368,26 +1429,28 @@ function openMeterInfo(){
       <div class="ev-note warn" style="margin-top:10px">${esc(t("meterTension"))}</div>
       <button class="btn-primary" id="mi-close" style="margin-top:14px">${esc(t("backToDesk"))}</button>
     </div></div></div>`;
-  $("#mi-close").addEventListener("click",()=>mount.innerHTML="");
-  $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov")mount.innerHTML="";});
+  $("#mi-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
+  $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov"){ sfxClose(); mount.innerHTML=""; }});
 }
 function openLightbox(src){
   const old=document.getElementById("lightbox"); if(old) old.remove();
   const lb=document.createElement("div"); lb.className="lightbox"; lb.id="lightbox";
   lb.innerHTML=`<button class="lb-close" aria-label="${esc(t("close"))}">✕</button><img src="${esc(src)}" alt="">`;
-  lb.addEventListener("click",()=>lb.remove());
+  lb.addEventListener("click",()=>{ sfxClose(); lb.remove(); });
   document.body.appendChild(lb);
+  sfxOpen();
 }
 document.addEventListener("click",e=>{
   const im=e.target.closest&&e.target.closest("img[data-zoom]");
   if(im&&im.getAttribute("src")) openLightbox(im.getAttribute("src"));
 });
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb) lb.remove(); }
+  if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb){ sfxClose(); lb.remove(); } }
 });
-$("#btn-guide").addEventListener("click",openGuide);
+$("#btn-guide").addEventListener("click",()=>{ sfxOpen(); openGuide(); });
 $("#btn-mute").addEventListener("click",()=>{
   state.muted=!state.muted;
+  if(!state.muted) sfxToggle();
   const b=$("#btn-mute"); b.textContent=state.muted?"🔇":"🔊"; b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn");
 });
 $("#btn-mute").title=t("soundOn");
