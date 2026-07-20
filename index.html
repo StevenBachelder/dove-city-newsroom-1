@@ -300,7 +300,7 @@ img[data-zoom]{cursor:zoom-in}
 .skill .s-score{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:5px}
 .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
 .badge-img{height:118px;width:auto;display:block;margin:0 auto 5px}
-.badge.missed .badge-img{filter:grayscale(1) brightness(1.4);opacity:.45}
+.badge.missed .badge-img{filter:grayscale(1) brightness(1.35);opacity:.26}
 .badge .b-pts{font-family:var(--font-mono);font-size:27px;font-weight:700;color:#FFFFFF;margin-top:0}
 .b-medalrow{display:flex;align-items:center;gap:7px}
 .b-name{line-height:1.25}
@@ -311,7 +311,7 @@ img[data-zoom]{cursor:zoom-in}
 .flip-front{justify-content:flex-start;padding:0;border:3px solid #000;background:#9b9a9a;overflow:hidden}
 .fbf-head{display:block;width:100%;background:#000;color:#FFFFFF;font-weight:700;text-align:center;padding:9px 10px;font-size:13.5px;letter-spacing:.2px}
 .fbf-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 10px 12px}
-.badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD}
+.badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD;background:#C9C8C8}
 .flip-back{transform:rotateY(180deg);border:3px solid #000;padding:0;text-align:center;overflow:hidden;color:#000}
 .fbk-head{display:block;width:100%;padding:9px 13px;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:#FFFFFF;text-align:center}
 .fbk-sub{display:block;font-weight:700;font-size:12.5px;padding:10px 12px 0;text-align:center;white-space:pre-line;color:#000}
@@ -1251,7 +1251,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
   let badgeHtml=cardSpec.map(c=>
     `<span class="badge flipcard ${c.earned?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
       <span class="flip-front"><span class="fbf-head">${esc(t("cardT_"+c.k))}</span>
-        <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'">${c.earned?`<span class="b-pts">+25</span>`:""}</span>
+        <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">${c.earned?"+25":"+0"}</span></span>
         <span class="flip-cue">↻</span></span>
       <span class="flip-back" style="background:${CARD_BACK[c.k].b}"><span class="fbk-head" style="background:${CARD_BACK[c.k].h}">${esc(t("cardT_"+c.k))}</span>
         <span class="fbk-sub">${esc(t("cardS_"+c.k))}</span>
