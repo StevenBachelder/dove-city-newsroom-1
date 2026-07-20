@@ -301,21 +301,24 @@ img[data-zoom]{cursor:zoom-in}
 .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
 .badge-img{height:118px;width:auto;display:block;margin:0 auto 5px}
 .badge.missed .badge-img{filter:grayscale(1) brightness(1.4);opacity:.45}
-.badge .b-pts{font-family:var(--font-mono);font-size:27px;font-weight:700;color:#8D7122;margin-top:0}
+.badge .b-pts{font-family:var(--font-mono);font-size:27px;font-weight:700;color:#FFFFFF;margin-top:0}
 .b-medalrow{display:flex;align-items:center;gap:7px}
 .b-name{line-height:1.25}
 .badge.flipcard{height:258px;padding:0;perspective:900px;cursor:pointer;background:transparent;border:none}
 .flip-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,.9,.4,1);transform-style:preserve-3d}
 .badge.flipped .flip-inner{transform:rotateY(180deg)}
 .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;border-radius:16px;background:#FFFFFF}
-.flip-front{gap:7px;justify-content:center;padding:14px 12px 12px;border:3px solid var(--ink)}
+.flip-front{justify-content:flex-start;padding:0;border:3px solid #000;background:#9b9a9a;overflow:hidden}
+.fbf-head{display:block;width:100%;background:#000;color:#FFFFFF;font-weight:700;text-align:center;padding:9px 10px;font-size:13.5px;letter-spacing:.2px}
+.fbf-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 10px 12px}
 .badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD}
-.flip-back{transform:rotateY(180deg);border:3px solid var(--ink);padding:0;text-align:left;overflow:hidden;color:var(--ink)}
-.fbk-head{display:block;width:100%;padding:9px 13px;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:var(--ink);border-bottom:2px solid rgba(32,41,58,.18)}
+.flip-back{transform:rotateY(180deg);border:3px solid #000;padding:0;text-align:center;overflow:hidden;color:#000}
+.fbk-head{display:block;width:100%;padding:9px 13px;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:#FFFFFF;text-align:center}
+.fbk-sub{display:block;font-weight:700;font-size:12.5px;padding:10px 12px 0;text-align:center;white-space:pre-line;color:#000}
 .badge.missed .fbk-head{filter:saturate(.35)}
 .badge.missed .flip-back{border-style:dashed;border-color:#9AA0AA}
-.fbk-body{display:block;padding:10px 13px 12px;font-size:11.5px;font-weight:400;line-height:1.5;letter-spacing:0;text-transform:none;overflow-y:auto;max-height:196px}
-.flip-cue{position:absolute;top:7px;right:10px;font-size:13px;color:var(--ink-soft);opacity:.6}
+.fbk-body{display:block;padding:6px 12px 12px;font-size:11.5px;font-weight:400;line-height:1.5;letter-spacing:0;text-transform:none;text-align:center;color:#000;overflow-y:auto;max-height:158px}
+.flip-cue{position:absolute;top:8px;right:10px;font-size:13px;color:#FFFFFF;opacity:.65}
 .badge.missed .flip-cue{color:#C7C7C7}
 .badge.missed{border-style:dashed;border-color:#CDCDCD;color:#C7C7C7;opacity:1}
 .badge.missed .b-pts{color:#D5D5D5}
@@ -1240,21 +1243,20 @@ function debrief(fired){
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
 const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#7F9DB5",hoax:"#9DA5AE",conspiracy:"#C5FEAC",emotionaltrue:"#FEA7A1",unverified:"#BEC2FD",adspotter:"#FACBB4",master:"#69C7BE"};
-  let badgeHtml=TECH_LIST.filter(k=>k!=="sponsored").map(k=>
-    `<span class="badge flipcard ${state.badges.has(k)?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
-      <span class="flip-front"${state.badges.has(k)?` style="background:${BADGE_COLORS[k]}"`:""}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("tq_"+k+"_name"))}</span><span class="flip-cue">↻</span></span>
-      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS[k]}">${esc(t("tq_"+k+"_name"))}</span><span class="fbk-body">${esc(t("tq_"+k+"_body"))}</span></span>
+const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a1c9eb"},adspotter:{h:"#972165",b:"#edbfab"},unverified:{h:"#713a96",b:"#d5bde5"},emotionaltrue:{h:"#bc1f4b",b:"#cec0de"},conspiracy:{h:"#61573d",b:"#cec0de"},hoax:{h:"#565b64",b:"#abaeb7"},outofcontext:{h:"#386489",b:"#8cc2c4"},polarization:{h:"#d22027",b:"#f8dec5"}};
+  const cardSpec = TECH_LIST.filter(k=>k!=="sponsored").map(k=>(
+    {k, img:"badge_"+k, earned:state.badges.has(k), body:t("tq_"+k+"_body")}))
+    .concat([{k:"adspotter", img:"badge_adspotter", earned:!state.adPinned, body:t("tq_sponsored_body")},
+             {k:"master", img:"badge_generic", earned:(state.badges.size+(state.adPinned?0:1))===8, body:t("badgeMasterBody")}]);
+  let badgeHtml=cardSpec.map(c=>
+    `<span class="badge flipcard ${c.earned?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
+      <span class="flip-front"><span class="fbf-head">${esc(t("cardT_"+c.k))}</span>
+        <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'">${c.earned?`<span class="b-pts">+25</span>`:""}</span>
+        <span class="flip-cue">↻</span></span>
+      <span class="flip-back" style="background:${CARD_BACK[c.k].b}"><span class="fbk-head" style="background:${CARD_BACK[c.k].h}">${esc(t("cardT_"+c.k))}</span>
+        <span class="fbk-sub">${esc(t("cardS_"+c.k))}</span>
+        <span class="fbk-body">${esc(c.body)}</span></span>
     </span></span>`).join("");
-  badgeHtml+=`<span class="badge flipcard ${state.adPinned?"missed":""}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
-      <span class="flip-front"${state.adPinned?"":` style="background:${BADGE_COLORS.adspotter}"`}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_adspotter.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeAds"))}</span><span class="flip-cue">↻</span></span>
-      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS.adspotter}">${esc(t("badgeAds"))}</span><span class="fbk-body">${esc(t("tq_sponsored_body"))}</span></span>
-    </span></span>`;
-  const masterEarned = (state.badges.size + (state.adPinned?0:1))===8;
-  badgeHtml+=`<span class="badge flipcard ${masterEarned?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
-      <span class="flip-front"${masterEarned?` style="background:${BADGE_COLORS.master}"`:""}><span class="b-medalrow"><img class="badge-img" src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><span class="b-pts">+25</span></span><span class="b-name">${esc(t("badgeMaster"))}</span><span class="flip-cue">↻</span></span>
-      <span class="flip-back"><span class="fbk-head" style="background:${BADGE_COLORS.master}">${esc(t("badgeMaster"))}</span><span class="fbk-body">${esc(t("badgeMasterBody"))}</span></span>
-    </span></span>`;
-  // Editor's Score: meters + badges + craft bonuses
   const badgeCount = state.badges.size + (state.adPinned?0:1);
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
   const corePts = right*10 + state.cred + state.pop + (FLAG_SRC?state.src:0) + (FLAG_BADGES?badgeCount*25:0);
