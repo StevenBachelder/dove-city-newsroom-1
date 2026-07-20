@@ -312,6 +312,7 @@ img[data-zoom]{cursor:zoom-in}
 .fbf-head{display:block;width:100%;background:#000;color:#FFFFFF;font-weight:700;text-align:center;padding:9px 10px;font-size:13.5px;letter-spacing:.2px}
 .fbf-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;padding:8px 10px 12px}
 .badge.missed .flip-front{border-style:dashed;border-color:#CDCDCD;background:#C9C8C8}
+.badge.missed .fbf-head{background:#a4a4a3}
 .flip-back{transform:rotateY(180deg);border:3px solid #000;padding:0;text-align:center;overflow:hidden;color:#000}
 .fbk-head{display:block;width:100%;padding:9px 13px;font-size:13.5px;font-weight:700;letter-spacing:.2px;color:#FFFFFF;text-align:center}
 .fbk-sub{display:block;font-weight:700;font-size:12.5px;padding:10px 12px 0;text-align:center;white-space:pre-line;color:#000}
@@ -599,9 +600,11 @@ function sfxDay(){ uiClick(); setTimeout(()=>swish(600,1500,0.14,0.06),60); }
 function sfxSend(){ blip(600,0.04,"triangle",0.07); setTimeout(()=>blip(800,0.05,"triangle",0.06),60); }
 function sfxToggle(){ blip(660,0.06,"triangle",0.08); }
 function sfxCopy(){ blip(880,0.05,"triangle",0.08); setTimeout(()=>blip(1174,0.06,"triangle",0.07),70); }
-function flipSound(open){
-  open ? swish(450,1600,0.20,0.10) : swish(1500,420,0.18,0.09);   // the whoosh
-  setTimeout(()=>thump(0.14),560);                                 // the landing (flip transition is .6s)
+function flipSound(open){                                  // one continuous gesture: whoosh … settling tail
+  if(open){ swish(450,1600,0.20,0.10);
+            setTimeout(()=>swish(1500,700,0.12,0.045,0.8),170); }  // tail overlaps the whoosh end — no gap
+  else    { swish(1500,420,0.18,0.09);
+            setTimeout(()=>swish(500,260,0.11,0.04,0.9),150); }
 }
 function tickUp(i){ blip(500*Math.pow(2,Math.min(i,14)/14), 0.045, "square", 0.085); }
 function tickDown(i){ blip(340*Math.pow(2,-Math.min(i,14)/12), 0.06, "square", 0.10); }

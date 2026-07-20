@@ -35,7 +35,7 @@ mute toggle and degrades silently where audio is unavailable.
 | `sfxDay` | page turn + rising air | Start-next-day button on the Front Page |
 | `sfxOpen` | rising air whoosh (smaller sibling of the card flip) | Field Guide, Meter Explainer (tapping Credibility / Popularity / Source in the header), Evidence Viewer, Lightbox opening |
 | `sfxClose` | falling air whoosh, softer than the search | Any of the above closing (button, backdrop, or Esc) |
-| `flipSound` | **whoosh** (rising noise sweep to the back, falling to the front) then **thump landing** timed to the card settling at 0.6 s | Badge review cards flipping, both directions |
+| `flipSound` | **whoosh** (rising to the back, falling to the front) with a **fused settling tail** — a quieter, darker continuation overlapping the whoosh end, no gap, no discrete landing | Badge review cards flipping, both directions |
 | `sfxToggle` | single confirming note | Sound switched back ON (muting itself is silent, as it should be) |
 | `sfxCopy` | two-note success chime | "Copy results (for research)" completes |
 
@@ -46,7 +46,7 @@ mute toggle and degrades silently where audio is unavailable.
    reverb — gravitas is rationed so it stays meaningful.
 2. **Direction encodes meaning.** Opens rise, closes fall; pins tack up, unpins
    pluck down. The whoosh family now spans three sizes — modal (small), search
-   (medium), card flip (large, with landing) — one gesture at three scales.
+   (medium), card flip (large, with settling tail) — one gesture at three scales.
 3. **One family.** Everything is triangle/sine/filtered noise in the same loudness
    range, so twenty sounds read as one instrument, not a slot machine.
 4. **Silence is honored.** Mute silences everything at the source; muting makes no
