@@ -158,6 +158,8 @@ img,svg,video{display:block;max-width:100%}
 .termbtn{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
 .termbtn:hover{background:var(--highlight-soft);border-color:var(--highlight)}
 .termbtn.used{background:var(--paper-dark);color:var(--ink-soft)}
+.termbtn.used::after{content:"▾";float:right;opacity:.55}
+.termbtn.collapsed::after{content:"▸"}
 .result{border:1px solid var(--line);border-radius:8px;padding:10px 11px;margin-top:8px;background:var(--paper)}
 .result.is-ad{border-style:dashed;border-color:var(--ad);background:#FBF7EA}
 .r-top{display:flex;gap:8px;align-items:flex-start}
@@ -936,18 +938,35 @@ function renderTools(c){
       <div id="results-img"></div>
     </div>`;
   document.querySelectorAll(".termbtn[data-q]").forEach(btn=>btn.addEventListener("click",()=>{
+    const box=$("#results-"+btn.dataset.q);
+    if(box.dataset.done){                                  // already searched: toggle open/closed
+      const hidden=box.style.display==="none";
+      box.style.display=hidden?"":"none";
+      btn.classList.toggle("collapsed",!hidden);
+      hidden?sfxOpen():sfxClose();
+      return;
+    }
     sfxSearch();
-    btn.classList.add("used"); state.usedText[c.id]=true; renderTextResults(c,+btn.dataset.q); renderBoard();
+    btn.classList.add("used"); btn.classList.remove("collapsed"); state.usedText[c.id]=true; renderTextResults(c,+btn.dataset.q); renderBoard();
   }));
   $("#btn-imgsearch").addEventListener("click",()=>{
+    const box=$("#results-img"), b=$("#btn-imgsearch");
+    if(box.dataset.done){
+      const hidden=box.style.display==="none";
+      box.style.display=hidden?"":"none";
+      b.classList.toggle("collapsed",!hidden);
+      hidden?sfxOpen():sfxClose();
+      return;
+    }
     sfxSearch();
-    $("#btn-imgsearch").classList.add("used"); state.usedImg[c.id]=true; renderImgResults(c); renderBoard();
+    b.classList.add("used"); state.usedImg[c.id]=true; renderImgResults(c); renderBoard();
   });
 }
 /* All search terms lead to the case's result set (as in the original game);
    results render under whichever term the player clicked. */
 function renderTextResults(c,qi){
-  for(let i=0;i<c.searchTerms.length;i++){ if(i!==qi){ const o=$("#results-"+i); o.innerHTML=""; delete o.dataset.done; } }
+  for(let i=0;i<c.searchTerms.length;i++){ if(i!==qi){ const o=$("#results-"+i); o.innerHTML=""; o.style.display=""; delete o.dataset.done;
+    const b=document.querySelector('.termbtn[data-q="'+i+'"]'); if(b) b.classList.remove("collapsed"); } }
   const target=$("#results-"+qi); if(target.dataset.done) return; target.dataset.done="1";
   target.innerHTML=c.searchResults.map((r,j)=>{
     const rel = r.isAd ? {key:"relevanceReasoning_ad",score:2} : RELEVANCE[r.rIdx||0];
