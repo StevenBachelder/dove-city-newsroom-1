@@ -81,8 +81,7 @@ img,svg,video{display:block;max-width:100%}
 .how-head{font-weight:700;font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
 .howlist{margin:0;padding-left:20px;font-size:13.5px;line-height:1.55}
 .howlist .rule-red{color:#B3352C;font-weight:600}
-.checknote{background:#FDF6D8;border:1px solid #E4D389;border-radius:6px;padding:9px 12px;margin:10px 0;transform:rotate(-0.5deg);position:relative;font-size:12px;line-height:1.45}
-.checknote::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(2deg);width:54px;height:14px;background:rgba(214,207,180,.85);border:1px solid rgba(0,0,0,.08)}
+.checknote{background:#FDF6D8;border:1px solid #E4D389;border-radius:6px;padding:9px 12px;margin:10px 0;font-size:12px;line-height:1.45}
 .cn-head{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;margin-bottom:5px;color:#6B5E1F}
 .checknote ul{margin:0;padding-left:16px}
 .checknote li{margin:2px 0}
@@ -864,7 +863,7 @@ function openCase(id){
       <h4><span>${esc(t("boardHead"))}</span><span id="pin-count">${esc(t("evidenceUsed"))} 0/${MAX_PINS}</span></h4>
       <div class="board-hint">${esc(t("boardHint"))}</div>
       <div class="checknote"><div class="cn-head">${esc(t("checkHead"))}</div>
-        <ul><li>${esc(t("check1"))}</li><li>${esc(t("check2"))}</li><li>${esc(t("check3"))}</li><li>${esc(t("check4"))}</li></ul>
+        <ul><li>${esc(t("check1"))}</li><li>${esc(t("check2"))}</li><li>${esc(t("check3"))}</li><li>${esc(t("check4"))}</li><li>${esc(t("check5"))}</li></ul>
       </div>
       <div id="board-items"></div>
     </div>
