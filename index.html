@@ -240,8 +240,16 @@ img[data-zoom]{cursor:zoom-in}
 .modal-head{padding:18px 22px 0}
 .verdict-banner{font-family:var(--font-display);font-weight:900;font-size:24px;padding:14px 22px;border-radius:10px;text-align:center;transform:rotate(-1.5deg);border:3px solid;margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
 .v-total{font-family:inherit;font-size:inherit;font-weight:inherit;opacity:0;transform:translateX(-6px)}
-.v-total.show{animation:totalpop .4s ease forwards}
-@keyframes totalpop{to{opacity:1;transform:none}}
+.v-total{display:inline-block}
+.v-total.show{animation:totalwiggle .55s cubic-bezier(.3,1.4,.5,1) forwards}
+@keyframes totalwiggle{
+  0%{opacity:0;transform:translateX(-6px) rotate(0deg) scale(.6)}
+  35%{opacity:1;transform:rotate(-8deg) scale(1.22)}
+  55%{transform:rotate(7deg) scale(1.1)}
+  72%{transform:rotate(-4deg) scale(1.04)}
+  86%{transform:rotate(2deg) scale(1)}
+  100%{opacity:1;transform:rotate(0deg) scale(1)}
+}
 .verdict-banner.good{color:#FFFFFF;border-color:#157F3C;background:#1FA84D;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .verdict-banner.bad{color:#FFFFFF;border-color:#A81E14;background:#D93025;text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .modal-body{padding:10px 22px 22px}
