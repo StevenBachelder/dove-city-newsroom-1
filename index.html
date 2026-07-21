@@ -152,8 +152,8 @@ img,svg,video{display:block;max-width:100%}
 .toolbox{border:1px solid var(--line);border-radius:var(--radius);padding:13px;margin-bottom:14px}
 .toolbox h4{font-family:var(--font-display);font-size:15px;margin-bottom:6px}
 .tool-note{font-size:12px;color:var(--ink-soft);font-style:italic;margin-bottom:8px}
-.tool-h{display:flex;align-items:center;gap:9px}
-.tool-ico{height:34px;width:auto;flex:0 0 auto}
+.tool-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tool-ico{height:52px;width:auto;flex:0 0 auto}
 .termbtn{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
 .termbtn:hover{background:var(--highlight-soft);border-color:var(--highlight)}
 .termbtn.used{background:var(--paper-dark);color:var(--ink-soft)}
@@ -924,12 +924,12 @@ function renderTools(c){
   $("#tools").innerHTML=`
     <h3>${esc(t("toolsHead"))}</h3>
     <div class="toolbox">
-      <h4 class="tool-h"><img class="tool-ico" src="icons/factcheck_text.png" alt="" onerror="this.style.display='none'">${esc(t("textSearchHead"))}</h4>
+      <h4 class="tool-h"><span>${esc(t("textSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_text.png" alt="" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("textSearchNote"))}</div>
       ${c.searchTerms.map((k,i)=>`<button class="termbtn" data-q="${i}">🔍 ${esc(t(k))}</button><div id="results-${i}"></div>`).join("")}
     </div>
     <div class="toolbox">
-      <h4 class="tool-h"><img class="tool-ico" src="icons/factcheck_image.png" alt="" onerror="this.style.display='none'">${esc(t("imageSearchHead"))}</h4>
+      <h4 class="tool-h"><span>${esc(t("imageSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_image.png" alt="" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("imageSearchNote"))}</div>
       <button class="termbtn" id="btn-imgsearch">🖼️ ${esc(t("searchImageBtn"))}</button>
       <div id="results-img"></div>
