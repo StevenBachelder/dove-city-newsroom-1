@@ -155,10 +155,12 @@ img,svg,video{display:block;max-width:100%}
 .tool-h{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
 .tool-h span{font-size:15.5px;letter-spacing:.4px}
 .tool-ico{height:58px;width:auto;flex:0 0 auto}
-.termbtn{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
+.termbtn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
 .termbtn:hover{background:var(--highlight-soft);border-color:var(--highlight)}
 .termbtn.used{background:var(--paper-dark);color:var(--ink-soft)}
-.termbtn.used::after{content:"▾";float:right;opacity:.55}
+.tb-ico{flex:0 0 auto}
+.tb-txt{flex:1 1 auto;min-width:0}
+.termbtn.used::after{content:"▾";margin-left:auto;flex:0 0 auto;opacity:.55}
 .termbtn.collapsed::after{content:"▸"}
 .result{border:1px solid var(--line);border-radius:8px;padding:10px 11px;margin-top:8px;background:var(--paper)}
 .result.is-ad{border-style:dashed;border-color:var(--ad);background:#FBF7EA}
@@ -929,12 +931,12 @@ function renderTools(c){
     <div class="toolbox">
       <h4 class="tool-h"><span>${esc(t("textSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_text.png" alt="" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("textSearchNote"))}</div>
-      ${c.searchTerms.map((k,i)=>`<button class="termbtn" data-q="${i}">🔍 ${esc(t(k))}</button><div id="results-${i}"></div>`).join("")}
+      ${c.searchTerms.map((k,i)=>`<button class="termbtn" data-q="${i}"><span class="tb-ico">🔍</span><span class="tb-txt">${esc(t(k))}</span></button><div id="results-${i}"></div>`).join("")}
     </div>
     <div class="toolbox">
       <h4 class="tool-h"><span>${esc(t("imageSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_image.png" alt="" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("imageSearchNote"))}</div>
-      <button class="termbtn" id="btn-imgsearch">🖼️ ${esc(t("searchImageBtn"))}</button>
+      <button class="termbtn" id="btn-imgsearch"><span class="tb-ico">🖼️</span><span class="tb-txt">${esc(t("searchImageBtn"))}</span></button>
       <div id="results-img"></div>
     </div>`;
   document.querySelectorAll(".termbtn[data-q]").forEach(btn=>btn.addEventListener("click",()=>{
