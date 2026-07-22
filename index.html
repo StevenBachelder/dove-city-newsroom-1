@@ -161,7 +161,7 @@ img,svg,video{display:block;max-width:100%}
 .tg-head{display:flex;gap:14px;align-items:center}
 .tg-ico{height:64px;flex:0 0 auto}
 .tg-emoji{font-size:46px;line-height:1;flex:0 0 auto}
-#queue-head{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+#queue-head{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);padding:13px 10px;margin-bottom:12px}
 .qh-row{display:inline-flex;align-items:center}
 .qh-info{margin-left:9px;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--ink-soft);background:none;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;line-height:1}
 .qh-info:hover{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -750,9 +750,11 @@ function startGame(){
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
   sel.onchange = ()=>{ sfxLang(); lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
-  $("#queue-head").innerHTML = `<span class="qh-row">${esc(t("incomingTips"))}<button class="qh-info" id="qh-info" title="${esc(t("toolGuideHint"))}">?</button></span>
-    <img class="tool-ico" src="icons/tips_logo_inbox.png" alt="" onerror="this.style.display='none'">`;
-  $("#qh-info").addEventListener("click",()=>{ sfxOpen(); openToolGuide("tip"); });
+  $("#queue-head").innerHTML = `<span class="qh-row">${esc(t("incomingTips"))}</span>
+    <img class="tool-ico tool-ico-btn" id="tico-tip" src="icons/tips_logo_inbox.png" alt="" tabindex="0" role="button" title="${esc(t("toolGuideHint"))}" onerror="this.style.display='none'">`;
+  { const el=$("#tico-tip"); const go=()=>{ sfxOpen(); openToolGuide("tip"); };
+    el.addEventListener("click",go);
+    el.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } }); }
   $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
   renderQueue();
   if(!state.current){ deskIdle(); toolsIdle(); }
@@ -958,7 +960,7 @@ function renderTools(c){
     <div class="toolbox">
       <h4 class="tool-h"><span>${esc(t("imageSearchHead"))}</span><img class="tool-ico tool-ico-btn" id="tico-img" src="icons/factcheck_image.png" alt="" tabindex="0" role="button" title="${esc(t("toolGuideHint"))}" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("imageSearchNote"))}</div>
-      <button class="termbtn" id="btn-imgsearch"><span class="tb-ico">🖼️</span><span class="tb-txt">${esc(t("searchImageBtn"))}</span></button>
+      <button class="termbtn" id="btn-imgsearch"><span class="tb-ico">🔍</span><span class="tb-txt">${esc(t("searchImageBtn"))}</span></button>
       <div id="results-img"></div>
     </div>`;
   const bindTG=(id,kind)=>{ const el=$(id); if(!el) return;
