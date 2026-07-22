@@ -155,6 +155,13 @@ img,svg,video{display:block;max-width:100%}
 .tool-h{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
 .tool-h span{font-size:15.5px;letter-spacing:.4px}
 .tool-ico{height:58px;width:auto;flex:0 0 auto}
+.tool-ico-btn{cursor:pointer;transition:transform .15s}
+.tool-ico-btn:hover{transform:scale(1.07)}
+.tool-ico-btn:focus-visible{outline:3px solid var(--pop);outline-offset:3px;border-radius:8px}
+.tg-head{display:flex;gap:14px;align-items:center}
+.tg-ico{height:64px;flex:0 0 auto}
+.tg-list{margin:14px 0 0;padding-left:22px}
+.tg-list li{margin:9px 0;font-size:14px;line-height:1.55}
 .termbtn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
 .termbtn:hover{background:var(--highlight-soft);border-color:var(--highlight)}
 .termbtn.used{background:var(--paper-dark);color:var(--ink-soft)}
@@ -937,16 +944,21 @@ function renderTools(c){
   $("#tools").innerHTML=`
     <h3>${esc(t("toolsHead"))}</h3>
     <div class="toolbox">
-      <h4 class="tool-h"><span>${esc(t("textSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_text.png" alt="" onerror="this.style.display='none'"></h4>
+      <h4 class="tool-h"><span>${esc(t("textSearchHead"))}</span><img class="tool-ico tool-ico-btn" id="tico-txt" src="icons/factcheck_text.png" alt="" tabindex="0" role="button" title="${esc(t("toolGuideHint"))}" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("textSearchNote"))}</div>
       ${c.searchTerms.map((k,i)=>`<button class="termbtn" data-q="${i}"><span class="tb-ico">🔍</span><span class="tb-txt">${esc(t(k))}</span></button><div id="results-${i}"></div>`).join("")}
     </div>
     <div class="toolbox">
-      <h4 class="tool-h"><span>${esc(t("imageSearchHead"))}</span><img class="tool-ico" src="icons/factcheck_image.png" alt="" onerror="this.style.display='none'"></h4>
+      <h4 class="tool-h"><span>${esc(t("imageSearchHead"))}</span><img class="tool-ico tool-ico-btn" id="tico-img" src="icons/factcheck_image.png" alt="" tabindex="0" role="button" title="${esc(t("toolGuideHint"))}" onerror="this.style.display='none'"></h4>
       <div class="tool-note">${esc(t("imageSearchNote"))}</div>
       <button class="termbtn" id="btn-imgsearch"><span class="tb-ico">🖼️</span><span class="tb-txt">${esc(t("searchImageBtn"))}</span></button>
       <div id="results-img"></div>
     </div>`;
+  const bindTG=(id,kind)=>{ const el=$(id); if(!el) return;
+    const go=()=>{ sfxOpen(); openToolGuide(kind); };
+    el.addEventListener("click",go);
+    el.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); } }); };
+  bindTG("#tico-txt","txt"); bindTG("#tico-img","img");
   document.querySelectorAll(".termbtn[data-q]").forEach(btn=>btn.addEventListener("click",()=>{
     const box=$("#results-"+btn.dataset.q);
     if(box.dataset.done){                                  // already searched: toggle open/closed
@@ -1467,6 +1479,22 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
 }
 
 /* ---------- field guide ---------- */
+function openToolGuide(kind){
+  const icon = kind==="txt" ? "icons/factcheck_text.png" : "icons/factcheck_image.png";
+  const items = [1,2,3,4,5].map(i=>`<li>${esc(t(kind+"G"+i))}</li>`).join("");
+  const mount=$("#modal-mount");
+  mount.innerHTML=`<div class="overlay" id="tg-ov"><div class="modal tg-modal">
+    <div class="modal-head tg-head">
+      <img class="tg-ico" src="${icon}" alt="" onerror="this.style.display='none'">
+      <div><h2 style="font-family:var(--font-display);font-size:21px;margin:0 0 3px">${esc(t(kind+"GTitle"))}</h2>
+      <p style="font-size:13px;color:var(--ink-soft);margin:0">${esc(t("toolGuideSub"))}</p></div>
+    </div>
+    <ol class="tg-list">${items}</ol>
+    <button class="btn-primary" id="tg-close" style="margin-top:14px">${esc(t("close"))}</button>
+  </div></div>`;
+  $("#tg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
+  $("#tg-ov").addEventListener("click",e=>{ if(e.target.id==="tg-ov"){ sfxClose(); mount.innerHTML=""; } });
+}
 function openGuide(){
   const entries=TECH_LIST.map(k=>{
     const seen=state.seenTech.has(k);
