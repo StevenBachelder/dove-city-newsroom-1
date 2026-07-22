@@ -161,6 +161,8 @@ img,svg,video{display:block;max-width:100%}
 .tg-head{display:flex;gap:14px;align-items:center}
 .tg-ico{height:64px;flex:0 0 auto}
 .tg-emoji{font-size:46px;line-height:1;flex:0 0 auto}
+#queue-head{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.qh-row{display:inline-flex;align-items:center}
 .qh-info{margin-left:9px;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--ink-soft);background:none;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;line-height:1}
 .qh-info:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .tg-list{margin:14px 0 0;padding-left:22px}
@@ -748,7 +750,8 @@ function startGame(){
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
   sel.onchange = ()=>{ sfxLang(); lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
-  $("#queue-head").innerHTML = `${esc(t("incomingTips"))}<button class="qh-info" id="qh-info" title="${esc(t("toolGuideHint"))}">?</button>`;
+  $("#queue-head").innerHTML = `<span class="qh-row">${esc(t("incomingTips"))}<button class="qh-info" id="qh-info" title="${esc(t("toolGuideHint"))}">?</button></span>
+    <img class="tool-ico" src="icons/tips_logo_inbox.png" alt="" onerror="this.style.display='none'">`;
   $("#qh-info").addEventListener("click",()=>{ sfxOpen(); openToolGuide("tip"); });
   $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
   renderQueue();
@@ -1484,9 +1487,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
 
 /* ---------- field guide ---------- */
 function openToolGuide(kind){
-  const iconHtml = kind==="tip"
-    ? `<span class="tg-emoji">📥</span>`
-    : `<img class="tg-ico" src="${kind==="txt"?"icons/factcheck_text.png":"icons/factcheck_image.png"}" alt="" onerror="this.style.display='none'">`;
+  const iconHtml = `<img class="tg-ico" src="${kind==="tip"?"icons/tips_logo_inbox.png":kind==="txt"?"icons/factcheck_text.png":"icons/factcheck_image.png"}" alt="" onerror="this.style.display='none'">`;
   const items = [1,2,3,4,5].map(i=>`<li>${esc(t(kind+"G"+i))}</li>`).join("");
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="tg-ov"><div class="modal tg-modal">
