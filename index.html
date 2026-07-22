@@ -160,6 +160,9 @@ img,svg,video{display:block;max-width:100%}
 .tool-ico-btn:focus-visible{outline:3px solid var(--pop);outline-offset:3px;border-radius:8px}
 .tg-head{display:flex;gap:14px;align-items:center}
 .tg-ico{height:64px;flex:0 0 auto}
+.tg-emoji{font-size:46px;line-height:1;flex:0 0 auto}
+.qh-info{margin-left:9px;width:21px;height:21px;border-radius:50%;border:1.5px solid var(--ink-soft);background:none;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;line-height:1}
+.qh-info:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .tg-list{margin:14px 0 0;padding-left:22px}
 .tg-list li{margin:9px 0;font-size:14px;line-height:1.55}
 .termbtn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
@@ -745,7 +748,8 @@ function startGame(){
   const sel = $("#lang-top");
   sel.innerHTML = LANGS.map(([c,n])=>`<option value="${c}" ${c===lang?"selected":""}>${n}</option>`).join("");
   sel.onchange = ()=>{ sfxLang(); lang = sel.value; startGame(); if(!state.current){ deskIdle(); toolsIdle(); } };
-  $("#queue-head").textContent = t("incomingTips");
+  $("#queue-head").innerHTML = `${esc(t("incomingTips"))}<button class="qh-info" id="qh-info" title="${esc(t("toolGuideHint"))}">?</button>`;
+  $("#qh-info").addEventListener("click",()=>{ sfxOpen(); openToolGuide("tip"); });
   $("#dayclock").textContent = t("dayLabel")+" "+state.day+" "+t("dayOf").replace("3",String(MAX_DAY));
   renderQueue();
   if(!state.current){ deskIdle(); toolsIdle(); }
@@ -1480,12 +1484,14 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
 
 /* ---------- field guide ---------- */
 function openToolGuide(kind){
-  const icon = kind==="txt" ? "icons/factcheck_text.png" : "icons/factcheck_image.png";
+  const iconHtml = kind==="tip"
+    ? `<span class="tg-emoji">📥</span>`
+    : `<img class="tg-ico" src="${kind==="txt"?"icons/factcheck_text.png":"icons/factcheck_image.png"}" alt="" onerror="this.style.display='none'">`;
   const items = [1,2,3,4,5].map(i=>`<li>${esc(t(kind+"G"+i))}</li>`).join("");
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="tg-ov"><div class="modal tg-modal">
     <div class="modal-head tg-head">
-      <img class="tg-ico" src="${icon}" alt="" onerror="this.style.display='none'">
+      ${iconHtml}
       <div><h2 style="font-family:var(--font-display);font-size:21px;margin:0 0 3px">${esc(t(kind+"GTitle"))}</h2>
       <p style="font-size:13px;color:var(--ink-soft);margin:0">${esc(t("toolGuideSub"))}</p></div>
     </div>
