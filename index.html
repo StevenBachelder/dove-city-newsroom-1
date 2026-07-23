@@ -323,6 +323,7 @@ img[data-zoom]{cursor:zoom-in}
 .fp-mast{font-family:var(--font-display);font-weight:900;font-size:32px;text-align:center;border-bottom:3px double var(--ink);padding-bottom:8px}
 .fp-mast.clickable{cursor:pointer}
 .fp-mast.clickable:hover{opacity:.75}
+.lvl-clear{font-family:var(--font-mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#0E5F58;border:2px solid #1FA84D;border-radius:8px;padding:7px 14px;display:inline-block;margin:2px auto 10px;background:#EAF6EC}
 .fp-date{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-align:center;color:var(--ink-soft);padding:7px 0;border-bottom:1px solid var(--line);margin-bottom:16px}
 .fp-head{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1.15;margin-bottom:10px}
 .fp-sub{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
@@ -1288,6 +1289,7 @@ function frontPage(){
     <div class="frontpage">
       <img class="brand-logo fp-logo" src="icons/City_News.png" alt="" onerror="this.style.display='none'">
       <div class="fp-mast clickable" id="fp-home" role="button" tabindex="0" title="${esc(t("homeTitle"))}">${esc(t("brandName"))}</div>
+      <div class="lvl-clear">${esc(tf("lvlClear",{n:state.day}))}</div>
       <div class="fp-date">${esc(tf("fpDate",{n:state.day}))}</div>
       <div class="fp-head">${esc(head)}</div>
       <div class="fp-sub">${esc(sub)} ${esc(tf("fpMeters",{c:state.cred,p:state.pop}))}</div>
