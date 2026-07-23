@@ -797,8 +797,10 @@ async function drawPressCard(o){
     if(line) out.push(line); return out; };
   // pre-measure wrapped sections for dynamic height
   const wellLines=[], impLines=[];
-  o.well.forEach(t2=>wrap(probe,"✔  "+t2,830,"24px monospace").forEach((l,i)=>wellLines.push(i?("    "+l):l)));
-  o.improve.forEach(t2=>wrap(probe,"➤  "+t2,830,"24px monospace").forEach((l,i)=>impLines.push(i?("    "+l):l)));
+  o.well.forEach(t2=>{ wrap(probe,"✔  "+t2,830,"24px monospace").forEach((l,i)=>wellLines.push(i?("    "+l):l)); wellLines.push(""); });
+  if(wellLines[wellLines.length-1]==="") wellLines.pop();
+  o.improve.forEach(t2=>{ wrap(probe,"➤  "+t2,830,"24px monospace").forEach((l,i)=>impLines.push(i?("    "+l):l)); impLines.push(""); });
+  if(impLines[impLines.length-1]==="") impLines.pop();
   const ledgerH=40+o.ledger.length*30;
   const H=660 + 260 + (56+wellLines.length*32+24) + (56+impLines.length*32+24) + (56+ledgerH) + 640 + 60;
   const c=document.createElement("canvas"); c.width=W; c.height=H;

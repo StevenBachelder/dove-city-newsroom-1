@@ -1301,203 +1301,6 @@ const CASES = [
     ]
   },
   {
-    "id": 6,
-    "title": "celebrityDeathTitle",
-    "description": "celebrityDeathDescription",
-    "image": "img/memorial.png",
-    "icons": [
-      "icons/X.png"
-    ],
-    "truth": true,
-    "technique": "genuine",
-    "day": 3,
-    "buzz": 12,
-    "needImageTool": false,
-    "needTextTool": true,
-    "searchTerms": [
-      "celebrityDeathSearchTerms1",
-      "celebrityDeathSearchTerms2",
-      "celebrityDeathSearchTerms3",
-      "celebrityDeathSearchTerms4"
-    ],
-    "searchResults": [
-      {
-        "title": "celebrityDeathtitle1",
-        "description": "celebrityDeathdescription1",
-        "isAd": false,
-        "date": "celebrityDeathResultDate1",
-        "rIdx": 2,
-        "icons": [
-          "icons/CityTruthDaily.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle2",
-        "description": "celebrityDeathdescription2",
-        "isAd": false,
-        "date": "celebrityDeathResultDate2",
-        "rIdx": 2,
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle3",
-        "description": "celebrityDeathdescription3",
-        "isAd": false,
-        "date": "celebrityDeathResultDate3",
-        "rIdx": 0,
-        "icons": [
-          "icons/X.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle4",
-        "description": "celebrityDeathdescription4",
-        "isAd": true,
-        "date": "celebrityDeathResultDate4",
-        "rIdx": 2,
-        "icons": [
-          "icons/home.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle5",
-        "description": "celebrityDeathdescription5",
-        "isAd": false,
-        "date": "celebrityDeathResultDate5",
-        "rIdx": 0,
-        "icons": [
-          "icons/Channel1.png"
-        ],
-        "supports": true
-      },
-      {
-        "title": "celebrityDeathtitle6",
-        "description": "celebrityDeathdescription6",
-        "isAd": false,
-        "date": "celebrityDeathResultDate6",
-        "rIdx": 1,
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle7",
-        "description": "celebrityDeathdescription7",
-        "isAd": false,
-        "date": "celebrityDeathResultDate7",
-        "rIdx": 3,
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle8",
-        "description": "celebrityDeathdescription8",
-        "isAd": false,
-        "date": "celebrityDeathResultDate8",
-        "rIdx": 1,
-        "icons": [
-          "icons/firedpt.png"
-        ],
-        "supports": true
-      },
-      {
-        "title": "celebrityDeathtitle9",
-        "description": "celebrityDeathdescription9",
-        "isAd": true,
-        "date": "celebrityDeathResultDate9",
-        "rIdx": 2,
-        "icons": [
-          "icons/vitalheart.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle10",
-        "description": "celebrityDeathdescription10",
-        "isAd": false,
-        "date": "celebrityDeathResultDate10",
-        "rIdx": 2,
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle11",
-        "description": "celebrityDeathdescription11",
-        "isAd": false,
-        "date": "celebrityDeathResultDate11",
-        "rIdx": 3,
-        "icons": [
-          "icons/X.png"
-        ],
-        "supports": null
-      },
-      {
-        "title": "celebrityDeathtitle12",
-        "description": "celebrityDeathdescription12",
-        "isAd": false,
-        "date": "celebrityDeathResultDate12",
-        "rIdx": 3,
-        "icons": [
-          "icons/valestudio.png"
-        ],
-        "supports": true
-      }
-    ],
-    "imageResults": [
-      {
-        "src": "updated_images/actor_dead/actordied6.png",
-        "type": "img",
-        "location": "celebrityDeathlocation1",
-        "date": "celebrityDeathdate1",
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "src": "updated_images/actor_dead/actordied2.png",
-        "type": "img",
-        "location": "celebrityDeathlocation2",
-        "date": "celebrityDeathdate2",
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "src": "updated_images/actor_dead/actordied.png",
-        "type": "img",
-        "location": "celebrityDeathlocation3",
-        "date": "celebrityDeathdate3",
-        "icons": [
-          "icons/Channel9.png"
-        ],
-        "supports": null
-      },
-      {
-        "src": "updated_images/actor_dead/actor_crop.png",
-        "type": "img",
-        "location": "celebrityDeathlocation4",
-        "date": "celebrityDeathdate4",
-        "icons": [
-          "icons/Channel1.png"
-        ],
-        "supports": null
-      }
-    ]
-  },
-  {
     "id": 7,
     "title": "weatherAlertTitle",
     "description": "weatherAlertDescription",
@@ -2085,8 +1888,8 @@ const CASES = [
     "icons": [
       "icons/sportpulse.png"
     ],
-    "truth": true,
-    "technique": "genuine",
+    "truth": false,
+    "technique": "unverified",
     "day": 3,
     "buzz": 13,
     "needImageTool": false,
@@ -2136,7 +1939,7 @@ const CASES = [
         "icons": [
           "icons/sportpulse.png"
         ],
-        "supports": true
+        "supports": false
       },
       {
         "title": "sportspulsetitle5",
@@ -3131,13 +2934,15 @@ const CASES = [
         "supports": null
       }
     ]
-  }
-  ,{
+  },
+  {
     "id": 17,
     "title": "stormingTitle",
     "description": "stormingDescription",
     "image": "updated_images/Storming/storming_cropped.png",
-    "icons": ["icons/CityTruthDaily.png"],
+    "icons": [
+      "icons/CityTruthDaily.png"
+    ],
     "truth": false,
     "technique": "outofcontext",
     "day": 2,
@@ -3151,26 +2956,72 @@ const CASES = [
       "stormingsearchTerms4"
     ],
     "searchResults": [
-      { "title": "stormingtitle1", "description": "stormingdescription1",
-        "isAd": false, "date": "stormingdate1", "rIdx": 0,
-        "icons": ["icons/police.png"], "supports": true },
-      { "title": "stormingtitle2", "description": "stormingdescription2",
-        "isAd": false, "date": "stormingdate2", "rIdx": 1,
-        "icons": ["icons/Channel1.png"], "supports": true },
-      { "title": "stormingtitle3", "description": "stormingdescription3",
-        "isAd": false, "date": "stormingdate3", "rIdx": 2,
-        "icons": ["icons/CityTruthDaily.png"], "supports": false },
-      { "title": "stormingtitle4", "description": "stormingdescription4",
-        "isAd": true, "date": null, "rIdx": 0,
-        "icons": ["icons/urbansafe.png"], "supports": null }
+      {
+        "title": "stormingtitle1",
+        "description": "stormingdescription1",
+        "isAd": false,
+        "date": "stormingdate1",
+        "rIdx": 0,
+        "icons": [
+          "icons/police.png"
+        ],
+        "supports": true
+      },
+      {
+        "title": "stormingtitle2",
+        "description": "stormingdescription2",
+        "isAd": false,
+        "date": "stormingdate2",
+        "rIdx": 1,
+        "icons": [
+          "icons/Channel1.png"
+        ],
+        "supports": true
+      },
+      {
+        "title": "stormingtitle3",
+        "description": "stormingdescription3",
+        "isAd": false,
+        "date": "stormingdate3",
+        "rIdx": 2,
+        "icons": [
+          "icons/CityTruthDaily.png"
+        ],
+        "supports": false
+      },
+      {
+        "title": "stormingtitle4",
+        "description": "stormingdescription4",
+        "isAd": true,
+        "date": null,
+        "rIdx": 0,
+        "icons": [
+          "icons/urbansafe.png"
+        ],
+        "supports": null
+      }
     ],
     "imageResults": [
-      { "src": "updated_images/Storming/storming_wide_original.png", "type": "img",
-        "location": "stormingimglocation1", "date": "stormingimgdate1",
-        "icons": ["icons/Channel1.png"], "supports": true },
-      { "src": "updated_images/Storming/storming_cropped.png", "type": "img",
-        "location": "stormingimglocation2", "date": "stormingimgdate2",
-        "icons": ["icons/CityTruthDaily.png"], "supports": false }
+      {
+        "src": "updated_images/Storming/storming_wide_original.png",
+        "type": "img",
+        "location": "stormingimglocation1",
+        "date": "stormingimgdate1",
+        "icons": [
+          "icons/Channel1.png"
+        ],
+        "supports": true
+      },
+      {
+        "src": "updated_images/Storming/storming_cropped.png",
+        "type": "img",
+        "location": "stormingimglocation2",
+        "date": "stormingimgdate2",
+        "icons": [
+          "icons/CityTruthDaily.png"
+        ],
+        "supports": false
+      }
     ]
   }
 ];
