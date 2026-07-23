@@ -678,7 +678,7 @@ const FLAG_SRC = PARAMS.get("src")!=="off";
 const state = {
   day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
   playerName:(PARAMS.get("name")||"").slice(0,40), pid:(PARAMS.get("pid")||"").slice(0,60), muted:false,
-  usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), adPinned:false,
+  usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), badgeLv:{}, adPinned:false,
   unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
   replies:{helpful:0,blunt:0,ignored:0},
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
@@ -1113,7 +1113,9 @@ function verdict(choice){
   const sk=SKILL_MAP[c.technique]||"source";
   state.skills[sk].n++; if(correct) state.skills[sk].ok++;
   state.skills.evidence.n++; if(evOk) state.skills.evidence.ok++;
-  if(c.technique!=="genuine"){ state.seenTech.add(c.technique); if(correct) state.badges.add(c.technique); }
+  if(c.technique!=="genuine"){ state.seenTech.add(c.technique);
+    if(correct && !state.badges.has(c.technique)) state.badgeLv[c.technique]=state.day;
+    if(correct) state.badges.add(c.technique); }
   if(adUsed) state.seenTech.add("sponsored");
   feedback(c,choice,correct,evOk,adUsed,events,before);
 }
@@ -1327,12 +1329,8 @@ function frontPage(){
           <button class="lr-guide" id="lr-guide">📖 ${esc(t("lvlRepGuideBtn"))}</button>`
           :`<div class="lr-row lr-perfect">🏅 ${esc(tf("lvlRepPerfect",{n:Math.min(state.day+1,MAX_DAY)}))}</div>`}
           ${(()=>{
-            const fakesBy={};
-            CASES.forEach(c=>{ if(!c.truth&&c.technique){ (fakesBy[c.technique]=fakesBy[c.technique]||[]).push(c); } });
             const byLv={};
-            Object.entries(fakesBy).forEach(([k,arr])=>{
-              if(arr.every(c=>state.handled[c.id]&&state.handled[c.id].correct)){
-                const lv=Math.max(...arr.map(c=>c.day)); (byLv[lv]=byLv[lv]||[]).push(k); } });
+            [...state.badges].forEach(k=>{ const lv=state.badgeLv[k]||state.day; (byLv[lv]=byLv[lv]||[]).push(k); });
             const rows=[];
             for(let lv=1;lv<=state.day;lv++){
               if(byLv[lv]&&byLv[lv].length) rows.push(`<div class="lrb-row"><span class="lrb-lv">${esc(tf("lvlBadgeLv",{n:lv}))}</span>${byLv[lv].map(k=>`<span class="lrb-badge"><img class="lrb-medal" src="Badges/badge_${k}.png" alt="" onerror="this.style.display='none'"><span class="lrb-name">${esc(t("cardT_"+k))}</span></span>`).join("")}</div>`);
