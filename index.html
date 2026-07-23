@@ -1458,8 +1458,10 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
       const wrongFlag = CASES.filter(c=>state.handled[c.id]&&c.truth&&state.handled[c.id].choice==="flag").length;
       const well=[], improve=[];
       if(right>=Math.ceil(total*0.75)) well.push(tf("repWellRight",{r:right,t:total}));
-      if(badgeCount>0) well.push(tf("repWellBadges",{n:badgeCount}));
-      if(!state.adPinned) well.push(t("repWellAds"));
+      TECH_LIST.filter(k=>k!=="sponsored"&&state.badges.has(k))
+        .forEach(k=>well.push(t("cardT_"+k)+" \u2014 "+t("tq_"+k+"_body")));
+      if(!state.adPinned) well.push(t("cardT_adspotter")+" \u2014 "+t("tq_sponsored_body"));
+      if(badgeCount===8) well.push(t("cardT_master")+" \u2014 "+t("badgeMasterBody"));
       if(avgPin>=3) well.push(tf("repWellAvg",{v:avgPin.toFixed(1)}));
       if(state.upgrades>0) well.push(tf("repWellUpgrades",{n:state.upgrades}));
       if(state.replies.helpful>0) well.push(tf("repWellReplies",{n:state.replies.helpful}));
