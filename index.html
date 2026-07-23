@@ -270,6 +270,15 @@ img[data-zoom]{cursor:zoom-in}
 .modal-body p{margin-bottom:10px;font-size:14.5px}
 .editor-quote{display:flex;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
 .fp-sarah{text-align:left;max-width:560px;width:100%;margin:16px auto 4px}
+.lvl-report{max-width:560px;width:100%;margin:10px auto 14px;text-align:left;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);padding:12px 15px}
+.lr-head{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+.lr-row{margin:6px 0;font-size:13.5px;line-height:1.5}
+.lr-k{font-weight:700}
+.lr-k.ok{color:#0E5F58}
+.lr-k.err{color:#8E2721}
+.lr-perfect{font-weight:600}
+.lr-guide{margin-top:8px;border:1.5px solid var(--ink);background:none;border-radius:8px;padding:7px 12px;font-family:inherit;font-size:13px;cursor:pointer}
+.lr-guide:hover{background:var(--ink);color:#fff}
 .letter{text-align:left;max-width:560px;width:100%;margin:16px auto 0;border-radius:10px;padding:13px 15px;border:1.5px solid}
 .letter.hurt{background:#FBF0EE;border-color:#D9968C}
 .letter.thanks{background:#EEF7EE;border-color:#8FC79A}
@@ -1298,11 +1307,25 @@ function frontPage(){
       <div class="editor-quote fp-sarah"><div class="avatar">🕊️</div>
         <div><div class="q-name">${esc(t("veraName"))} · ${esc(t("veraTitle"))}</div>
         <div class="q-text">“${esc(sarahLine)}”</div></div></div>
+      ${(()=>{ 
+        const wrongs=cs.filter(c=>!state.handled[c.id].correct);
+        const focusTechs=[...new Set(wrongs.filter(c=>!c.truth).map(c=>c.technique))];
+        const overCaution=wrongs.some(c=>c.truth);
+        const strengthTechs=[...new Set(cs.filter(c=>state.handled[c.id].correct&&!c.truth).map(c=>c.technique))].filter(k=>!focusTechs.includes(k));
+        const needs=focusTechs.length||overCaution;
+        return `<div class="lvl-report">
+          <div class="lr-head">${esc(tf("lvlRepTitle",{n:state.day}))}</div>
+          ${strengthTechs.length?`<div class="lr-row"><span class="lr-k ok">✓ ${esc(t("lvlRepStrengths"))}</span> ${strengthTechs.map(k=>esc(t("tq_"+k+"_name"))).join(" · ")}</div>`:""}
+          ${needs?`<div class="lr-row"><span class="lr-k err">→ ${esc(t("lvlRepFocus"))}</span> ${[...focusTechs.map(k=>t("tq_"+k+"_name")),...(overCaution?[t("lvlRepOverCaution")]:[])].map(esc).join(" · ")}</div>
+          <button class="lr-guide" id="lr-guide">📖 ${esc(t("lvlRepGuideBtn"))}</button>`
+          :`<div class="lr-row lr-perfect">🏅 ${esc(tf("lvlRepPerfect",{n:Math.min(state.day+1,MAX_DAY)}))}</div>`}
+        </div>`; })()}
       <button class="btn-primary btn-blue" id="btn-nextday">${esc(state.day<MAX_DAY?tf("startDayBtn",{n:state.day+1}):t("finalReviewBtn"))}</button>
     </div>`;
   show("screen-front");
   $("#fp-home").addEventListener("click",goHome);
   $("#fp-home").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")goHome();});
+  const lg=$("#lr-guide"); if(lg) lg.addEventListener("click",()=>{ sfxOpen(); openGuide(); });
   $("#btn-nextday").addEventListener("click",()=>{
     sfxDay();
     if(state.cred<=0){ debrief(true); return; }
