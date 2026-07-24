@@ -1394,7 +1394,7 @@ function levelFailed(){
   mount.innerHTML=`<div class="overlay" id="lf-ov"><div class="modal lf-modal">
     <div style="font-size:42px">🚪</div>
     <h2 class="lf-title">${esc(tf("lvlFailTitle",{n:state.day}))}</h2>
-    <p class="lf-body">${esc(t("lvlFailBody"))}</p>
+    <p class="lf-body">${t("lvlFailBody").split("\n").map(esc).join("<br>")}</p>
     <p class="lf-att">${esc(tf("lvlFailAttempts",{a:state.retries}))}</p>
     <button class="btn-primary" id="lf-btn">${esc(tf("lvlFailBtn",{n:state.day}))}</button>
   </div></div>`;
