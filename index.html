@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>City News — Tip Desk</title>
+<title>City Newsroom — Tip Desk</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;900&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -58,6 +58,12 @@ img,svg,video{display:block;max-width:100%}
 .topbar .brand{font-family:var(--font-display);font-weight:900;font-size:19px;white-space:nowrap;cursor:pointer;border:none;background:none;color:#fff;padding:0}
 .topbar .brand:hover{opacity:.8}
 .topbar .dayclock{font-family:var(--font-mono);font-size:13px;color:#C7CDDB;white-space:nowrap}
+.mistchip{font-family:var(--font-mono);font-size:12px;color:#C7CDDB;border:1px solid #3A4358;border-radius:6px;padding:2px 8px;margin-left:8px;white-space:nowrap}
+.mistchip.hot{color:#FF9B94;border-color:#8E2721;background:rgba(217,48,37,.18)}
+.lf-modal{text-align:center;max-width:480px}
+.lf-title{font-family:var(--font-display);font-size:24px;margin:8px 0 10px}
+.lf-body{font-size:14.5px;line-height:1.6;margin:0 0 12px}
+.lf-att{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin:0 0 14px}
 .meters{display:flex;gap:16px;margin-left:auto;align-items:center;flex-wrap:wrap}
 .meter{min-width:118px;cursor:pointer;border:none;background:none;padding:0;text-align:left}
 .meter:hover .m-label{color:#fff}
@@ -482,7 +488,7 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
 <div class="screen hidden" id="screen-news">
   <div class="topbar">
     <button class="brand" id="brand-top" type="button"></button>
-    <div class="dayclock" id="dayclock"></div>
+    <div class="dayclock" id="dayclock"></div><span class="mistchip" id="mistchip"></span>
     <div class="meters">
       <button class="meter cred" id="meter-cred" type="button">
         <div class="m-label"><span id="cred-label"></span><span id="cred-num">50</span></div>
@@ -679,7 +685,7 @@ const FLAG_SRC = PARAMS.get("src")!=="off";
 const state = {
   day:1, cred:50, pop:20, src:50, current:null, evidence:[], handled:{},
   playerName:(PARAMS.get("name")||"").slice(0,40), pid:(PARAMS.get("pid")||"").slice(0,60), muted:false,
-  usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), badgeLv:{}, adPinned:false,
+  usedText:{}, usedImg:{}, seenTech:new Set(), badges:new Set(), badgeLv:{}, wrongLvl:0, retries:0, lvlSnap:null, doorFired:false, adPinned:false,
   unpins:0, upgrades:0, caseUnpinned:[], pinSum:0, pinCount:0,
   replies:{helpful:0,blunt:0,ignored:0},
   skills:{ source:{ok:0,n:0}, image:{ok:0,n:0}, claims:{ok:0,n:0}, evidence:{ok:0,n:0} }
@@ -758,6 +764,7 @@ function goHome(){
   if(confirm(t("homeConfirm"))) location.reload();
 }
 function startGame(){
+  lvlSnapshot();
   $("#brand-top").textContent = t("brandName");
   $("#brand-top").title = t("homeTitle");
   $("#brand-top").onclick = goHome;
@@ -1116,6 +1123,7 @@ function verdict(choice){
   const sk=SKILL_MAP[c.technique]||"source";
   state.skills[sk].n++; if(correct) state.skills[sk].ok++;
   state.skills.evidence.n++; if(evOk) state.skills.evidence.ok++;
+  if(!correct){ state.wrongLvl=(state.wrongLvl||0)+1; renderMist(); }
   if(c.technique!=="genuine"){ state.seenTech.add(c.technique);
     if(correct && !state.badges.has(c.technique)) state.badgeLv[c.technique]=state.day;
     if(correct) state.badges.add(c.technique); }
@@ -1202,6 +1210,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
       document.body.appendChild(n);
       setTimeout(()=>{if(n.parentNode)n.remove();},9000);
     }
+    if(state.wrongLvl>=2){ levelFailed(); return; }
     const remaining=dayCases(state.day).filter(x=>!state.handled[x.id]);
     if(remaining.length){
       deskIdle(remaining.length===1?t("tipsLeftOne"):tf("tipsLeftMany",{n:remaining.length}));
@@ -1350,15 +1359,52 @@ function frontPage(){
   $("#btn-nextday").addEventListener("click",()=>{
     sfxDay();
     if(state.cred<=0){ debrief(true); return; }
-    if(state.day<MAX_DAY){ state.day++; renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})+(state.day===2?" "+t("day2Ambient"):"")); toolsIdle(); show("screen-news"); }
+    if(state.day<MAX_DAY){ state.day++; lvlSnapshot(); renderQueue(); deskIdle(tf("newDayDesk",{n:state.day})+(state.day===2?" "+t("day2Ambient"):"")); toolsIdle(); show("screen-news"); }
     else debrief(false);
   });
 }
 
+function lvlSnapshot(){
+  state.lvlSnap={cred:state.cred,pop:state.pop,src:state.src,adPinned:state.adPinned,
+    badges:[...state.badges], badgeLv:Object.assign({},state.badgeLv), handled:Object.keys(state.handled)};
+  state.wrongLvl=0; renderMist();
+}
+function renderMist(){
+  const el=$("#mistchip"); if(!el) return;
+  el.textContent="✗ "+state.wrongLvl+"/1"; el.title=t("mistHint");
+  el.classList.toggle("hot",state.wrongLvl>=1);
+}
+function restartLevel(){
+  const p=state.lvlSnap;
+  state.cred=p.cred; state.pop=p.pop; state.src=p.src; state.adPinned=p.adPinned;
+  state.badges=new Set(p.badges); state.badgeLv=Object.assign({},p.badgeLv);
+  Object.keys(state.handled).forEach(k=>{ if(p.handled.indexOf(k)<0) delete state.handled[k]; });
+  state.wrongLvl=0; state.current=null;
+  $("#modal-mount").innerHTML="";
+  if(typeof renderMeters==="function") renderMeters();
+  renderMist(); renderQueue();
+  deskIdle(tf("newDayDesk",{n:state.day})); toolsIdle(); show("screen-news");
+}
+function sfxFail(){ swish(900,220,0.25,0.09); setTimeout(()=>thump(0.2,120),240); }
+function levelFailed(){
+  state.retries++;
+  sfxFail();
+  if(state.retries>3){ state.doorFired=true; debrief(false); return; }
+  const mount=$("#modal-mount");
+  mount.innerHTML=`<div class="overlay" id="lf-ov"><div class="modal lf-modal">
+    <div style="font-size:42px">🚪</div>
+    <h2 class="lf-title">${esc(tf("lvlFailTitle",{n:state.day}))}</h2>
+    <p class="lf-body">${esc(t("lvlFailBody"))}</p>
+    <p class="lf-att">${esc(tf("lvlFailAttempts",{a:state.retries}))}</p>
+    <button class="btn-primary" id="lf-btn">${esc(tf("lvlFailBtn",{n:state.day}))}</button>
+  </div></div>`;
+  $("#lf-btn").addEventListener("click",()=>{ uiClick(); restartLevel(); });
+}
 function debrief(fired){
   const total=CASES.length, right=Object.values(state.handled).filter(h=>h.correct).length;
   let tier;
-  if(fired||state.cred<25) tier={e:"📦",t:t("endFiredT"),d:t("endFiredD")};
+  if(state.doorFired) tier={e:"🚪",t:t("doorTitle"),d:t("doorBody")};
+  else if(fired||state.cred<25) tier={e:"📦",t:t("endFiredT"),d:t("endFiredD")};
   else if(right>=total-1&&state.cred>=80) tier={e:"🏆",t:t("endSeniorT"),d:t("endSeniorD")};
   else if(state.cred>=60) tier={e:"🗞️",t:t("endStaffT"),d:t("endStaffD")};
   else tier={e:"⏳",t:t("endExtendT"),d:t("endExtendD")};
