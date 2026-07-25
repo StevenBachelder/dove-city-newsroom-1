@@ -1121,7 +1121,7 @@ function verdict(choice){
   if(ds>0) events.push({m:"src",amt:ds,label:tf("dSrcPlusBacked",{n:ds})});
   else if(ds<0) events.push({m:"src",amt:ds,label:tf(adUsed?"dSrcMinusAd":"dSrcMinusWeak",{n:Math.abs(ds)})});
   setMeters(dc,dp,ds);
-  state.handled[c.id]={choice,correct,evOk};
+  state.handled[c.id]={choice,correct,evOk,ts:Date.now(),tech:c.technique,lvl:state.day,txt:!!state.usedText[c.id],img:!!state.usedImg[c.id],pins:state.evidence.length};
   const sk=SKILL_MAP[c.technique]||"source";
   state.skills[sk].n++; if(correct) state.skills[sk].ok++;
   state.skills.evidence.n++; if(evOk) state.skills.evidence.ok++;
@@ -1402,6 +1402,13 @@ function levelFailed(){
   </div></div>`;
   $("#lf-btn").addEventListener("click",()=>{ uiClick(); restartLevel(); });
 }
+function exportLog(){
+  const d={v:1,game:"CityNewsroom",lang:(typeof LANG!=="undefined"?LANG:document.documentElement.lang||""),when:new Date().toISOString(),
+    retries:state.retries,doorFired:state.doorFired,cred:state.cred,pop:state.pop,src:state.src,
+    badges:[...state.badges],badgeLv:state.badgeLv,adPinned:state.adPinned,
+    cases:Object.entries(state.handled).map(([id,h])=>({id:+id,tech:h.tech,lvl:h.lvl,choice:h.choice,correct:h.correct,evOk:h.evOk,usedText:h.txt,usedImg:h.img,pins:h.pins,ts:h.ts}))};
+  return JSON.stringify(d,null,1);
+}
 function debrief(fired){
   const total=CASES.length, right=Object.values(state.handled).filter(h=>h.correct).length;
   let tier;
@@ -1473,6 +1480,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
       </div>
       <div class="sb-rows">${scoreRows.map((r,i)=>`<div class="sb-row" data-sbrow="${i}"><span>${esc(r.label)}</span><span class="sb-pts">+${r.pts}</span></div>`).join("")}</div>
       <button class="sb-export" id="sb-export">${esc(t("resultsCopy"))}</button>
+      ${location.search.indexOf("research=1")>=0?`<button class="sb-export" id="log-export">⬇ Research log (JSON)</button>`:""}
       <button class="sb-export sb-card" id="card-download">🪪 ${esc(t((state.cred>=60&&!(fired||state.cred<25))?"cardDownload":"reportDownload"))}</button>
     </div>`;
   $("#screen-end").innerHTML=`
@@ -1551,6 +1559,11 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
       if(canvas.toBlob) canvas.toBlob(b=>{ if(b) dl(URL.createObjectURL(b)); else dl(canvas.toDataURL("image/png")); },"image/png");
       else dl(canvas.toDataURL("image/png"));
     }catch(e){ cardBtn.textContent=t("cardUnavailable"); }
+  });
+  const le=document.getElementById("log-export"); if(le) le.addEventListener("click",()=>{
+    const b=new Blob([exportLog()],{type:"application/json"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(b);
+    a.download="citynewsroom_log.json"; a.click();
   });
   const exBtn=document.getElementById("sb-export");
   if(exBtn) exBtn.addEventListener("click",()=>{
