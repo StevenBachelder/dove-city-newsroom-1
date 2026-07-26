@@ -450,6 +450,7 @@ img[data-zoom]{cursor:zoom-in}
 }
 /* ---- phone / small-tablet pass: the original's grab-and-play virtue ---- */
 @media (max-width: 720px){
+  .photo img,.photo video{max-height:none;height:auto;object-fit:contain;background:var(--paper-dark)}
   .badges{grid-template-columns:repeat(2,1fr);gap:10px}
   .badge-img{height:88px}
   .badge .b-pts{font-size:21px}
