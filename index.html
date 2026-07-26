@@ -128,6 +128,7 @@ img,svg,video{display:block;max-width:100%}
 .board-hint{font-size:12px;font-style:italic;color:var(--ink-soft);margin-bottom:9px}
 .board .key-ico{cursor:pointer;font-size:14px;flex-shrink:0}
 .ep-key{float:right;font-size:16px}
+.key-modal{max-width:460px}
 .key-note{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);max-width:420px;background:#FFFDF7;border:2px solid #20293A;border-radius:11px;padding:12px 16px;font-size:13.5px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:60}
 .key-note b{font-family:var(--font-mono);font-size:12px;letter-spacing:1px}
 .key-pop{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:#F2C94C;color:#20293A;border:2px solid #20293A;border-radius:9px;padding:6px 13px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;letter-spacing:1.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:keypop 1.9s ease-out forwards;pointer-events:none;z-index:5}
@@ -1066,7 +1067,7 @@ function renderTextResults(c,qi){
     if(state.evidence.some(e=>e.key==="t"+j)){ b.disabled=true; b.textContent=t("pinnedBtn"); }
     b.addEventListener("click",()=>{
       sfxPin();
-      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, val:(typeof r.val==="number"?r.val:undefined), key:"t"+j}))
+      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, val:(typeof r.val==="number"?r.val:undefined), keyNote:r.keyNote, key:"t"+j}))
         { b.disabled=true; b.textContent=t("pinnedBtn"); }
     });
   });
@@ -1083,7 +1084,7 @@ function renderImgResults(c){
   box.querySelectorAll(".btn-ev").forEach(b=>b.addEventListener("click",()=>{
     sfxPin();
     const j=+b.dataset.ev.split("-")[1], r=c.imageResults[j];
-    if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, val:(typeof r.val==="number"?r.val:undefined), key:"i"+j}))
+    if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, val:(typeof r.val==="number"?r.val:undefined), keyNote:r.keyNote, key:"i"+j}))
       { b.disabled=true; b.textContent=t("pinnedBtn"); }
   }));
 }
@@ -1186,7 +1187,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
                  : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
                  : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
         const pts=e.pts||0;
-        const keyIco=(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico" title="${esc(t("keyEvLabel"))}">🔑</span>`:"";
+        const keyIco=(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:"";
         const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}${keyIco}${FLAG_SRC?`<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`:""}`;
         return `<div class="fb-evcard ${pts>0?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
       }).join("")}</div>`:""}
@@ -1273,7 +1274,7 @@ function openEvidence(i){
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
       ${FLAG_SRC?`<div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
         <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
-        ${(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
+        ${(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
         <span class="ep-label">${esc(t("srcValLabel"))}</span>
         <div class="ep-why">${esc(evPtsReason(e))}</div>
       </div>`:""}
@@ -1705,12 +1706,17 @@ document.addEventListener("click",ev=>{
   const k=ev.target.closest&&ev.target.closest(".key-ico");
   if(!k) return;
   ev.stopPropagation();
-  document.querySelectorAll(".key-note").forEach(n=>n.remove());
-  const n=document.createElement("div"); n.className="key-note";
-  n.innerHTML="<b>🔑 "+esc(t("keyEvLabel"))+"</b><br>"+esc(t("keyEvExplain"));
-  document.body.appendChild(n);
-  setTimeout(()=>{ const off=e2=>{ n.remove(); document.removeEventListener("click",off,true); };
-    document.addEventListener("click",off,true); },50);
+  sfxOpen();
+  const noteKey=k.dataset.note;
+  const body=(noteKey&&noteKey!=="undefined"&&noteKey!=="")?t(noteKey):t("keyEvExplain");
+  const mount=$("#modal-mount");
+  mount.innerHTML=`<div class="overlay" id="key-ov"><div class="modal key-modal">
+    <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:21px;padding-bottom:2px">🔑 ${esc(t("keyEvLabel"))}</h2></div>
+    <div class="modal-body"><p style="font-size:14px;line-height:1.6;margin:0 0 14px">${esc(body)}</p>
+    <button class="btn-primary" id="key-close">${esc(t("backToDesk"))}</button></div></div></div>`;
+  const shut=()=>{ sfxClose(); mount.innerHTML=""; };
+  $("#key-close").addEventListener("click",shut);
+  $("#key-ov").addEventListener("click",e2=>{ if(e2.target.id==="key-ov") shut(); });
 },true);
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb){ sfxClose(); lb.remove(); } }

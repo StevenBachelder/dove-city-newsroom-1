@@ -439,7 +439,8 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_party"
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_party_2_Flash.png",
@@ -450,7 +451,8 @@ const CASES = [
           "icons/X.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_party"
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_Party_1_Dark.png",
@@ -471,7 +473,8 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_party"
       }
     ]
   },
@@ -669,7 +672,8 @@ const CASES = [
           "icons/Channel1.png"
         ],
         "supports": true,
-        "val": 4
+        "val": 4,
+        "keyNote": "keyN_redbull"
       }
     ]
   },
@@ -1654,7 +1658,8 @@ const CASES = [
           "icons/safechem.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_gaspair"
       },
       {
         "src": "img/gasleak_intro_dark.png",
@@ -1665,7 +1670,8 @@ const CASES = [
           "icons/patriotcat.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_gaspair"
       },
       {
         "src": "updated_images/gas_leak/gasleakbest2.png",
@@ -1848,7 +1854,8 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": true,
-        "val": 4
+        "val": 4,
+        "keyNote": "keyN_sportlover"
       },
       {
         "src": "updated_images/football/Football_Falsify_11_cut_2.png",
@@ -2047,7 +2054,8 @@ const CASES = [
           "icons/visitsweden.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_midsummer"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2058,7 +2066,8 @@ const CASES = [
           "icons/CityTruthDaily.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_midsummer"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_4.png",
@@ -2581,7 +2590,8 @@ const CASES = [
           "icons/X.png"
         ],
         "supports": true,
-        "val": 4
+        "val": 4,
+        "keyNote": "keyN_baddog"
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_News_Loved-by-many.mp4",
@@ -2715,7 +2725,8 @@ const CASES = [
           "icons/visitsweden.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_midsummer"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_2.png",
@@ -2736,7 +2747,8 @@ const CASES = [
           "icons/patriotcat.png"
         ],
         "supports": true,
-        "val": 3
+        "val": 3,
+        "keyNote": "keyN_midsummer"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2826,7 +2838,8 @@ const CASES = [
           "icons/Channel1.png"
         ],
         "supports": true,
-        "val": 4
+        "val": 4,
+        "keyNote": "keyN_uncut"
       },
       {
         "src": "updated_images/Storming/storming_cropped.png",
