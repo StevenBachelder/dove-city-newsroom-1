@@ -1649,17 +1649,19 @@ const CASES = [
         "icons": [
           "icons/safechem.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
-        "src": "img/gasleak_intro.png",
+        "src": "img/gasleak_intro_dark.png",
         "type": "img",
         "location": "toxicleaklocation2",
         "date": "toxicleakdate2",
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/gas_leak/gasleakbest2.png",
@@ -2571,7 +2573,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 4
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_News_Loved-by-many.mp4",

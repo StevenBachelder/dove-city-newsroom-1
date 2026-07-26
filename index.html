@@ -123,10 +123,12 @@ img,svg,video{display:block;max-width:100%}
 .photo{margin:0 18px 14px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper-dark)}
 .photo img,.photo video{width:100%;max-height:340px;object-fit:cover}
 .media-missing{padding:26px 14px;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)}
-.board{background:var(--paper-dark);border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 14px;min-height:86px}
+.board{position:relative;background:var(--paper-dark);border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 14px;min-height:86px}
 .board h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;display:flex;justify-content:space-between}
 .board-hint{font-size:12px;font-style:italic;color:var(--ink-soft);margin-bottom:9px}
-.board .b-empty{font-size:13px;color:var(--ink-soft);font-style:italic}
+.board .key-pop{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:#F2C94C;color:#20293A;border:2px solid #20293A;border-radius:9px;padding:6px 13px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;letter-spacing:1.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:keypop 1.9s ease-out forwards;pointer-events:none;z-index:5}
+@keyframes keypop{0%{opacity:0;transform:translateX(-50%) translateY(14px) scale(.7)}14%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.06)}22%{transform:translateX(-50%) scale(1)}78%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-16px)}}
+.b-empty{font-size:13px;color:var(--ink-soft);font-style:italic}
 .evcard{background:var(--card);border-left:4px solid var(--highlight);border-radius:6px;box-shadow:var(--shadow);padding:8px 10px;margin-bottom:7px;font-size:13px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:transform .1s,box-shadow .1s}
 .evcard:hover{transform:translateX(2px);box-shadow:0 3px 12px rgba(32,41,58,.18)}
 .evcard .e-thumb{width:46px;height:46px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--paper-dark);border:1px solid var(--line);position:relative}
@@ -664,6 +666,8 @@ function sfxLang(){                                        // paper slide … se
 function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06); }
 function sfxSearch(){ swish(1500,420,0.18,0.09); }        // flip-to-front whoosh, no landing
 function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
+function sfxKey(){ blip(1046,0.05,"triangle",0.09); setTimeout(()=>blip(1318,0.05,"triangle",0.09),70);
+  setTimeout(()=>blip(1568,0.09,"triangle",0.10),140); setTimeout(()=>swish(2400,4200,0.16,0.05),150); }
 function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
 function sfxStampPub(){ swish(2300,650,0.06,0.11); setTimeout(()=>thump(0.17,265),30); setTimeout(()=>swish(800,2200,0.09,0.07,0.8),95); }   // PUBLISH: stamp, then a rising tail — approval ends high
 function sfxStampFlag(){ swish(1600,300,0.07,0.12); setTimeout(()=>thump(0.18,150),30); }   // FLAG: lower, rejecting
@@ -968,7 +972,7 @@ function renderBoard(){
       : `<div class="e-icon">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:"🔍"}</div>`;
     return `<div class="evcard ${e.isAd?"is-ad":""}" data-view="${i}" role="button" tabindex="0">
       ${lead}
-      <div class="e-main"><div class="e-label">${esc(e.label)}</div>${e.isAd?`<span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.date||"")}</span></div>
+      <div class="e-main"><div class="e-label">${(typeof e.val==="number"&&e.supports&&!e.isAd)?"🔑 ":""}${esc(e.label)}</div>${e.isAd?`<span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.date||"")}</span></div>
       <button title="✖" data-i="${i}">✖</button></div>`;
   }).join("")
     : `<div class="b-empty">${esc(t("boardEmpty"))}</div>`;
@@ -1058,7 +1062,7 @@ function renderTextResults(c,qi){
     if(state.evidence.some(e=>e.key==="t"+j)){ b.disabled=true; b.textContent=t("pinnedBtn"); }
     b.addEventListener("click",()=>{
       sfxPin();
-      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, key:"t"+j}))
+      if(pin({kind:"text", label:t(r.title), desc:t(r.description), date:(r.date?t(r.date):""), icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:r.isAd, rIdx:r.rIdx||0, val:(typeof r.val==="number"?r.val:undefined), key:"t"+j}))
         { b.disabled=true; b.textContent=t("pinnedBtn"); }
     });
   });
@@ -1075,13 +1079,14 @@ function renderImgResults(c){
   box.querySelectorAll(".btn-ev").forEach(b=>b.addEventListener("click",()=>{
     sfxPin();
     const j=+b.dataset.ev.split("-")[1], r=c.imageResults[j];
-    if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, key:"i"+j}))
+    if(pin({kind:(r.type==="video"?"video":"img"), label:String(t(r.location)), date:t(r.date), mediaSrc:r.src, icon:(r.icons&&r.icons[0])||"", supports:r.supports===true, isAd:false, val:(typeof r.val==="number"?r.val:undefined), key:"i"+j}))
       { b.disabled=true; b.textContent=t("pinnedBtn"); }
   }));
 }
 /* per-pin SOURCE value: authority of the source decides the reward */
 function calcPts(ev){
   if(ev.isAd) return -4;
+  if(typeof ev.val==="number") return ev.val;               // hand-set: smoking-gun evidence
   if(ev.supports){
     if(ev.kind==="img"||ev.kind==="video") return 3;          // original context found visually
     return [4,3,2,2][Math.min(Math.max(ev.rIdx||0,0),3)];     // official → weaker outlet
@@ -1091,6 +1096,16 @@ function calcPts(ev){
 function pin(ev){
   if(state.evidence.some(e=>e.key===ev.key)) return false;
   ev.pts=calcPts(ev);
+  if(typeof ev.val==="number" && ev.supports && !ev.isAd){
+    setTimeout(()=>{ sfxKey();
+      const board=$("#board-items"); if(board){
+        const pop=document.createElement("div"); pop.className="key-pop";
+        pop.textContent="🔑 "+t("keyEvLabel");
+        board.parentElement.appendChild(pop);
+        setTimeout(()=>pop.remove(),1900);
+      }
+    },60);
+  }
   // swap detection: replacing a previously unpinned, weaker source with a stronger one
   const weaker=state.caseUnpinned.filter(p=>p<ev.pts);
   if(weaker.length){
