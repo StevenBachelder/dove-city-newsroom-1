@@ -129,6 +129,8 @@ img,svg,video{display:block;max-width:100%}
 .board .key-ico{cursor:pointer;font-size:14px;flex-shrink:0}
 .ep-key{float:right;font-size:16px}
 .key-modal{max-width:460px}
+.key-inline{margin:8px 0 4px;background:#FBF3DA;border:2px solid #F2C94C;border-radius:10px;padding:10px 13px;font-size:13.5px;line-height:1.55}
+.key-inline b{font-family:var(--font-mono);font-size:11.5px;letter-spacing:1px}
 .key-note{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);max-width:420px;background:#FFFDF7;border:2px solid #20293A;border-radius:11px;padding:12px 16px;font-size:13.5px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:60}
 .key-note b{font-family:var(--font-mono);font-size:12px;letter-spacing:1px}
 .key-pop{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:#F2C94C;color:#20293A;border:2px solid #20293A;border-radius:9px;padding:6px 13px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;letter-spacing:1.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:keypop 1.9s ease-out forwards;pointer-events:none;z-index:5}
@@ -1706,9 +1708,19 @@ document.addEventListener("click",ev=>{
   const k=ev.target.closest&&ev.target.closest(".key-ico");
   if(!k) return;
   ev.stopPropagation();
-  sfxOpen();
   const noteKey=k.dataset.note;
   const body=(noteKey&&noteKey!=="undefined"&&noteKey!=="")?t(noteKey):t("keyEvExplain");
+  if(k.closest("#viewer-mount")){
+    const host=k.closest(".ev-pts")||k.parentElement;
+    const prev=host.nextElementSibling;
+    if(prev&&prev.classList.contains("key-inline")){ sfxClose(); prev.remove(); return; }
+    sfxOpen();
+    const div=document.createElement("div"); div.className="key-inline";
+    div.innerHTML="<b>🔑 "+esc(t("keyEvLabel"))+"</b><br>"+esc(body);
+    host.insertAdjacentElement("afterend",div);
+    return;
+  }
+  sfxOpen();
   const mount=$("#modal-mount");
   mount.innerHTML=`<div class="overlay" id="key-ov"><div class="modal key-modal">
     <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:21px;padding-bottom:2px">🔑 ${esc(t("keyEvLabel"))}</h2></div>
