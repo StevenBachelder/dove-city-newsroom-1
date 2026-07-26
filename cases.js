@@ -438,7 +438,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_party_2_Flash.png",
@@ -448,7 +449,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_Party_1_Dark.png",
@@ -468,7 +470,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3
       }
     ]
   },
@@ -665,7 +668,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 4
       }
     ]
   },
@@ -1843,7 +1847,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 4
       },
       {
         "src": "updated_images/football/Football_Falsify_11_cut_2.png",
@@ -2041,7 +2046,8 @@ const CASES = [
         "icons": [
           "icons/visitsweden.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2051,7 +2057,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_4.png",
@@ -2707,7 +2714,8 @@ const CASES = [
         "icons": [
           "icons/visitsweden.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_2.png",
@@ -2727,7 +2735,8 @@ const CASES = [
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2816,7 +2825,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 4
       },
       {
         "src": "updated_images/Storming/storming_cropped.png",

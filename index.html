@@ -126,7 +126,11 @@ img,svg,video{display:block;max-width:100%}
 .board{position:relative;background:var(--paper-dark);border:1px dashed var(--ink-soft);border-radius:var(--radius);padding:12px 14px;min-height:86px}
 .board h4{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;display:flex;justify-content:space-between}
 .board-hint{font-size:12px;font-style:italic;color:var(--ink-soft);margin-bottom:9px}
-.board .key-pop{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:#F2C94C;color:#20293A;border:2px solid #20293A;border-radius:9px;padding:6px 13px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;letter-spacing:1.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:keypop 1.9s ease-out forwards;pointer-events:none;z-index:5}
+.board .key-ico{cursor:pointer;font-size:14px;flex-shrink:0}
+.ep-key{float:right;font-size:16px}
+.key-note{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);max-width:420px;background:#FFFDF7;border:2px solid #20293A;border-radius:11px;padding:12px 16px;font-size:13.5px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:60}
+.key-note b{font-family:var(--font-mono);font-size:12px;letter-spacing:1px}
+.key-pop{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;background:#F2C94C;color:#20293A;border:2px solid #20293A;border-radius:9px;padding:6px 13px;font-family:var(--font-mono);font-size:12.5px;font-weight:700;letter-spacing:1.5px;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:keypop 1.9s ease-out forwards;pointer-events:none;z-index:5}
 @keyframes keypop{0%{opacity:0;transform:translateX(-50%) translateY(14px) scale(.7)}14%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.06)}22%{transform:translateX(-50%) scale(1)}78%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-16px)}}
 .b-empty{font-size:13px;color:var(--ink-soft);font-style:italic}
 .evcard{background:var(--card);border-left:4px solid var(--highlight);border-radius:6px;box-shadow:var(--shadow);padding:8px 10px;margin-bottom:7px;font-size:13px;display:flex;gap:9px;align-items:center;cursor:pointer;transition:transform .1s,box-shadow .1s}
@@ -1182,7 +1186,8 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
                  : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
                  : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
         const pts=e.pts||0;
-        const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}${FLAG_SRC?`<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`:""}`;
+        const keyIco=(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico" title="${esc(t("keyEvLabel"))}">🔑</span>`:"";
+        const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}${keyIco}${FLAG_SRC?`<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`:""}`;
         return `<div class="fb-evcard ${pts>0?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
       }).join("")}</div>`:""}
       <div class="editor-quote"><div class="avatar">🕊️</div>
@@ -1268,6 +1273,7 @@ function openEvidence(i){
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
       ${FLAG_SRC?`<div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
         <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
+        ${(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
         <span class="ep-label">${esc(t("srcValLabel"))}</span>
         <div class="ep-why">${esc(evPtsReason(e))}</div>
       </div>`:""}
@@ -1695,6 +1701,17 @@ document.addEventListener("click",e=>{
   const im=e.target.closest&&e.target.closest("img[data-zoom]");
   if(im&&im.getAttribute("src")) openLightbox(im.getAttribute("src"));
 });
+document.addEventListener("click",ev=>{
+  const k=ev.target.closest&&ev.target.closest(".key-ico");
+  if(!k) return;
+  ev.stopPropagation();
+  document.querySelectorAll(".key-note").forEach(n=>n.remove());
+  const n=document.createElement("div"); n.className="key-note";
+  n.innerHTML="<b>🔑 "+esc(t("keyEvLabel"))+"</b><br>"+esc(t("keyEvExplain"));
+  document.body.appendChild(n);
+  setTimeout(()=>{ const off=e2=>{ n.remove(); document.removeEventListener("click",off,true); };
+    document.addEventListener("click",off,true); },50);
+},true);
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb){ sfxClose(); lb.remove(); } }
 });
