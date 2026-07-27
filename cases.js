@@ -1086,7 +1086,7 @@ const CASES = [
     "id": 5,
     "title": "petsTitle",
     "description": "petsDescription",
-    "image": "img/pets.png",
+    "image": "updated_images/cats/cat_announcement_1.mp4",
     "icons": [
       "icons/X.png"
     ],
@@ -1262,7 +1262,9 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 4,
+        "keyNote": "keyN_icpaa"
       }
     ],
     "imageResults": [
@@ -1277,14 +1279,14 @@ const CASES = [
         "supports": null
       },
       {
-        "src": "img/pets.png",
-        "type": "img",
+        "src": "updated_images/cats/cat_announcement_2.mp4",
+        "type": "video",
         "location": "petslocation2",
         "date": "petsdate2",
         "icons": [
           "icons/DN clean1920.png"
         ],
-        "supports": null
+        "supports": false
       },
       {
         "src": "updated_images/pets/petilllab.png",
