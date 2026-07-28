@@ -1086,7 +1086,7 @@ const CASES = [
     "id": 5,
     "title": "petsTitle",
     "description": "petsDescription",
-    "image": "updated_images/cats/cat_brown.png",
+    "image": "updated_images/cats/cat_brown.jpg",
     "icons": [
       "icons/X.png"
     ],
@@ -1269,7 +1269,7 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "updated_images/cats/cat_orange.png",
+        "src": "updated_images/cats/cat_orange.jpg",
         "type": "img",
         "location": "petslocation1",
         "date": "petsdate1",
@@ -1281,7 +1281,7 @@ const CASES = [
         "keyNote": "keyN_cats"
       },
       {
-        "src": "updated_images/cats/cat_black.png",
+        "src": "updated_images/cats/cat_black.jpg",
         "type": "img",
         "location": "petslocation2",
         "date": "petsdate2",
