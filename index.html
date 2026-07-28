@@ -850,7 +850,7 @@ async function drawPressCard(o){
   o.improve.forEach(t2=>{ wrap(probe,"➤  "+t2,830,"24px monospace").forEach((l,i)=>impLines.push(i?("    "+l):l)); impLines.push(""); });
   if(impLines[impLines.length-1]==="") impLines.pop();
   const ledgerH=40+o.ledger.length*30;
-  const H=660 + 260 + (56+wellLines.length*32+24) + (56+impLines.length*32+24) + (56+ledgerH) + 640 + 60;
+  const H=660 + 260 + (56+wellLines.length*32+24) + (56+impLines.length*32+24) + (56+ledgerH) + 704 + 60;
   const c=document.createElement("canvas"); c.width=W; c.height=H;
   const x=c.getContext("2d");
   x.fillStyle="#E9E6DC"; x.fillRect(0,0,W,H);
@@ -903,15 +903,15 @@ async function drawPressCard(o){
     x.fillStyle=ink; x.fillText(r.title,110,yy); yy+=30; });
   y=yy+20;
   // ---- back card: the pocket field guide ----
-  roundRect(x,26,40,y,920,600); x.fillStyle="#10254E"; x.fill(); x.lineWidth=7; x.strokeStyle=ink; x.stroke();
+  roundRect(x,26,40,y,920,664); x.fillStyle="#10254E"; x.fill(); x.lineWidth=7; x.strokeStyle=ink; x.stroke();
   x.textAlign="center"; x.fillStyle=gold; x.font="700 38px Georgia,serif";
   x.fillText(o.backTitle,W/2,y+78);
   x.textAlign="left"; x.fillStyle="#FFFFFF";
   o.techs.forEach((name,i)=>{ x.font="26px monospace";
     if(x.measureText("•  "+name).width>720) x.font="21px monospace";
-    x.fillText("•  "+name,120,y+140+i*52); });
+    x.fillText("•  "+name,120,y+138+i*48); });
   x.textAlign="center"; x.font="italic 26px Georgia,serif"; x.fillStyle="#C7CDDB";
-  x.fillText(o.backFoot,W/2,y+568);
+  x.fillText(o.backFoot,W/2,y+626);
   return c;
 }
 function setMeters(dc,dp,ds){
