@@ -1,0 +1,7 @@
+# Vygotsky Alignment — scaffolding, ZPD, internalization
+**More Knowledgeable Other:** Sarah — letters, level verdicts, fail-screen coaching; authoritative but developmental ("come back sharper").
+**Zone of Proximal Development:** the level ladder holds tasks just beyond independent ability: L1 solvable with checklist support, L3 solvable only after internalizing it; the uniform ≤1-mistake bar keeps challenge at the ZPD edge rather than escalating punishment.
+**Scaffolding designed to fade:** the taped checklist and tool guides are external supports the player consults less as competence grows (measurable: guide-open frequency by level, log v2 📋). The Field Guide's encounter-based reveal is Vygotskian sequencing: experience first, formal concept second.
+**Assisted performance:** retry-with-restoration = performing the same task again with the level report's targeted hint — assistance without answer-giving.
+**Internalization & speech:** badge-card language moves from other-regulation (Sarah/guides) to self-regulation (player explains the technique in the debrief; compendium's "explain a badge using its case" is the internalization check). Pair-play recommendation supplies social speech before inner speech.
+**Enquiry–dialogue–discovery cycle (project framing):** probe the tip (enquiry) → search & pin (discovery) → verdict feedback + Sarah + classroom debrief (dialogue) → next case. Cycles repeat at three scales: per tip, per level, per playthrough.
