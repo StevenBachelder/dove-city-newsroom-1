@@ -374,7 +374,21 @@ img[data-zoom]{cursor:zoom-in}
 .skill h4{font-family:var(--font-display);font-size:15px;margin-bottom:6px}
 .skill .s-score{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);margin-top:5px}
 .badges-head{margin:42px 0 4px;font-family:var(--font-display);font-size:20px;letter-spacing:.3px}
-.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0;position:relative}
+.wave-ring{position:absolute;left:50%;top:50%;width:70px;height:70px;border:4px solid #F2C94C;border-radius:50%;transform:translate(-50%,-50%) scale(.2);opacity:.95;pointer-events:none;z-index:5;animation:wavering 1.25s ease-out forwards}
+@keyframes wavering{to{transform:translate(-50%,-50%) scale(13);opacity:0}}
+.badge.energized{box-shadow:0 0 0 3px #F2C94C, 0 0 30px rgba(242,201,76,.85);transition:box-shadow .22s}
+.badge.energized .b-pts{color:#F2C94C;text-shadow:0 0 8px rgba(242,201,76,.9)}
+.badge.master-land{position:absolute;left:50%;top:50%;width:34%;z-index:6;
+  transform:translate(-50%,-50%) rotate(-6deg) scale(1.07);
+  filter:drop-shadow(0 14px 26px rgba(0,0,0,.38));
+  animation:masterland .9s cubic-bezier(.2,.85,.3,1.08) .7s backwards}
+@keyframes masterland{
+  0%{transform:translate(-50%,-190%) rotate(-16deg) scale(1.6);opacity:0}
+  55%{opacity:1}
+  78%{transform:translate(-50%,-46%) rotate(-4deg) scale(1.1)}
+  100%{transform:translate(-50%,-50%) rotate(-6deg) scale(1.07)}}
+@media (prefers-reduced-motion: reduce){ .badge.master-land{animation:none} }
 .badge-img{height:118px;width:auto;display:block;margin:0 auto 5px}
 .badge.missed .badge-img{filter:grayscale(1) brightness(1.35);opacity:.26}
 .badge .b-pts{font-family:var(--font-mono);font-size:27px;font-weight:700;color:#FFFFFF;margin-top:0}
@@ -560,7 +574,7 @@ function clamp(v){ return Math.max(0, Math.min(100, v)); }
 
 const RELEVANCE = [ {key:"relevanceReasoning_1",score:8},{key:"relevanceReasoning_2",score:7},
                     {key:"relevanceReasoning_3",score:6},{key:"relevanceReasoning_4",score:4} ];
-const TECH_LIST = ["manipulated","outofcontext","conspiracy","unverified","polarization","hoax","emotionaltrue","sponsored"];
+const TECH_LIST = ["manipulated","outofcontext","impersonation","conspiracy","unverified","polarization","hoax","emotionaltrue","sponsored"];
 const SKILL_MAP = { manipulated:"image", outofcontext:"image", emotionaltrue:"claims",
                     conspiracy:"claims", polarization:"claims", unverified:"source",
                     hoax:"source", genuine:"source" };
@@ -673,6 +687,8 @@ function sfxLang(){                                        // paper slide … se
 function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06); }
 function sfxSearch(){ swish(1500,420,0.18,0.09); }        // flip-to-front whoosh, no landing
 function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
+function sfxMasterLand(){ setTimeout(()=>{ thump(0.32,85); swish(700,2600,0.22,0.06);
+  setTimeout(()=>blip(1568,0.1,"triangle",0.1),180); },1350); }
 function sfxKey(){ blip(1046,0.05,"triangle",0.09); setTimeout(()=>blip(1318,0.05,"triangle",0.09),70);
   setTimeout(()=>blip(1568,0.09,"triangle",0.10),140); setTimeout(()=>swish(2400,4200,0.16,0.05),150); }
 function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
@@ -1455,13 +1471,13 @@ function debrief(fired){
       <div style="height:8px;border-radius:4px;background:var(--paper-dark)"><div style="height:100%;width:${pct}%;border-radius:4px;background:${pct>=67?"var(--verify)":pct>=34?"var(--pop)":"var(--stamp-red)"}"></div></div>
       <div class="s-score">${v.ok}/${v.n} · ${esc(t(meta[k][1]))}</div></div>`;}).join("");
 const BADGE_COLORS={manipulated:"#9DCBF8",polarization:"#B48EC1",outofcontext:"#7F9DB5",hoax:"#9DA5AE",conspiracy:"#C5FEAC",emotionaltrue:"#FEA7A1",unverified:"#BEC2FD",adspotter:"#FACBB4",master:"#69C7BE"};
-const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a1c9eb"},adspotter:{h:"#972165",b:"#edbfab"},unverified:{h:"#713a96",b:"#d5bde5"},emotionaltrue:{h:"#bc1f4b",b:"#cec0de"},conspiracy:{h:"#61573d",b:"#cec0de"},hoax:{h:"#565b64",b:"#abaeb7"},outofcontext:{h:"#386489",b:"#8cc2c4"},polarization:{h:"#d22027",b:"#f8dec5"}};
+const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"#a9c7b6"},manipulated:{h:"#345ba3",b:"#a1c9eb"},adspotter:{h:"#972165",b:"#edbfab"},unverified:{h:"#713a96",b:"#d5bde5"},emotionaltrue:{h:"#bc1f4b",b:"#cec0de"},conspiracy:{h:"#61573d",b:"#cec0de"},hoax:{h:"#565b64",b:"#abaeb7"},outofcontext:{h:"#386489",b:"#8cc2c4"},polarization:{h:"#d22027",b:"#f8dec5"}};
   const cardSpec = TECH_LIST.filter(k=>k!=="sponsored").map(k=>(
     {k, img:"badge_"+k, earned:state.badges.has(k), body:t("tq_"+k+"_body")}))
     .concat([{k:"adspotter", img:"badge_adspotter", earned:!state.adPinned, body:t("tq_sponsored_body")},
-             {k:"master", img:"badge_generic", earned:(state.badges.size+(state.adPinned?0:1))===8, body:t("badgeMasterBody")}]);
+             {k:"master", img:"badge_generic", earned:(state.badges.size+(state.adPinned?0:1))===9, body:t("badgeMasterBody")}]);
   let badgeHtml=cardSpec.map(c=>
-    `<span class="badge flipcard ${c.earned?"":"missed"}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
+    `<span class="badge flipcard ${c.earned?"":"missed"}${c.k==="master"&&c.earned?" master-land":""}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
       <span class="flip-front"><span class="fbf-head">${esc(t("cardT_"+c.k))}</span>
         <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">${c.earned?"+25":"+0"}</span></span>
         <span class="flip-cue">↻</span></span>
@@ -1470,10 +1486,12 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
         <span class="fbk-body">${esc(c.body)}</span></span>
     </span></span>`).join("");
   const badgeCount = state.badges.size + (state.adPinned?0:1);
+  if(badgeCount===9) sfxMasterLand();
   const avgPin = state.pinCount? state.pinSum/state.pinCount : 0;
   const corePts = right*10 + state.cred + state.pop + (FLAG_SRC?state.src:0) + (FLAG_BADGES?badgeCount*25:0);
   const scoreRows = [];
-  if(FLAG_BADGES && badgeCount===8) scoreRows.push({label:t("scoreMaster"), pts:25});
+  if(FLAG_BADGES && badgeCount===9) scoreRows.push({label:t("scoreMaster"), pts:25});
+  if(FLAG_BADGES && badgeCount===9) scoreRows.push({label:t("scoreSurge"), pts:45});
   if(FLAG_SRC && state.upgrades>0) scoreRows.push({label:tf("scoreSwaps",{n:state.upgrades}), pts:state.upgrades*10});
   const avgBonus = avgPin>=3?30:avgPin>=2?15:0;
   if(FLAG_SRC && avgBonus) scoreRows.push({label:t("scoreAvg"), pts:avgBonus});
@@ -1483,7 +1501,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
     version:"dcn-1.0", timestamp:new Date().toISOString(),
     pid:state.pid||null, name:state.playerName||null, lang,
     score:editorScore, rightCalls:right, totalCases:total,
-    badges:[...state.badges], adSpotter:!state.adPinned, masterBadge:(state.badges.size+(state.adPinned?0:1))===8,
+    badges:[...state.badges], adSpotter:!state.adPinned, masterBadge:(state.badges.size+(state.adPinned?0:1))===9,
     badgeCount:state.badges.size+(state.adPinned?0:1),
     credibility:state.cred, popularity:state.pop, source:state.src,
     avgPinValue:state.pinCount?+(state.pinSum/state.pinCount).toFixed(2):0,
@@ -1552,7 +1570,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
       TECH_LIST.filter(k=>k!=="sponsored"&&state.badges.has(k))
         .forEach(k=>well.push(t("cardT_"+k)+" \u2014 "+t("tq_"+k+"_body")));
       if(!state.adPinned) well.push(t("cardT_adspotter")+" \u2014 "+t("tq_sponsored_body"));
-      if(badgeCount===8) well.push(t("cardT_master")+" \u2014 "+t("badgeMasterBody"));
+      if(badgeCount===9) well.push(t("cardT_master")+" \u2014 "+t("badgeMasterBody"));
       if(avgPin>=3) well.push(tf("repWellAvg",{v:avgPin.toFixed(1)}));
       if(state.upgrades>0) well.push(tf("repWellUpgrades",{n:state.upgrades}));
       if(state.replies.helpful>0) well.push(tf("repWellReplies",{n:state.replies.helpful}));
@@ -1583,7 +1601,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
         techs:TECH_LIST.filter(k=>k!=="sponsored").map(k=>t("tq_"+k+"_name")).concat([t("badgeAds")]),
         earned:TECH_LIST.filter(k=>k!=="sponsored"&&state.badges.has(k)).map(k=>"Badges/badge_"+k+".png")
           .concat(state.adPinned?[]:["Badges/badge_adspotter.png"])
-          .concat(badgeCount===8?["Badges/badge_generic.png"]:[])
+          .concat(badgeCount===9?["Badges/badge_generic.png"]:[])
       });
       if(!canvas){ cardBtn.textContent=t("cardUnavailable"); return; }
       const fname = hired ? "dove-city-press-card.png" : "dove-city-applicant-report.png";
@@ -1613,6 +1631,30 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},manipulated:{h:"#345ba3",b:"#a
     card.addEventListener("click",flip);
     card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip();}});
   });
+  (function masterWave(){
+    if(!(FLAG_BADGES && badgeCount===9)) return;
+    const grid=document.querySelector(".badges"); if(!grid) return;
+    const nine=[...grid.querySelectorAll(".badge.flipcard:not(.master-land)")];
+    const RM=(typeof matchMedia==="function") && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const setChip=(c)=>{ const p=c.querySelector(".b-pts"); if(p&&!c.classList.contains("missed")) p.textContent="+30"; };
+    if(RM){ nine.forEach(setChip); return; }
+    setTimeout(()=>{
+      if(!document.querySelector(".badges")) return;
+      for(let r=0;r<2;r++){ const ring=document.createElement("div"); ring.className="wave-ring";
+        ring.style.animationDelay=(r*0.18)+"s"; grid.appendChild(ring);
+        setTimeout(()=>ring.remove(),1600+r*180); }
+      const cx=grid.offsetWidth/2, cy=grid.offsetHeight/2;
+      const order=nine.map((c,i)=>({c,d:Math.hypot((c.offsetLeft+c.offsetWidth/2)-cx,(c.offsetTop+c.offsetHeight/2)-cy)||i}))
+        .sort((a,b)=>a.d-b.d);
+      order.forEach((o,i)=>{ setTimeout(()=>{
+        o.c.classList.add("energized"); setChip(o.c);
+        blip(620+i*85,0.07,"triangle",0.09);
+        setTimeout(()=>o.c.classList.remove("energized"),750);
+      }, 240+i*95); });
+      setTimeout(()=>{ chordUp(); const m=grid.querySelector(".master-land");
+        if(m){ m.classList.add("energized"); setTimeout(()=>m.classList.remove("energized"),900); } }, 240+order.length*95+240);
+    },1900);
+  })();
   (function animateScore(){
     const totalEl=document.getElementById("sb-total"); if(!totalEl) return;
     const rows=[...document.querySelectorAll(".sb-row")];

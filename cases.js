@@ -1091,7 +1091,7 @@ const CASES = [
       "icons/X.png"
     ],
     "truth": false,
-    "technique": "outofcontext",
+    "technique": "impersonation",
     "day": 3,
     "buzz": 11,
     "needImageTool": false,
