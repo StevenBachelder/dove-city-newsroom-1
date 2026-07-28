@@ -379,10 +379,14 @@ img[data-zoom]{cursor:zoom-in}
 @keyframes wavering{to{transform:translate(-50%,-50%) scale(13);opacity:0}}
 .badge.energized{box-shadow:0 0 0 3px #F2C94C, 0 0 30px rgba(242,201,76,.85);transition:box-shadow .22s}
 .badge.energized .b-pts{color:#F2C94C;text-shadow:0 0 8px rgba(242,201,76,.9)}
+.badge.master-land.fade-out{opacity:0;transition:opacity .9s ease}
+.master-note{opacity:0;transition:opacity .8s ease;margin:16px auto 4px;max-width:520px;text-align:center;font-size:13.5px;line-height:1.55;border:2px solid #F2C94C;border-radius:12px;padding:12px 16px;background:#FBF3DA;color:var(--ink)}
+.master-note.show{opacity:1}
+.master-note img{height:46px;display:block;margin:0 auto 7px}
 .badge.master-land{position:absolute;left:50%;top:50%;width:34%;z-index:6;
   transform:translate(-50%,-50%) rotate(-6deg) scale(1.07);
   filter:drop-shadow(0 14px 26px rgba(0,0,0,.38));
-  animation:masterland .9s cubic-bezier(.2,.85,.3,1.08) .7s backwards}
+  animation:masterland .9s cubic-bezier(.2,.85,.3,1.08) 2.2s backwards}
 @keyframes masterland{
   0%{transform:translate(-50%,-190%) rotate(-16deg) scale(1.6);opacity:0}
   55%{opacity:1}
@@ -688,7 +692,7 @@ function sfxSelect(){ swish(500,1100,0.10,0.06); blip(560,0.04,"triangle",0.06);
 function sfxSearch(){ swish(1500,420,0.18,0.09); }        // flip-to-front whoosh, no landing
 function sfxPin(){ blip(1450,0.03,"square",0.08); setTimeout(()=>blip(880,0.05,"triangle",0.07),35); }
 function sfxMasterLand(){ setTimeout(()=>{ thump(0.32,85); swish(700,2600,0.22,0.06);
-  setTimeout(()=>blip(1568,0.1,"triangle",0.1),180); },1350); }
+  setTimeout(()=>blip(1568,0.1,"triangle",0.1),180); },2850); }
 function sfxKey(){ blip(1046,0.05,"triangle",0.09); setTimeout(()=>blip(1318,0.05,"triangle",0.09),70);
   setTimeout(()=>blip(1568,0.09,"triangle",0.10),140); setTimeout(()=>swish(2400,4200,0.16,0.05),150); }
 function sfxUnpin(){ blip(880,0.035,"triangle",0.06); setTimeout(()=>blip(560,0.05,"triangle",0.06),45); }
@@ -1479,7 +1483,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
   let badgeHtml=cardSpec.map(c=>
     `<span class="badge flipcard ${c.earned?"":"missed"}${c.k==="master"&&c.earned?" master-land":""}" role="button" tabindex="0" title="${esc(t("flipHint"))}"><span class="flip-inner">
       <span class="flip-front"><span class="fbf-head">${esc(t("cardT_"+c.k))}</span>
-        <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">${c.earned?"+25":"+0"}</span></span>
+        <span class="fbf-body"><img class="badge-img" src="Badges/${c.img}.png" alt="" onerror="this.style.display='none'"><span class="b-pts">${c.k==="master"?(c.earned?esc(t("masterChip")):"+0"):(c.earned?"+25":"+0")}</span></span>
         <span class="flip-cue">↻</span></span>
       <span class="flip-back" style="background:${CARD_BACK[c.k].b}"><span class="fbk-head" style="background:${CARD_BACK[c.k].h}">${esc(t("cardT_"+c.k))}</span>
         <span class="fbk-sub">${esc(t("cardS_"+c.k))}</span>
@@ -1518,7 +1522,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
       <div class="sb-total" id="sb-total">0</div>
       <div class="sb-meters">
         ${[[t("scoreRight"),right*10,right/total*100,"#1FA84D",right+"/"+total]]
-          .concat(FLAG_BADGES?[[t("scoreBadgesBar"),badgeCount*25,badgeCount/8*100,"#8C3E9A",badgeCount+"/8"]]:[])
+          .concat(FLAG_BADGES?[[t("scoreBadgesBar"),badgeCount*(badgeCount===9?30:25),Math.min(badgeCount/9,1)*100,"#8C3E9A",badgeCount+"/9"]]:[])
           .concat([[t("credibility"),state.cred,state.cred,"#3A7B74",null],
                    [t("popularity"),state.pop,state.pop,"#BD7F41",null]])
           .concat(FLAG_SRC?[[t("srcLabel"),state.src,state.src,"#EBCA62",null]]:[]).map(m=>`
@@ -1536,7 +1540,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
     <div class="debrief">
       <div class="ending">${state.doorFired?`<img class="end-door" src="icons/door_3.png" alt="🚪">`:`<div class="end-emoji">${tier.e}</div>`}<h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
         ${scoreHtml}
-        ${FLAG_BADGES?`<h3 class="badges-head">${esc(t("badgeCaseTitle"))}</h3><div class="badges">${badgeHtml}</div>`:""}</div>
+        ${FLAG_BADGES?`<h3 class="badges-head">${esc(t("badgeCaseTitle"))}</h3><div class="badges">${badgeHtml}</div>${badgeCount===9?`<div class="master-note" id="master-note"><img src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><div>${esc(t("badgeMasterBody"))}</div></div>`:""}`:""}</div>
       <div class="skillgrid">${skills}</div>
       <div class="docs-foot end-foot"><a href="docs/index.html">${esc(t("docsLink"))} →</a></div>
       ${FLAG_SRC?`<div class="discipline">
@@ -1592,7 +1596,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
         brand:t("brandName"), role:t("cardRole"),
         secSession:t("repSecSession"), secWell:t("repSecWell"),
         secImprove:t("repSecImprove"), secLedger:t("repSecLedger"),
-        stats:[[t("scoreRight"),right+" / "+total],[t("scoreBadgesBar"),badgeCount+" / 8"],
+        stats:[[t("scoreRight"),right+" / "+total],[t("scoreBadgesBar"),badgeCount+" / 9"],
                [t("credibility"),state.cred],[t("popularity"),state.pop],
                [t("srcLabel"),state.src],[t("avgPinShort"),avgPin?avgPin.toFixed(2):"—"],
                [t("upgradesShort"),state.upgrades],[t("repliesShort"),state.replies.helpful]],
@@ -1637,7 +1641,10 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
     const nine=[...grid.querySelectorAll(".badge.flipcard:not(.master-land)")];
     const RM=(typeof matchMedia==="function") && matchMedia("(prefers-reduced-motion: reduce)").matches;
     const setChip=(c)=>{ const p=c.querySelector(".b-pts"); if(p&&!c.classList.contains("missed")) p.textContent="+30"; };
-    if(RM){ nine.forEach(setChip); return; }
+    if(RM){ nine.forEach(setChip);
+      const m=grid.querySelector(".master-land"); if(m) m.style.display="none";
+      const note=document.getElementById("master-note"); if(note) note.classList.add("show");
+      return; }
     setTimeout(()=>{
       if(!document.querySelector(".badges")) return;
       for(let r=0;r<2;r++){ const ring=document.createElement("div"); ring.className="wave-ring";
@@ -1652,8 +1659,12 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
         setTimeout(()=>o.c.classList.remove("energized"),750);
       }, 240+i*95); });
       setTimeout(()=>{ chordUp(); const m=grid.querySelector(".master-land");
-        if(m){ m.classList.add("energized"); setTimeout(()=>m.classList.remove("energized"),900); } }, 240+order.length*95+240);
-    },1900);
+        if(m){ m.classList.add("energized"); setTimeout(()=>m.classList.remove("energized"),900);
+          setTimeout(()=>{ m.classList.add("fade-out");
+            const note=document.getElementById("master-note"); if(note) note.classList.add("show");
+            setTimeout(()=>{ m.style.display="none"; },950);
+          },1100); } }, 240+order.length*95+240);
+    },3600);
   })();
   (function animateScore(){
     const totalEl=document.getElementById("sb-total"); if(!totalEl) return;
