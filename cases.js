@@ -1086,7 +1086,7 @@ const CASES = [
     "id": 5,
     "title": "petsTitle",
     "description": "petsDescription",
-    "image": "updated_images/cats/cat_announcement_1.mp4",
+    "image": "updated_images/cats/cat_brown.png",
     "icons": [
       "icons/X.png"
     ],
@@ -1269,44 +1269,48 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "updated_images/pets/petillroom.png",
+        "src": "updated_images/cats/cat_orange.png",
         "type": "img",
         "location": "petslocation1",
         "date": "petsdate1",
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_cats"
       },
       {
-        "src": "updated_images/cats/cat_announcement_2.mp4",
-        "type": "video",
+        "src": "updated_images/cats/cat_black.png",
+        "type": "img",
         "location": "petslocation2",
         "date": "petsdate2",
         "icons": [
           "icons/DN clean1920.png"
         ],
-        "supports": false
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_cats"
       },
       {
-        "src": "updated_images/pets/petilllab.png",
-        "type": "img",
+        "src": "updated_images/cats/cat_announcement_2.mp4",
+        "type": "video",
         "location": "petslocation3",
         "date": "petsdate3",
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": false
       },
       {
-        "src": "updated_images/pets/petillroom2.png",
-        "type": "img",
+        "src": "updated_images/cats/cat_announcement_3.mp4",
+        "type": "video",
         "location": "petslocation4",
         "date": "petsdate4",
         "icons": [
           "icons/DN clean1920.png"
         ],
-        "supports": null
+        "supports": false
       }
     ]
   },
