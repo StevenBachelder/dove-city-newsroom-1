@@ -382,7 +382,8 @@ img[data-zoom]{cursor:zoom-in}
 .badge.master-land.fade-out{opacity:0;transition:opacity .9s ease}
 .master-note{opacity:0;transition:opacity .8s ease;margin:16px auto 4px;max-width:520px;text-align:center;font-size:13.5px;line-height:1.55;border:2px solid #F2C94C;border-radius:12px;padding:12px 16px;background:#FBF3DA;color:var(--ink)}
 .master-note.show{opacity:1}
-.master-note img{height:46px;display:block;margin:0 auto 7px}
+.master-note img{height:46px;display:block;margin:0 auto 5px}
+.mn-title{font-family:var(--font-display);font-size:19px;margin:0 0 7px}
 .badge.master-land{position:absolute;left:50%;top:50%;width:34%;z-index:6;
   transform:translate(-50%,-50%) rotate(-6deg) scale(1.07);
   filter:drop-shadow(0 14px 26px rgba(0,0,0,.38));
@@ -1540,7 +1541,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
     <div class="debrief">
       <div class="ending">${state.doorFired?`<img class="end-door" src="icons/door_3.png" alt="🚪">`:`<div class="end-emoji">${tier.e}</div>`}<h2>${esc(tier.t)}</h2><p>${esc(tier.d)}</p>
         ${scoreHtml}
-        ${FLAG_BADGES?`<h3 class="badges-head">${esc(t("badgeCaseTitle"))}</h3><div class="badges">${badgeHtml}</div>${badgeCount===9?`<div class="master-note" id="master-note"><img src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><div>${esc(t("badgeMasterBody"))}</div></div>`:""}`:""}</div>
+        ${FLAG_BADGES?`<h3 class="badges-head">${esc(t("badgeCaseTitle"))}</h3><div class="badges">${badgeHtml}</div>${badgeCount===9?`<div class="master-note" id="master-note"><img src="Badges/badge_generic.png" alt="" onerror="this.style.display='none'"><h4 class="mn-title">${esc(t("masterNoteTitle"))}</h4><div>${esc(t("masterNoteBody"))}</div></div>`:""}`:""}</div>
       <div class="skillgrid">${skills}</div>
       <div class="docs-foot end-foot"><a href="docs/index.html">${esc(t("docsLink"))} →</a></div>
       ${FLAG_SRC?`<div class="discipline">
