@@ -1326,7 +1326,7 @@ const CASES = [
     "id": 8,
     "title": "dogfluencerTitle",
     "description": "dogfluencerDescription",
-    "image": "updated_images/dogfluencer/dogfluencer.png",
+    "image": "updated_images/bad_dog/Bad_Dog_Artist_clean.jpg",
     "icons": [
       "icons/X.png"
     ],
@@ -1343,6 +1343,17 @@ const CASES = [
       "dogfluencersearchTerms4"
     ],
     "searchResults": [
+      {
+        "title": "baddogAdTitle",
+        "description": "baddogAdDesc",
+        "isAd": true,
+        "date": null,
+        "rIdx": 0,
+        "icons": [
+          "icons/puppy.png"
+        ],
+        "supports": false
+      },
       {
         "title": "dogfluencertitle1",
         "description": "dogfluencerdescription1",
@@ -1511,44 +1522,46 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "updated_images/dogfluencer/dogfluencer.png",
-        "type": "img",
-        "location": "dogfluencerlocation1",
-        "date": "dogfluencerdate1",
-        "icons": [
-          "icons/insta.png"
-        ],
-        "supports": null
-      },
-      {
-        "src": "updated_images/dogfluencer/fluffygoldiev3.jpg.png",
+        "src": "updated_images/bad_dog/baddog_followers_graph.png",
         "type": "img",
         "location": "dogfluencerlocation2",
         "date": "dogfluencerdate2",
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_botgraph"
       },
       {
-        "src": "updated_images/dogfluencer/dog_crop.png",
-        "type": "img",
+        "src": "updated_images/bad_dog/Bad-Dog_Music_Video_5.mp4",
+        "type": "video",
+        "location": "dogfluencerlocation1",
+        "date": "dogfluencerdate1",
+        "icons": [
+          "icons/insta.png"
+        ],
+        "supports": false
+      },
+      {
+        "src": "updated_images/bad_dog/News_Bad-Dog_to_Hospital.mp4",
+        "type": "video",
         "location": "dogfluencerlocation3",
         "date": "dogfluencerdate3",
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": false
       },
       {
-        "src": "updated_images/dogfluencer/fluffygoldieChannel1.png",
+        "src": "updated_images/bad_dog/Bad_Dog_Artist_clean.jpg",
         "type": "img",
         "location": "dogfluencerlocation4",
         "date": "dogfluencerdate4",
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": false
       }
     ]
   },
