@@ -681,7 +681,7 @@ const CASES = [
     "id": 4,
     "title": "waterpoisoningTitle",
     "description": "waterpoisoningDescription",
-    "image": "updated_images/water/water_glass_dirty.jpg",
+    "image": "updated_images/bad_water/water_glass_dirty.jpg",
     "icons": [
       "icons/alt news.png"
     ],
@@ -864,7 +864,7 @@ const CASES = [
         "supports": null
       },
       {
-        "src": "updated_images/water/water_glass_clean.jpg",
+        "src": "updated_images/bad_water/water_glass_clean.jpg",
         "type": "img",
         "location": "waterpoisoninglocation3",
         "date": "waterpoisoningimagedate3",
