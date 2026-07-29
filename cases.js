@@ -844,7 +844,7 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "updated_images/bad_water/Bad_Water_Glas_4.jpeg",
+        "src": "updated_images/bad_water/water_glass_dirty.jpg",
         "type": "img",
         "location": "waterpoisoninglocation1",
         "date": "waterpoisoningimagedate1",
@@ -876,7 +876,7 @@ const CASES = [
         "keyNote": "keyN_water"
       },
       {
-        "src": "updated_images/bad_water/Bad_Water_Glas_6.jpeg",
+        "src": "updated_images/bad_water/water_glass_dirty.jpg",
         "type": "img",
         "location": "waterpoisoninglocation4",
         "date": "waterpoisoningimagedate4",
