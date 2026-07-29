@@ -218,7 +218,12 @@ img,svg,video{display:block;max-width:100%}
 .ripple.good{background:#EEF7EE;border-color:#8FC79A;color:#2F6B3A}
 img[data-zoom]{cursor:zoom-in}
 .lightbox{position:fixed;inset:0;background:rgba(14,18,28,.93);z-index:130;display:flex;align-items:center;justify-content:center;padding:22px;cursor:zoom-out}
-.lightbox img{max-width:96vw;max-height:92vh;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.55);background:#fff}
+.lightbox video{max-width:96vw;max-height:82vh;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.55);background:#000}
+.lb-stack{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:96vw}
+.lb-cap{color:#EDE9DD;font-size:13.5px;text-align:center;max-width:640px;line-height:1.45}
+.imgres .thumb.zoomable{cursor:zoom-in;position:relative}
+.imgres .thumb.zoomable::after{content:"⤢";position:absolute;right:6px;bottom:4px;background:rgba(20,26,40,.72);color:#fff;border-radius:6px;padding:1px 6px;font-size:12px;pointer-events:none}
+.lightbox img{max-width:96vw;max-height:82vh;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.55);background:#fff}
 .lb-close{position:fixed;top:14px;right:18px;font-size:30px;color:#fff;background:none;border:none;cursor:pointer;line-height:1;opacity:.85}
 .lb-close:hover{opacity:1}
 .replybeat{background:#F4F7FB;border:1.5px solid #B9C6D8;border-radius:10px;padding:12px 14px;margin:14px 0}
@@ -1104,6 +1109,10 @@ function renderImgResults(c){
         <div class="im-src">${esc(t(r.date))}</div>
         <button class="btn-ev" style="margin-top:6px" data-ev="i-${j}">${esc(t("pinBtn"))}</button>
       </div></div>`).join("");
+  box.querySelectorAll(".imgres .thumb").forEach((th,j)=>{
+    th.classList.add("zoomable");
+    th.addEventListener("click",()=>{ const r=c.imageResults[j]; openLightbox(r.src, r.type, t(r.location)); });
+  });
   box.querySelectorAll(".btn-ev").forEach(b=>b.addEventListener("click",()=>{
     sfxPin();
     const j=+b.dataset.ev.split("-")[1], r=c.imageResults[j];
@@ -1746,11 +1755,15 @@ function openMeterInfo(){
   $("#mi-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
   $("#mi-ov").addEventListener("click",e=>{if(e.target.id==="mi-ov"){ sfxClose(); mount.innerHTML=""; }});
 }
-function openLightbox(src){
+function openLightbox(src, type, caption){
   const old=document.getElementById("lightbox"); if(old) old.remove();
   const lb=document.createElement("div"); lb.className="lightbox"; lb.id="lightbox";
-  lb.innerHTML=`<button class="lb-close" aria-label="${esc(t("close"))}">✕</button><img src="${esc(src)}" alt="">`;
-  lb.addEventListener("click",()=>{ sfxClose(); lb.remove(); });
+  const media=(type==="video")
+    ? `<video src="${esc(src)}" controls autoplay playsinline></video>`
+    : `<img src="${esc(src)}" alt="">`;
+  lb.innerHTML=`<button class="lb-close" aria-label="${esc(t("close"))}">✕</button>
+    <div class="lb-stack">${media}${caption?`<div class="lb-cap">${esc(caption)}</div>`:""}</div>`;
+  lb.addEventListener("click",e=>{ if(e.target.closest("video")) return; sfxClose(); lb.remove(); });
   document.body.appendChild(lb);
   sfxOpen();
 }
