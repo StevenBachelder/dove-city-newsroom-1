@@ -861,7 +861,9 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_blur"
       },
       {
         "src": "updated_images/bad_water/water_glass_clean.jpg",
