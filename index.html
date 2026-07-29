@@ -186,6 +186,9 @@ img,svg,video{display:block;max-width:100%}
 .qh-info:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .tg-list{margin:14px 0 0;padding-left:22px}
 .tg-list li{margin:9px 0;font-size:14px;line-height:1.55}
+.tg-film{margin-top:14px}
+.tg-film video{width:100%;border-radius:9px;border:1.5px solid var(--line);background:#000}
+.tg-film-cap{font-family:var(--font-mono);font-size:11.5px;letter-spacing:1px;color:var(--ink-soft);margin-top:6px;text-transform:uppercase}
 .termbtn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:8px 11px;margin-bottom:6px;font-family:var(--font-mono);font-size:12.5px;transition:background .12s}
 .termbtn:hover{background:var(--highlight-soft);border-color:var(--highlight)}
 .termbtn.used{background:var(--paper-dark);color:var(--ink-soft)}
@@ -1709,6 +1712,7 @@ function openToolGuide(kind){
       <p style="font-size:13px;color:var(--ink-soft);margin:0">${esc(t("toolGuideSub"))}</p></div>
     </div>
     <ol class="tg-list">${items}</ol>
+    ${kind==="img"?`<div class="tg-film"><video src="updated_images/info/reverse_image_search_info.mp4" controls preload="metadata" onerror="this.parentElement.style.display='none'"></video><div class="tg-film-cap">${esc(t("rgFilmCap"))}</div></div>`:""}
     <button class="btn-primary" id="tg-close" style="margin-top:14px">${esc(t("close"))}</button>
   </div></div>`;
   $("#tg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });

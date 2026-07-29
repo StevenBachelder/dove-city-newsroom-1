@@ -29,3 +29,8 @@
 **Affinity space (design opening).** Gee's affinity-group principle is the least implemented: play is solo. The teacher compendium's pair-play recommendation and classroom debrief partially supply it; a future "compare your press cards" or class-leaderboard-of-discipline feature would complete it and is noted in the backlog.
 
 **Summary for citation.** City Newsroom operationalizes at least eleven of Gee's principles as mechanics rather than messages, with identity, moratorium-protected risk, expertise cycles, just-in-time information, and situated meaning as the load-bearing five. The two principled *departures* — no perpetrator-side production, limited affinity structures — are ethical and deployment choices, not omissions, and pair the game complementarily with production-side interventions (Roozenbeek & van der Linden) in a Gee-consistent larger curriculum.
+
+
+## Addendum: interface as fiction (suspension of disbelief)
+
+Frictionless affordances are part of the learning design, not decoration. When the interface behaves as the player expects (tap-to-enlarge media, in-fiction tools, consistent sounds), the player accepts the frame and remains inside the identity Gee’s principles depend on; each UI seam that exposes “the software” breaks the psychosocial moratorium and returns the learner to spectator distance. Design consequence: playtester reports of smoothness (“it does what you think it should”) are treated as evidence of frame acceptance — a measurable precondition for situated learning — and interface friction is triaged with the same seriousness as content defects. (Principle articulated during July 2026 playtesting.)
