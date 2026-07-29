@@ -106,3 +106,4 @@ Swedish is fully authored.
   flag, −18 & viral-crash wrong publish, −8/−6 wrong flag, +4 evidence bonus).
 - Ending thresholds: `debrief()` (fired < 25 credibility, senior ≥ 80 + near-perfect,
   staff ≥ 60).
+ 
