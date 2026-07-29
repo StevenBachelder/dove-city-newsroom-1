@@ -681,7 +681,7 @@ const CASES = [
     "id": 4,
     "title": "waterpoisoningTitle",
     "description": "waterpoisoningDescription",
-    "image": "updated_images/bad_water/badwater_main.png",
+    "image": "updated_images/water/water_glass_dirty.jpg",
     "icons": [
       "icons/alt news.png"
     ],
@@ -864,14 +864,16 @@ const CASES = [
         "supports": null
       },
       {
-        "src": "updated_images/bad_water/clean.png",
+        "src": "updated_images/water/water_glass_clean.jpg",
         "type": "img",
         "location": "waterpoisoninglocation3",
         "date": "waterpoisoningimagedate3",
         "icons": [
           "icons/stockphoto.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_water"
       },
       {
         "src": "updated_images/bad_water/Bad_Water_Glas_6.jpeg",
@@ -1300,7 +1302,9 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": false
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_4ms"
       },
       {
         "src": "updated_images/cats/cat_announcement_3.mp4",
@@ -1310,7 +1314,9 @@ const CASES = [
         "icons": [
           "icons/DN clean1920.png"
         ],
-        "supports": false
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_4ms"
       }
     ]
   },
