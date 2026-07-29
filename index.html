@@ -1299,7 +1299,7 @@ function openEvidence(i){
         <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
         ${(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
         <span class="ep-label">${esc(t("srcValLabel"))}</span>
-        <div class="ep-why">${esc(evPtsReason(e))}</div>
+        <div class="ep-why">${esc((typeof e.keyNote==="string"&&e.keyNote)?t(e.keyNote):evPtsReason(e))}</div>
       </div>`:""}
       ${e.isAd?`<div class="ev-note warn">${esc(t("evAdWarn"))}</div>`:""}
       <button class="btn-primary" id="ev-close" style="margin-top:12px">${esc(t("close"))}</button>
