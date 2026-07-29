@@ -844,7 +844,7 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "updated_images/bad_water/Fake_Steam_Green.png",
+        "src": "updated_images/bad_water/Bad_Water_Glas_4.jpeg",
         "type": "img",
         "location": "waterpoisoninglocation1",
         "date": "waterpoisoningimagedate1",
@@ -854,7 +854,7 @@ const CASES = [
         "supports": null
       },
       {
-        "src": "updated_images/bad_water/Fake_Steam_Black.png",
+        "src": "updated_images/bad_water/Bad_Water_Glas_5.jpeg",
         "type": "img",
         "location": "waterpoisoninglocation2",
         "date": "waterpoisoningimagedate2",
