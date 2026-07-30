@@ -186,7 +186,9 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_burncopy"
       },
       {
         "src": "updated_images/Street_Fire_Images/Orig_W_AI-Fake_Fire_Added.png",
@@ -196,7 +198,9 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "val": 3,
+        "keyNote": "keyN_burncopy"
       },
       {
         "src": "updated_images/Street_Fire_Images/Street_Party_2_Yrs_ago.jpeg",
