@@ -760,7 +760,7 @@ const dayCases = d => CASES.filter(c=>c.day===d);
 
 /* ---------- media helpers (graceful if a file is missing) ---------- */
 function mediaTag(src, type, cls){
-  if(type==="video") return `<video src="${esc(src)}" controls muted playsinline preload="metadata" onerror="this.outerHTML='<div class=media-missing>🎬 '+this.getAttribute('src')+'</div>'"></video>`;
+  if(type==="video") return `<video src="${esc(src)}" controls playsinline preload="metadata" onerror="this.outerHTML='<div class=media-missing>🎬 '+this.getAttribute('src')+'</div>'"></video>`;
   return `<img src="${esc(src)}" alt=""${arguments[3]?` title="${esc(t("tapZoom"))}" data-zoom="1"`:""} loading="lazy" onerror="this.outerHTML='<div class=media-missing>🖼 '+this.getAttribute('src')+'</div>'">`;
 }
 function iconTag(icons){
