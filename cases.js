@@ -672,7 +672,7 @@ const CASES = [
           "icons/Channel1.png"
         ],
         "supports": true,
-        "val": 4,
+        "val": 5,
         "keyNote": "keyN_redbull"
       }
     ]
@@ -1267,7 +1267,7 @@ const CASES = [
           "icons/Channel1.png"
         ],
         "supports": true,
-        "val": 4,
+        "val": 5,
         "keyNote": "keyN_icpaa"
       }
     ],
@@ -1881,7 +1881,7 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": true,
-        "val": 4,
+        "val": 5,
         "keyNote": "keyN_sportlover"
       },
       {
@@ -2464,7 +2464,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": true,
+        "val": 1
       }
     ]
   },
@@ -2617,7 +2618,7 @@ const CASES = [
           "icons/X.png"
         ],
         "supports": true,
-        "val": 4,
+        "val": 5,
         "keyNote": "keyN_baddog"
       },
       {
@@ -2865,7 +2866,7 @@ const CASES = [
           "icons/Channel1.png"
         ],
         "supports": true,
-        "val": 4,
+        "val": 5,
         "keyNote": "keyN_uncut"
       },
       {

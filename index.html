@@ -1010,7 +1010,7 @@ function renderBoard(){
       : `<div class="e-icon">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:"🔍"}</div>`;
     return `<div class="evcard ${e.isAd?"is-ad":""}" data-view="${i}" role="button" tabindex="0">
       ${lead}
-      <div class="e-main"><div class="e-label">${(typeof e.val==="number"&&e.supports&&!e.isAd)?"🔑 ":""}${esc(e.label)}</div>${e.isAd?`<span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.date||"")}</span></div>
+      <div class="e-main"><div class="e-label">${(typeof e.val==="number"&&e.val>=3&&e.supports&&!e.isAd)?"🔑 ":""}${esc(e.label)}</div>${e.isAd?`<span class="ad-chip">${esc(t("sponsoredTag"))}</span>`:""}<span class="e-src">${esc(e.date||"")}</span></div>
       <button title="✖" data-i="${i}">✖</button></div>`;
   }).join("")
     : `<div class="b-empty">${esc(t("boardEmpty"))}</div>`;
@@ -1138,7 +1138,7 @@ function calcPts(ev){
 function pin(ev){
   if(state.evidence.some(e=>e.key===ev.key)) return false;
   ev.pts=calcPts(ev);
-  if(typeof ev.val==="number" && ev.supports && !ev.isAd){
+  if(typeof ev.val==="number" && ev.val>=3 && ev.supports && !ev.isAd){
     setTimeout(()=>{ sfxKey();
       const board=$("#board-items"); if(board){
         const pop=document.createElement("div"); pop.className="key-pop";
@@ -1224,7 +1224,7 @@ function feedback(c,choice,correct,evOk,adUsed,events,before){
                  : e.kind==="video" ? `<div class="fe-thumb"><video src="${esc(e.mediaSrc)}" muted preload="metadata"></video><div class="fe-play">▶</div></div>`
                  : `<div class="fe-thumb">${e.icon?`<img src="${esc(e.icon)}" alt="" onerror="this.style.display='none'">`:""}</div>`;
         const pts=e.pts||0;
-        const keyIco=(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:"";
+        const keyIco=(typeof e.val==="number"&&e.val>=3&&e.supports&&!e.isAd)?`<span class="key-ico" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:"";
         const badge = `${e.isAd?`<span class="fe-badge" title="${esc(t("sponsoredTag"))}">⚠️</span>`:""}${keyIco}${FLAG_SRC?`<span class="fe-pts ${pts>0?"pos":"neg"}">${pts>0?"+":""}${pts}</span>`:""}`;
         return `<div class="fb-evcard ${pts>0?"backed":""} ${e.isAd?"is-ad":""}" data-fbev="${i}" role="button" tabindex="0">${th}<span class="fe-label">${esc(e.label)}</span>${badge}</div>`;
       }).join("")}</div>`:""}
@@ -1311,7 +1311,7 @@ function openEvidence(i){
       <p class="e-src" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft)">${esc(e.date||"")}</p>
       ${FLAG_SRC?`<div class="ev-pts ${ (e.pts||0)>0?"pos":"neg"}">
         <span class="ep-num">${(e.pts||0)>0?"+":""}${e.pts||0}</span>
-        ${(typeof e.val==="number"&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
+        ${(typeof e.val==="number"&&e.val>=3&&e.supports&&!e.isAd)?`<span class="key-ico ep-key" data-note="${esc(e.keyNote||"")}" title="${esc(t("keyEvLabel"))}">🔑</span>`:""}
         <span class="ep-label">${esc(t("srcValLabel"))}</span>
         <div class="ep-why">${esc((typeof e.keyNote==="string"&&e.keyNote)?t(e.keyNote):evPtsReason(e))}</div>
       </div>`:""}
