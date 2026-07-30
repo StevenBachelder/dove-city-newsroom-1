@@ -1017,7 +1017,9 @@ function renderBoard(){
   el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{
     ev.stopPropagation(); sfxUnpin();
     const removed=state.evidence.splice(+b.dataset.i,1)[0];
-    if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0); }
+    if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0);
+      const rb=document.querySelector('.btn-ev[data-ev="'+removed.key[0]+'-'+removed.key.slice(1)+'"]');
+      if(rb){ rb.disabled=false; rb.textContent=t("pinBtn"); } }
     renderBoard();
   }));
   el.querySelectorAll(".evcard").forEach(card=>{
