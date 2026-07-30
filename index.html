@@ -1712,7 +1712,7 @@ function openToolGuide(kind){
       <p style="font-size:13px;color:var(--ink-soft);margin:0">${esc(t("toolGuideSub"))}</p></div>
     </div>
     <ol class="tg-list">${items}</ol>
-    ${kind==="img"?`<div class="tg-film"><video src="updated_images/info/reverse_image_search_info_${esc(state.lang||"en")}.mp4" controls preload="metadata" onerror="this.parentElement.style.display='none'"></video><div class="tg-film-cap">${esc(t("rgFilmCap"))}</div></div>`:""}
+    ${kind==="img"?`<div class="tg-film"><video src="updated_images/info/reverse_image_search_info_${esc((typeof lang!=="undefined"&&lang)?lang:"en")}.mp4" controls preload="metadata" onerror="this.parentElement.style.display='none'"></video><div class="tg-film-cap">${esc(t("rgFilmCap"))}</div></div>`:""}
     <button class="btn-primary" id="tg-close" style="margin-top:14px">${esc(t("close"))}</button>
   </div></div>`;
   $("#tg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
