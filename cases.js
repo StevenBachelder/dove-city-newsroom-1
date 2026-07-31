@@ -1056,7 +1056,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "keyNote": "keyN_oldfire"
       },
       {
         "src": "updated_images/downtown_fire/fire_eastbank.jpg",
