@@ -1574,7 +1574,7 @@ const CASES = [
     "id": 10,
     "title": "toxicleakTitle",
     "description": "toxicleakDescription",
-    "image": "img/gasleak_intro.png",
+    "image": "updated_images/gas_leak/gas_playground_view.jpg",
     "icons": [
       "icons/insta.png"
     ],
@@ -1682,7 +1682,7 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "img/gasleak_intro.png",
+        "src": "updated_images/gas_leak/gas_webcam_green.jpg",
         "type": "img",
         "location": "toxicleaklocation1",
         "date": "toxicleakdate1",
@@ -1694,7 +1694,7 @@ const CASES = [
         "keyNote": "keyN_gaspair"
       },
       {
-        "src": "img/gasleak_intro_dark.png",
+        "src": "updated_images/gas_leak/gas_webcam_black.jpg",
         "type": "img",
         "location": "toxicleaklocation2",
         "date": "toxicleakdate2",
@@ -1706,24 +1706,25 @@ const CASES = [
         "keyNote": "keyN_gaspair"
       },
       {
-        "src": "updated_images/gas_leak/gasleakbest2.png",
+        "src": "updated_images/gas_leak/gas_webcam_black.jpg",
         "type": "img",
         "location": "toxicleaklocation3",
         "date": "toxicleakdate3",
         "icons": [
           "icons/Public Safety Office .png"
         ],
-        "supports": true
+        "supports": false,
+        "keyNote": "keyN_ampgas"
       },
       {
-        "src": "updated_images/gas_leak/gasleaklocal best.png",
+        "src": "updated_images/gas_leak/gas_measurement.jpg",
         "type": "img",
         "location": "toxicleaklocation4",
         "date": "toxicleakdate4",
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": true
       }
     ]
   },
