@@ -897,7 +897,7 @@ const CASES = [
     "id": 9,
     "title": "fireincidentTitle",
     "description": "fireincidentDescription",
-    "image": "img/fire1.png",
+    "image": "updated_images/downtown_fire/fire_tip_window.jpg",
     "icons": [
       "icons/X.png"
     ],
@@ -1049,7 +1049,7 @@ const CASES = [
     ],
     "imageResults": [
       {
-        "src": "img/fire1.png",
+        "src": "updated_images/downtown_fire/fire_archive_2019.jpg",
         "type": "img",
         "location": "fireincidentlocation1",
         "date": "fireincidentdate1",
@@ -1059,27 +1059,27 @@ const CASES = [
         "supports": null
       },
       {
-        "src": "img/fire2.png",
+        "src": "updated_images/downtown_fire/fire_eastbank.jpg",
         "type": "img",
         "location": "fireincidentlocation2",
         "date": "fireincidentdate2",
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": true
       },
       {
-        "src": "img/fire3.png",
+        "src": "updated_images/downtown_fire/fire_driver.jpg",
         "type": "img",
         "location": "fireincidentlocation3",
         "date": "fireincidentdate3",
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": true
       },
       {
-        "src": "img/fire4.png",
+        "src": "updated_images/downtown_fire/fire_official.jpg",
         "type": "img",
         "location": "fireincidentlocation4",
         "date": "fireincidentdate4",
