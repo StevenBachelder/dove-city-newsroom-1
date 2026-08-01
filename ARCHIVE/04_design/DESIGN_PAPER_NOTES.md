@@ -56,10 +56,20 @@ Consequence: the feedback loop is the curriculum development process; the design
 Episode: the evidence economy was re-tiered so that point values mirror epistemic roles — weak corroboration (+1, quiet), pair evidence (+3, keyed, needing its partner), decisive proof (+5, keyed, case-closing) — with the key ceremony gated to a threshold so celebration tracks warrant. The trigger was a single mismatched caption; the repair reorganized the whole ladder.
 Consequence (designer's formulation, preserved): *the score is an ecological core value system in dialogue with the choices and actions of the player inside the magic circle — a procedural choreography between player and the game’s ecological world.* In Gibsonian terms: every element’s affordances (pin, zoom, watch-to-end, compare) are invitations calibrated to epistemic worth, and the score is the ecology’s voice answering each uptake. The player is not graded from outside the world; the world itself responds — which is why the feedback teaches rather than merely ranks. (Cross-refs: Gibson, ecological psychology; Huizinga / Salen & Zimmerman, magic circle; principles 3 and 4 above are special cases of this one.)
 
+**12. Reversibility rewards the changed mind (multiperspectivity).**
+Episode: unpinning evidence left its source button dead in a “Pinned” state — second thoughts were silently punished. The fix restored the button with its own sound and visible re-spawn, so releasing a pin *feels* like opening a possibility rather than admitting error.
+Consequence (designer’s formulation, preserved): *the experience of new possibilities rewards the player for looking further and turning in a new direction — it rewards players for changing their minds, which is rare feedback, but essential for growth.* Reconsideration is the enacted form of multiperspectivity: a verifier’s core move is releasing a weaker source for a stronger one, and the interface must make that move feel generative, not penal. Note the audit trail remains (unpins are counted) — the game distinguishes *recording* reconsideration from *punishing* it.
+(Relation: the affective complement of principle 11 — the ecology must respond warmly to redirection, not only to arrival. Cross-ref: epistemic humility; Dweck-style growth orientation.)
+
 ---
 
 ## Episode log (append here, dated)
 - 2026-07: All ten entries above extracted retrospectively from the build record (git history + session notes).
+- 2026-08: **From cases to curriculum.** The designer initiated a five-step guide→analyze→adjust→re-analyze→guide cycle over the whole deck, with a five-question template per case and level identities named as craft stages (Verification / Proportion / Judgment). The deck becomes a curriculum object; sequencing recognized as a pedagogical instrument.
+- 2026-07: **Twin the similarity.** Two too-similar fire cases became mirror twins teaching opposite authenticity signatures (fakes repeat one frame; real events converge from many). Candidate principle: similarity between cases is a resource — twin it, don't trim it.
+- 2026-07: **Register realism.** Eyewitness texts rewritten into uncertain vernacular (“anybody know whats going on?”); premature certainty became the fake's tell. Evidence realism includes how people actually write.
+- 2026-07: **Trap notes.** The keyNote channel extended to a non-support item: the case's central trap (archive lookalike) now explains its own wrongness at review, without the key ceremony. Negative feedback made as specific as positive.
+- 2026-07: **The re-spawning pin button.** An unpin left buttons dead; restoring them (with sound) turned reconsideration from a punished dead-end into a rewarded move. Origin of principle 12.
 - 2026-07: **Ecological value ladder.** A caption fix (monkey street photo) exposed that any hand-set value triggered the key ceremony; a ≥ 3 threshold plus a +1/+3/+5 tier was introduced, aligning celebration with warrant. Origin of principle 11.
 - 2026-07: **Diegetic tooling + style priming.** A reverse-image-search training film, produced in the same visual style as the ICPAA fake announcements, serves three functions at once: tutorial, aesthetic spring-load (players recognize the style when the fakes appear), and a double-irony reflection in the case feedback (the impersonators used the tutorial's own tools — and were exposed by the tutorial's own method). Principle: one artifact, three pedagogical channels; production style itself is a teachable pattern.
 
@@ -75,6 +85,7 @@ Consequence (designer's formulation, preserved): *the score is an ecological cor
 9. Where does mastery become visible, witnessed, and inscribed? *(Ceremony consolidates)*
 10. What did the last playtester struggle with — and how fast did it change the build? *(Player-led iteration)*
 11. Is the score an external grade — or the world’s own ecology responding to the player? *(Ecological value system)*
+12. What happens when a player changes their mind — is reconsideration punished, ignored, or rewarded? *(Reversibility)*
 
 ## Paper skeleton (draft)
 1. Thesis & stakes — 2. Method (DBR; this log + research instruments) — 3. The ten principles with episodes — 4. Quantitative hooks (pre/post discernment, log telemetry) — 5. Implications for educational game production (design capacity as the binding constraint) — 6. Limitations & next cycle (Uppsala playtests, youth panel).
