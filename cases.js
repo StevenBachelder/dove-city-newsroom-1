@@ -31,7 +31,8 @@ const CASES = [
         "icons": [
           "icons/companyfirealarm.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "SafeHome"
       },
       {
         "title": "burnalerttitle2",
@@ -42,7 +43,8 @@ const CASES = [
         "icons": [
           "icons/companyfireex.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "FireReady Store"
       },
       {
         "title": "burnalerttitle4",
@@ -53,7 +55,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Alt News"
       },
       {
         "title": "burnalerttitle5",
@@ -64,7 +67,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "burnalerttitle6",
@@ -75,7 +79,8 @@ const CASES = [
         "icons": [
           "icons/firedpt.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Fire Department"
       },
       {
         "title": "burnalerttitle7",
@@ -86,7 +91,8 @@ const CASES = [
         "icons": [
           "icons/firedpt.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Fire Department"
       },
       {
         "title": "burnalerttitle8",
@@ -97,7 +103,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Alien_Watcher"
       },
       {
         "title": "burnalerttitle9",
@@ -108,7 +115,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "burnalerttitle10",
@@ -119,7 +127,8 @@ const CASES = [
         "icons": [
           "icons/firedpt.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Fire Department"
       },
       {
         "title": "burnalerttitle11",
@@ -130,7 +139,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Alt News"
       },
       {
         "title": "burnalerttitle12",
@@ -141,7 +151,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 9"
       },
       {
         "title": "burnalerttitle13",
@@ -152,7 +163,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "HelloNews"
       },
       {
         "title": "burnalerttitle14",
@@ -163,7 +175,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Alt News"
       },
       {
         "title": "burnalerttitle15",
@@ -174,7 +187,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       }
     ],
     "imageResults": [
@@ -254,7 +268,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "SecureStacks"
       },
       {
         "title": "librarytitle2",
@@ -265,7 +280,8 @@ const CASES = [
         "icons": [
           "icons/securelibrary.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "ShieldGuard Insurance"
       },
       {
         "title": "librarytitle3",
@@ -276,7 +292,8 @@ const CASES = [
         "icons": [
           "icons/worshippersunited.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "WorshippersUnited"
       },
       {
         "title": "librarytitle4",
@@ -287,7 +304,8 @@ const CASES = [
         "icons": [
           "icons/security.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "securitysource.com"
       },
       {
         "title": "librarytitle6",
@@ -298,7 +316,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       },
       {
         "title": "librarytitle7",
@@ -309,7 +328,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 1"
       },
       {
         "title": "librarytitle8",
@@ -320,7 +340,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CivicUpdateHQ"
       },
       {
         "title": "librarytitle9",
@@ -331,7 +352,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "librarytitle10",
@@ -342,7 +364,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "librarytitle11",
@@ -353,7 +376,8 @@ const CASES = [
         "icons": [
           "icons/security.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "securitysource.com"
       },
       {
         "title": "librarytitle12",
@@ -364,7 +388,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "librarytitle13",
@@ -375,7 +400,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 1"
       },
       {
         "title": "librarytitle14",
@@ -386,7 +412,8 @@ const CASES = [
         "icons": [
           "icons/DN eng.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       },
       {
         "title": "librarytitle15",
@@ -397,7 +424,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "the City Library"
       },
       {
         "title": "librarytitle16",
@@ -408,7 +436,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Newswire"
       },
       {
         "title": "librarytitle17",
@@ -419,7 +448,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "HomeShield Deals"
       },
       {
         "title": "librarytitle18",
@@ -430,7 +460,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Newswire"
       }
     ],
     "imageResults": [
@@ -711,7 +742,8 @@ const CASES = [
         "icons": [
           "icons/waterfilter.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CleanFlow"
       },
       {
         "title": "waterpoisoningtitle2",
@@ -722,7 +754,8 @@ const CASES = [
         "icons": [
           "icons/watertesting.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "AquaCheck Labs"
       },
       {
         "title": "waterpoisoningtitle3",
@@ -733,7 +766,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Municipal Water Department"
       },
       {
         "title": "waterpoisoningtitle5",
@@ -744,7 +778,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 9"
       },
       {
         "title": "waterpoisoningtitle6",
@@ -755,7 +790,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Municipal Water Department"
       },
       {
         "title": "waterpoisoningtitle7",
@@ -766,7 +802,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "waterpoisoningtitle8",
@@ -777,7 +814,8 @@ const CASES = [
         "icons": [
           "icons/tapwater.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "toxictesting.com"
       },
       {
         "title": "waterpoisoningtitle9",
@@ -788,7 +826,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "waterpoisoningtitle10",
@@ -799,7 +838,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Municipal Water Department"
       },
       {
         "title": "waterpoisoningtitle11",
@@ -810,7 +850,8 @@ const CASES = [
         "icons": [
           "icons/waterfilter.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "homewater.com"
       },
       {
         "title": "waterpoisoningtitle12",
@@ -821,7 +862,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "title": "waterpoisoningtitle13",
@@ -832,7 +874,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 1"
       },
       {
         "title": "waterpoisoningtitle14",
@@ -843,7 +886,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       }
     ],
     "imageResults": [
@@ -923,7 +967,8 @@ const CASES = [
         "icons": [
           "icons/companyfireex.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "FireSafe Pro"
       },
       {
         "title": "fireincidenttitle2",
@@ -934,7 +979,8 @@ const CASES = [
         "icons": [
           "icons/companyfirealarm.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "SafeHome"
       },
       {
         "title": "fireincidenttitle3",
@@ -945,7 +991,8 @@ const CASES = [
         "icons": [
           "icons/redligtwatch.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "RedAlertWatch"
       },
       {
         "title": "fireincidenttitle4",
@@ -956,7 +1003,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "UrbanBlog"
       },
       {
         "title": "fireincidenttitle5",
@@ -967,7 +1015,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "@StreetVoice"
       },
       {
         "title": "fireincidenttitle6",
@@ -978,7 +1027,8 @@ const CASES = [
         "icons": [
           "icons/police.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "the City Police"
       },
       {
         "title": "fireincidenttitle7",
@@ -989,7 +1039,8 @@ const CASES = [
         "icons": [
           "icons/firedpt.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Fire Department"
       },
       {
         "title": "fireincidenttitle8",
@@ -1000,7 +1051,8 @@ const CASES = [
         "icons": [
           "icons/weather service.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "National Weather Service"
       },
       {
         "title": "fireincidenttitle9",
@@ -1011,7 +1063,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityLiveTrafficCam"
       },
       {
         "title": "fireincidenttitle10",
@@ -1022,7 +1075,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "LocalResident88"
       },
       {
         "title": "fireincidenttitle11",
@@ -1033,7 +1087,8 @@ const CASES = [
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Truth Signal"
       },
       {
         "title": "fireincidenttitle12",
@@ -1044,7 +1099,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "ViralVideoHub"
       }
     ],
     "imageResults": [
@@ -2364,7 +2420,8 @@ const CASES = [
         "icons": [
           "icons/security.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "securitysource.com"
       },
       {
         "title": "monkeytitle2",
@@ -2375,7 +2432,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       },
       {
         "title": "monkeytitle3",
@@ -2386,7 +2444,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "UrbanBuzzNow"
       },
       {
         "title": "monkeytitle4",
@@ -2397,7 +2456,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityTruthDaily"
       },
       {
         "title": "monkeytitle5",
@@ -2408,7 +2468,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Dovetown News"
       },
       {
         "title": "monkeytitle6",
@@ -2419,7 +2480,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "monkeytitle7",
@@ -2430,7 +2492,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CivicUpdateHQ"
       },
       {
         "title": "monkeytitle8",
@@ -2441,7 +2504,8 @@ const CASES = [
         "icons": [
           "icons/Public Safety Office .png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Public Safety Office"
       }
     ],
     "imageResults": [

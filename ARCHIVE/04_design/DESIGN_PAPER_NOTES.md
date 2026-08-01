@@ -65,6 +65,7 @@ Consequence (designer’s formulation, preserved): *the experience of new possib
 
 ## Episode log (append here, dated)
 - 2026-07: All ten entries above extracted retrospectively from the build record (git history + session notes).
+- 2026-08: **Compounded disinformation (8→5).** Xenophobic posts from an early case return, signed by the same accounts, as “evidence” in a later one; a Case-ledger feature lets players re-open handled cases and compare signatures. Teaches: waves build on waves; information can be an attack. Collection doubles as progression (the player’s own legacy of cases).
 - 2026-08: **From cases to curriculum.** The designer initiated a five-step guide→analyze→adjust→re-analyze→guide cycle over the whole deck, with a five-question template per case and level identities named as craft stages (Verification / Proportion / Judgment). The deck becomes a curriculum object; sequencing recognized as a pedagogical instrument.
 - 2026-07: **Twin the similarity.** Two too-similar fire cases became mirror twins teaching opposite authenticity signatures (fakes repeat one frame; real events converge from many). Candidate principle: similarity between cases is a resource — twin it, don't trim it.
 - 2026-07: **Register realism.** Eyewitness texts rewritten into uncertain vernacular (“anybody know whats going on?”); premature certainty became the fake's tell. Evidence realism includes how people actually write.
