@@ -1187,7 +1187,8 @@ const CASES = [
         "date": null,
         "rIdx": 2,
         "icons": [],
-        "supports": null
+        "supports": null,
+        "sender": "VetLine"
       },
       {
         "title": "petstitle2",
@@ -1196,7 +1197,8 @@ const CASES = [
         "date": null,
         "rIdx": 2,
         "icons": [],
-        "supports": null
+        "supports": null,
+        "sender": "SafePaws"
       },
       {
         "title": "petstitle3",
@@ -1207,7 +1209,8 @@ const CASES = [
         "icons": [
           "icons/cityvet.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Veterinary Association"
       },
       {
         "title": "petstitle4",
@@ -1218,7 +1221,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PetHealthTruths.blog"
       },
       {
         "title": "petstitle5",
@@ -1229,7 +1233,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "City News"
       },
       {
         "title": "petstitle6",
@@ -1240,7 +1245,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "petstitle7",
@@ -1251,7 +1257,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 1"
       },
       {
         "title": "petstitle8",
@@ -1262,7 +1269,8 @@ const CASES = [
         "icons": [
           "icons/petlarm.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PetAlertNow.net"
       },
       {
         "title": "petstitle9",
@@ -1273,7 +1281,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 1"
       },
       {
         "title": "petstitle10",
@@ -1284,7 +1293,8 @@ const CASES = [
         "icons": [
           "icons/pethealtk.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Animal Health Journal"
       },
       {
         "title": "petstitle11",
@@ -1295,7 +1305,8 @@ const CASES = [
         "icons": [
           "icons/petsafe.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PetSecure Insurance"
       },
       {
         "title": "petstitle12",
@@ -1306,7 +1317,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City News"
       },
       {
         "title": "petstitle13",
@@ -1317,7 +1329,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 9"
       },
       {
         "title": "petstitle14",
@@ -1328,7 +1341,8 @@ const CASES = [
         "icons": [
           "icons/petcare.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "MiraclePetCure.com"
       },
       {
         "title": "petstitle15",
@@ -1341,7 +1355,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 5,
-        "keyNote": "keyN_icpaa"
+        "keyNote": "keyN_icpaa",
+        "sender": "Channel 1"
       }
     ],
     "imageResults": [
@@ -1425,7 +1440,8 @@ const CASES = [
         "icons": [
           "icons/puppy.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "FameBoost Store"
       },
       {
         "title": "dogfluencertitle1",
@@ -1436,7 +1452,8 @@ const CASES = [
         "icons": [
           "icons/puppy.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PupStars Collars"
       },
       {
         "title": "dogfluencertitle2",
@@ -1447,7 +1464,8 @@ const CASES = [
         "icons": [
           "icons/puppy2.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PetGram Studio"
       },
       {
         "title": "dogfluencertitle3",
@@ -1458,7 +1476,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "City News"
       },
       {
         "title": "dogfluencertitle4",
@@ -1469,7 +1488,8 @@ const CASES = [
         "icons": [
           "icons/boostfollowers.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "boost-now.social"
       },
       {
         "title": "dogfluencertitle5",
@@ -1480,7 +1500,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 1"
       },
       {
         "title": "dogfluencertitle6",
@@ -1491,7 +1512,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City News"
       },
       {
         "title": "dogfluencertitle7",
@@ -1502,7 +1524,8 @@ const CASES = [
         "icons": [
           "icons/fisshybuyfollowers.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "likes-rocket.io"
       },
       {
         "title": "dogfluencertitle8",
@@ -1513,7 +1536,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City News"
       },
       {
         "title": "dogfluencertitle9",
@@ -1524,7 +1548,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 1"
       },
       {
         "title": "dogfluencertitle10",
@@ -1535,7 +1560,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "dogfluencertitle11",
@@ -1546,7 +1572,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "premiumfollowers.biz"
       },
       {
         "title": "dogfluencertitle12",
@@ -1557,7 +1584,8 @@ const CASES = [
         "icons": [
           "icons/dove_city_ftc_logo.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Federal Trade Commission"
       },
       {
         "title": "dogfluencertitle13",
@@ -1568,7 +1596,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 1"
       },
       {
         "title": "dogfluencertitle14",
@@ -1579,7 +1608,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "premiumfollowers.biz"
       },
       {
         "title": "dogfluencertitle15",
@@ -1590,7 +1620,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 9"
       }
     ],
     "imageResults": [
@@ -1832,7 +1863,8 @@ const CASES = [
         "date": "sportpulsetextdate1",
         "rIdx": 2,
         "icons": [],
-        "supports": null
+        "supports": null,
+        "sender": "PerformanceEdge Labs"
       },
       {
         "title": "sportspulsetitle2",
@@ -1841,7 +1873,8 @@ const CASES = [
         "date": "sportpulsetextdate2",
         "rIdx": 2,
         "icons": [],
-        "supports": null
+        "supports": null,
+        "sender": "FairPlay Legal Defense"
       },
       {
         "title": "sportspulsetitle3",
@@ -1852,7 +1885,8 @@ const CASES = [
         "icons": [
           "icons/goalline.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "GoalLineWatch"
       },
       {
         "title": "sportspulsetitle4",
@@ -1863,7 +1897,8 @@ const CASES = [
         "icons": [
           "icons/sportpulse.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "SportPulse Direct"
       },
       {
         "title": "sportspulsetitle5",
@@ -1874,7 +1909,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "FanZone Forum"
       },
       {
         "title": "sportspulsetitle6",
@@ -1885,7 +1921,8 @@ const CASES = [
         "icons": [
           "icons/sportblog.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "SportsInsider Blog"
       },
       {
         "title": "sportspulsetitle7",
@@ -1896,7 +1933,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PitchReport"
       },
       {
         "title": "sportspulsetitle8",
@@ -1907,7 +1945,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "TrendingNow Sports"
       },
       {
         "title": "sportspulsetitle9",
@@ -1918,7 +1957,8 @@ const CASES = [
         "icons": [
           "icons/sportblog.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "SportsInsider Blog"
       },
       {
         "title": "sportspulsetitle10",
@@ -1929,7 +1969,8 @@ const CASES = [
         "icons": [
           "icons/eurosport.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "EuroSportTalk"
       },
       {
         "title": "sportspulsetitle11",
@@ -1940,7 +1981,8 @@ const CASES = [
         "icons": [
           "icons/goalline.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "the City Sports Authority"
       }
     ],
     "imageResults": [
@@ -2612,7 +2654,8 @@ const CASES = [
         "date": "baddogtextdate1",
         "rIdx": 2,
         "icons": [],
-        "supports": null
+        "supports": null,
+        "sender": "securitysource.com"
       },
       {
         "title": "baddogtitle2",
@@ -2623,7 +2666,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "baddogtitle3",
@@ -2634,7 +2678,8 @@ const CASES = [
         "icons": [
           "icons/celebrity gossip news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Celebrity Gossip Channel"
       },
       {
         "title": "baddogtitle4",
@@ -2645,7 +2690,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       },
       {
         "title": "baddogtitle5",
@@ -2656,7 +2702,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "UrbanBuzzNow"
       },
       {
         "title": "baddogtitle6",
@@ -2667,7 +2714,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityTruthDaily"
       },
       {
         "title": "baddogtitle7",
@@ -2678,7 +2726,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 9"
       },
       {
         "title": "baddogtitle8",
@@ -2689,7 +2738,8 @@ const CASES = [
         "icons": [
           "icons/Public Safety Office .png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Public Safety Office"
       },
       {
         "title": "baddogtitle9",
@@ -2700,7 +2750,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "@BadDogStudios"
       }
     ],
     "imageResults": [

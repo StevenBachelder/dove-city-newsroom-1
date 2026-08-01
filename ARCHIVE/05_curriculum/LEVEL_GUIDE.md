@@ -82,8 +82,67 @@ Level tuning: L1 emphasizes 1+3; L2 adds 2 (scale unknowns); L3 adds 4 (instabil
 4. The boring/delightful true; satire adjacent to news; absurdity ≠ falsity.
 5. Graduated evidence values (+1 quiet support), sender continuity seeding, verdict rewarding publication of the odd-but-confirmed.
 
-### Remaining entries — TODO this cycle
-**Level I complete** (three entries above + fire-twins exemplar B + downtown). Remaining — **L2:** #6 military convoy · #9 winter storm · #10 crowd size (gas #7 = exemplar A). **L3:** #11 cats/ICPAA · #12 BAD DOG exposé · #13 footballer · #14 BAD DOG death · #15 forest fire. Plus the ads-as-curriculum note.
+### #6 — Military vehicles rolling through the city (L2)
+1. Grainy night footage of a long armored column; whispers of “what are they hiding?” and imminent martial law.
+2. That the clip is a two-year-old Red Bull commercial — the complete film (decisive key, +5) plus the City Film Office’s night-shoot permit close the case; around it, conspiracists (The Fish Lovers) had already pre-written democracy’s fall, and prepper commerce sells the panic.
+3. Provenance layer: reverse-video to the original ad, paper trail to the permit. Transfer: the recycled-fiction pattern echoes the fire twins’ archive lesson at higher stakes.
+4. Conspiracy scaffolding on out-of-context fiction; footage laundering (ad → “leak”); fear commerce (survival-gear ads).
+5. Single-handedly decisive key evidence, date forensics, ad marking, verdict naming how conspiracy pre-narration works.
+
+### #9 — Monster winter storm (L2)
+1. A breathless “share before it’s too late!!” storm warning with dramatic sea-wall clips — everything about it smells like clickbait.
+2. That it is dramatic AND true: red warning issued, independent cameras agree, crews securing the harbour — while mocking skeptics (“storm panic is fake,” “only cowards hide indoors”) bait the wrongful flag.
+3. Search layer: authority + independent convergence; the trap is affective, not evidential. Transfer: the calibration learned in the gas case, now applied to tone instead of magnitude.
+4. Emotionally loaded truth (emotion ≠ false); wrongful disbelief and its cost (lost preparation time); bravado skepticism as its own manipulation.
+5. Support convergence rewarded, skeptic posts as flag-bait, verdicts pricing the cost of disbelief, level theme (True to Size) enacted.
+
+### #10 — The REAL crowd size (L2)
+1. A cropped photo claiming to expose the station’s “lie” about protest attendance — the tip attacks the player’s own newsroom.
+2. That the crop comes from City News’ own wide-angle footage: the full frame shows the real crowd; the police report corroborates. The sparse result set is itself the test — few sources, but the right ones.
+3. In-house provenance: the newsroom’s own archive is the decisive ground. Transfer backward to “the crop is the lie”; forward to L3’s weaponizing of the desk’s own footage.
+4. Out-of-context cropping; institutional trust attack; the liar’s dividend aimed at journalism itself.
+5. Own-archive verification, minimal-evidence confidence, recurring fear-commerce sponsor (UrbanSafe) across unrelated scares.
+
+### #11 — New infection spreading among cats (L3)
+1. An official-looking health alert from “ICPAA”: a new infection among cats, alarming imagery, slick PSA films.
+2. That the sender is the story: ICPAA is a dog-advocacy lobby, not a health authority (the exposé, +5); the alarming photos are a 2021 Asia outbreak recycled; the trio of “sick” cats are different animals; and the PSA films sign their own forgery — 4Ms Laboratories in the end credits, watchable only to the very end.
+3. Sender-identity layer + in-media forensics + archive. Transfer: the desk’s own reverse-image-search training film shares the fakes’ production style — the double irony is named in review.
+4. Institutional impersonation; astroturfed authority; recycled outbreak imagery; interest-group laundering.
+5. Watch-to-the-end keys, exposé as decisive source, sender-name itch, diegetic-film style priming.
+
+### #12 — BAD DOG EXPOSED (L3)
+1. An 👀 exposé: the death-faking provocateur caught buying followers — surely just another stunt?
+2. That the metrics do not lie even when the artist always does: ×10 followers overnight with engagement collapsing (analytics key), while follower-shop ads circle the story selling the same service. His noisy reputation baits the wrongful flag.
+3. Platform-metrics layer + the archive of his past stunts. Transfer: sets up the death hoax two tips later — the duology punishes belief once and dismissal once.
+4. Reputation as shield (liar’s dividend resisted); the follower economy advertising itself.
+5. Generated-analytics key evidence, ad ring as confession, verdict naming the noisy-reputation mechanism.
+
+### #13 — Star footballer tests positive (L3)
+1. A career-ending doping claim, hours old, everywhere at once.
+2. That nothing confirms it: every source is insinuation — “sources claim,” escort photos, body-language readings, an old podcast clip — while the only authority states testing is routine and confirms nothing. The uncut clip (+5) shows the “escort” moment in full context.
+3. Sourcing-quality discrimination: the case is solved by *grading* sources, not finding a smoking gun. Transfer: Level I’s “both errors count” matured into “unverified is its own verdict.”
+4. Rumor cascade; unverifiable insinuation; the sports-gossip engagement economy.
+5. Decisive full-context key, source-class tells (“sources claim”), sparse-authority weighting.
+
+### #14 — BAD DOG Found Dead! (L3)
+1. BREAKING: the artist found dead — gossip channel exclusive, stretcher video, tributes pouring in.
+2. That it is his own production: emergency services confirm no death, the “cover-up” angle is fear-merchandise, and @BadDogStudios posted “Better to burn out than to fade away!?” hours *before* the rumors — the hoax signed in advance. The Case Ledger lets the player re-read his exposé from the previous shift.
+3. Cross-case memory is the method: his history, reviewed in the ledger, is the strongest source. Transfer: the duology’s second act — yesterday doubt was wrong; today belief is.
+4. Self-staged hoax; celebrity-death economy; manufactured cover-up narratives.
+5. Ledger as verification tool, pre-planted-post forensics, official convergence against a single-origin story.
+
+### #15 — MASSIVE forest fire (L3)
+1. EVACUATE NOW: apocalyptic fire imagery racing toward the city, deletion-panic urgency.
+2. That the image is AI-made (one campfire photo, four different hoaxes — the fact-check), no agency reports any fire — and the same signatures that blamed immigrants for the midsummer bonfires are back, citing their own debunked story as evidence.
+3. Provenance + cross-case signature comparison (Ledger): the case completes the compounded-xenophobia thread from case #8.
+4. AI fabrication at scale; disinformation built on disinformation; scapegoating as the payload.
+5. Trap notes on the echo posts, ledger-enabled signature matching, fact-check convergence, verdict naming the wave-on-wave mechanism.
+
+### Ads as curriculum (a note)
+Every case’s sponsored ring is part of the lesson: fear commerce tracks fear (UrbanSafe sells against coups and protests alike; ShieldGuard insures libraries and storms; securitysource.com monetizes every panic it reports). Pinning an ad costs −4 — but *reading* them answers the guide’s question: who wants me afraid, and what are they selling?
+
+### Sweep status
+**v1 COMPLETE — all 15 case entries written; all 138 posts sender-tagged (canonical names).** Next in cycle: Step 2 consolidated recommendations, then the sender-profile view over fully prepared data.
 
 ## Horizontal coherence (the ecology)
 Named relations to preserve and exploit: the fire twins (contrast), the BAD DOG duology (belief vs. dismissal), midsummer's double return (#12/#16, escalation), 4Ms as connective villain (#5 credits ↔ training film irony), the ladder of event↔report relations (water → gas → downtown). The optimal path is the queue order; sequencing is a pedagogical instrument and changes to it are curriculum changes.
