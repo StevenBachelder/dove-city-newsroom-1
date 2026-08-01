@@ -1794,8 +1794,11 @@ function renderSenderProfile(name){
   const body=document.querySelector("#lg-ov .modal-body"); if(!body) return;
   const blocks=CASES.filter(c=>state.handled[c.id]).map(c=>{
     const posts=c.searchResults.filter(r=>r.sender===name);
-    if(!posts.length) return "";
-    return `<div class="lg-day">${esc(t(c.title))}</div>`+posts.map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} <span class="lg-pt">${esc(t(r.title))}</span>${r.date?` <span class="lg-pd">${esc(t(r.date))}</span>`:""}</div>`).join("");
+    const media=c.imageResults.filter(r=>r.sender===name);
+    if(!posts.length&&!media.length) return "";
+    return `<div class="lg-day">${esc(t(c.title))}</div>`
+      +posts.map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} <span class="lg-pt">${esc(t(r.title))}</span>${r.date?` <span class="lg-pd">${esc(t(r.date))}</span>`:""}</div>`).join("")
+      +media.map(r=>`<div class="lg-post">${r.type==="video"?"🎬":"📷"} <span class="lg-pt">${esc(t(r.location))}</span>${r.date?` <span class="lg-pd">${esc(t(r.date))}</span>`:""}</div>`).join("");
   }).join("");
   body.innerHTML=`<button class="btn-secondary" id="lg-back">${esc(t("profileBack"))}</button>
     <h3 class="lg-pname">${esc(name)}</h3>

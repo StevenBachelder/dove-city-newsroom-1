@@ -202,7 +202,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_burncopy"
+        "keyNote": "keyN_burncopy",
+        "sender": "AndreaAndersson"
       },
       {
         "src": "updated_images/Street_Fire_Images/Orig_W_AI-Fake_Fire_Added.png",
@@ -214,7 +215,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_burncopy"
+        "keyNote": "keyN_burncopy",
+        "sender": "Bert"
       },
       {
         "src": "updated_images/Street_Fire_Images/Street_Party_2_Yrs_ago.jpeg",
@@ -224,7 +226,8 @@ const CASES = [
         "icons": [
           "icons/dn.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Dovetown News"
       },
       {
         "src": "updated_images/Street_Fire_Images/Street_Party_Last_Yr.jpeg",
@@ -475,7 +478,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_party"
+        "keyNote": "keyN_party",
+        "sender": "Johnssons"
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_party_2_Flash.png",
@@ -487,7 +491,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_party"
+        "keyNote": "keyN_party",
+        "sender": "StewieJobbs"
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Stag_Party_1_Dark.png",
@@ -497,7 +502,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Best Buddy Ben"
       },
       {
         "src": "updated_images/Terror_At_Library_Images/Waterguns_2_Flash.png",
@@ -509,7 +515,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_party"
+        "keyNote": "keyN_party",
+        "sender": "LateNightReport"
       }
     ]
   },
@@ -689,7 +696,8 @@ const CASES = [
         "icons": [
           "icons/alt news.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "City Frontline"
       },
       {
         "src": "updated_images/military/Military_Comercial_Shrt_Music.mp4",
@@ -699,7 +707,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityWatchDog"
       },
       {
         "src": "updated_images/military/Military_Redbull.jpeg",
@@ -709,7 +718,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "MetroBeatAlert"
       },
       {
         "src": "updated_images/military/Military_Comercial_Complete_Music.mp4",
@@ -721,7 +731,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 5,
-        "keyNote": "keyN_redbull"
+        "keyNote": "keyN_redbull",
+        "sender": "Channel 1"
       }
     ]
   },
@@ -912,7 +923,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Benny"
       },
       {
         "src": "updated_images/bad_water/Bad_Water_Glas_5.jpeg",
@@ -924,7 +936,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_blur"
+        "keyNote": "keyN_blur",
+        "sender": "Channel 1"
       },
       {
         "src": "updated_images/bad_water/water_glass_clean.jpg",
@@ -936,7 +949,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_water"
+        "keyNote": "keyN_water",
+        "sender": "Stockphoto.dev"
       },
       {
         "src": "updated_images/bad_water/water_glass_dirty.jpg",
@@ -946,7 +960,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Careful and clever"
       }
     ]
   },
@@ -1126,7 +1141,8 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": null,
-        "keyNote": "keyN_oldfire"
+        "keyNote": "keyN_oldfire",
+        "sender": "UrbanMemory"
       },
       {
         "src": "updated_images/downtown_fire/fire_eastbank.jpg",
@@ -1136,7 +1152,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Channel 1"
       },
       {
         "src": "updated_images/downtown_fire/fire_driver.jpg",
@@ -1146,7 +1163,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Street Walker"
       },
       {
         "src": "updated_images/downtown_fire/fire_official.jpg",
@@ -1156,7 +1174,8 @@ const CASES = [
         "icons": [
           "icons/firedpt.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Fire Department"
       }
     ]
   },
@@ -1371,7 +1390,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_cats"
+        "keyNote": "keyN_cats",
+        "sender": "Channel 1"
       },
       {
         "src": "updated_images/cats/cat_black.jpg",
@@ -1383,7 +1403,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_cats"
+        "keyNote": "keyN_cats",
+        "sender": "City News"
       },
       {
         "src": "updated_images/cats/cat_announcement_2.mp4",
@@ -1395,7 +1416,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_4ms"
+        "keyNote": "keyN_4ms",
+        "sender": "Channel 1"
       },
       {
         "src": "updated_images/cats/cat_announcement_3.mp4",
@@ -1407,7 +1429,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_4ms"
+        "keyNote": "keyN_4ms",
+        "sender": "City News"
       }
     ]
   },
@@ -1636,7 +1659,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_botgraph"
+        "keyNote": "keyN_botgraph",
+        "sender": "Channel 1"
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_Music_Video_5.mp4",
@@ -1646,7 +1670,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "@BadDogStudios"
       },
       {
         "src": "updated_images/bad_dog/News_Bad-Dog_to_Hospital.mp4",
@@ -1656,7 +1681,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "doglover"
       },
       {
         "src": "updated_images/bad_dog/Bad_Dog_Artist_clean.jpg",
@@ -1666,7 +1692,8 @@ const CASES = [
         "icons": [
           "icons/Channel1.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "Channel 1"
       }
     ]
   },
@@ -1799,7 +1826,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_gaspair"
+        "keyNote": "keyN_gaspair",
+        "sender": "InduChem"
       },
       {
         "src": "updated_images/gas_leak/gas_webcam_black.jpg",
@@ -1811,7 +1839,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_gaspair"
+        "keyNote": "keyN_gaspair",
+        "sender": "Truth Signal"
       },
       {
         "src": "updated_images/gas_leak/gas_webcam_black.jpg",
@@ -1822,7 +1851,8 @@ const CASES = [
           "icons/Public Safety Office .png"
         ],
         "supports": false,
-        "keyNote": "keyN_ampgas"
+        "keyNote": "keyN_ampgas",
+        "sender": "For Our Public Safety"
       },
       {
         "src": "updated_images/gas_leak/gas_measurement.jpg",
@@ -1832,7 +1862,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Environmental Agency"
       }
     ]
   },
@@ -1996,7 +2027,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "GoBallers!"
       },
       {
         "src": "updated_images/football/Footboll_Film_Falsify.mp4",
@@ -2008,7 +2040,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 5,
-        "keyNote": "keyN_sportlover"
+        "keyNote": "keyN_sportlover",
+        "sender": "SportLover"
       },
       {
         "src": "updated_images/football/Football_Falsify_11_cut_2.png",
@@ -2018,7 +2051,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Carol"
       },
       {
         "src": "updated_images/football/Football_fixed_.png",
@@ -2028,7 +2062,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "MadStewe"
       }
     ]
   },
@@ -2221,7 +2256,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_midsummer"
+        "keyNote": "keyN_midsummer",
+        "sender": "Visit Sweden"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2233,7 +2269,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_midsummer"
+        "keyNote": "keyN_midsummer",
+        "sender": "CityTruthDaily"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_4.png",
@@ -2243,7 +2280,8 @@ const CASES = [
         "icons": [
           "icons/redligtwatch.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "RedAlertWatch"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_1.png",
@@ -2253,7 +2291,8 @@ const CASES = [
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PatriotSignal Network"
       }
     ]
   },
@@ -2432,7 +2471,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "@CityCommuteLive"
       },
       {
         "src": "updated_images/winter_storm/Winter_Storm_Coast_1.jpg",
@@ -2442,7 +2482,8 @@ const CASES = [
         "icons": [
           "icons/weather service.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "National Weather Service"
       },
       {
         "src": "updated_images/winter_storm/Winter_Storm_Coast_2.jpg",
@@ -2452,7 +2493,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "WeatherSpot"
       },
       {
         "src": "updated_images/winter_storm/Winter_Storm_2.mp4",
@@ -2462,7 +2504,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "MyCottageIsCozy"
       }
     ]
   },
@@ -2593,7 +2636,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "NoShit"
       },
       {
         "src": "updated_images/monkey/Skate_Meme_1_Vest.mp4",
@@ -2603,7 +2647,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "VibeMe"
       },
       {
         "src": "updated_images/monkey/Skate_Meme_1_Dancers_2.mp4",
@@ -2613,7 +2658,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "MyLittle"
       },
       {
         "src": "updated_images/monkey/Monkey_Sthlm_6.png",
@@ -2624,7 +2670,8 @@ const CASES = [
           "icons/insta.png"
         ],
         "supports": true,
-        "val": 1
+        "val": 1,
+        "sender": "JULIESS"
       }
     ]
   },
@@ -2766,7 +2813,8 @@ const CASES = [
         "icons": [
           "icons/GNN logo.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "GNN"
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_Miss-them.mp4",
@@ -2776,7 +2824,8 @@ const CASES = [
         "icons": [
           "icons/Channel9.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Channel 9"
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_Music_Video_5.mp4",
@@ -2788,7 +2837,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 5,
-        "keyNote": "keyN_baddog"
+        "keyNote": "keyN_baddog",
+        "sender": "@BadDogStudios"
       },
       {
         "src": "updated_images/bad_dog/Bad-Dog_News_Loved-by-many.mp4",
@@ -2798,7 +2848,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "LoveIsAll"
       }
     ]
   },
@@ -2957,7 +3008,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_midsummer"
+        "keyNote": "keyN_midsummer",
+        "sender": "Visit Sweden"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_2.png",
@@ -2967,7 +3019,8 @@ const CASES = [
         "icons": [
           "icons/redligtwatch.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "RedAlertWatch"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_1.png",
@@ -2979,7 +3032,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 3,
-        "keyNote": "keyN_midsummer"
+        "keyNote": "keyN_midsummer",
+        "sender": "PatriotSignal Network"
       },
       {
         "src": "updated_images/forest_fire/Forest_Fire_Fake_3.png",
@@ -2989,7 +3043,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityTruthDaily"
       }
     ]
   },
@@ -3074,7 +3129,8 @@ const CASES = [
         ],
         "supports": true,
         "val": 5,
-        "keyNote": "keyN_uncut"
+        "keyNote": "keyN_uncut",
+        "sender": "City News"
       },
       {
         "src": "updated_images/Storming/storming_cropped.png",
@@ -3084,7 +3140,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": false
+        "supports": false,
+        "sender": "CityTruthDaily"
       }
     ]
   }
