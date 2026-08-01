@@ -592,7 +592,8 @@ const CASES = [
           "icons/security.png"
         ],
         "supports": null,
-        "sender": "The Fish Lovers"
+        "sender": "The Fish Lovers",
+        "keyNote": "keyN_fishlovers"
       },
       {
         "title": "extrimistalerttitle6",
@@ -1898,7 +1899,8 @@ const CASES = [
           "icons/sportpulse.png"
         ],
         "supports": false,
-        "sender": "SportPulse Direct"
+        "sender": "SportPulse Direct",
+        "keyNote": "keyN_sourcesclaim"
       },
       {
         "title": "sportspulsetitle5",
@@ -2679,7 +2681,8 @@ const CASES = [
           "icons/celebrity gossip news.png"
         ],
         "supports": null,
-        "sender": "Celebrity Gossip Channel"
+        "sender": "Celebrity Gossip Channel",
+        "keyNote": "keyN_gossiporigin"
       },
       {
         "title": "baddogtitle4",

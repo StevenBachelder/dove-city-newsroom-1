@@ -1513,7 +1513,7 @@ function levelFailed(){
   $("#lf-btn").addEventListener("click",()=>{ uiClick(); restartLevel(); });
 }
 function exportLog(){
-  const d={v:1,game:"CityNewsroom",lang:(typeof LANG!=="undefined"?LANG:document.documentElement.lang||""),when:new Date().toISOString(),
+  const d={v:1,game:"CityNewsroom",ledger:(state.ledgerLog||[]),lang:(typeof LANG!=="undefined"?LANG:document.documentElement.lang||""),when:new Date().toISOString(),
     retries:state.retries,doorFired:state.doorFired,cred:state.cred,pop:state.pop,src:state.src,
     badges:[...state.badges],badgeLv:state.badgeLv,adPinned:state.adPinned,
     cases:Object.entries(state.handled).map(([id,h])=>({id:+id,tech:h.tech,lvl:h.lvl,choice:h.choice,correct:h.correct,evOk:h.evOk,usedText:h.txt,usedImg:h.img,pins:h.pins,ts:h.ts}))};
@@ -1765,6 +1765,7 @@ function openToolGuide(kind){
   $("#tg-ov").addEventListener("click",e=>{ if(e.target.id==="tg-ov"){ sfxClose(); mount.innerHTML=""; } });
 }
 function openLedger(){
+  (state.ledgerLog=state.ledgerLog||[]).push({ev:"ledger",cur:state.current||null,day:state.day,t:Date.now()});
   const mount=$("#modal-mount");
   const days=[1,2,3].map(d=>{
     const rows=CASES.filter(c=>c.day===d).map(c=>{
@@ -1789,6 +1790,7 @@ function openLedger(){
   mount.querySelectorAll(".lg-sender").forEach(b=>b.addEventListener("click",()=>{ sfxOpen(); renderSenderProfile(b.dataset.sn); }));
 }
 function renderSenderProfile(name){
+  (state.ledgerLog=state.ledgerLog||[]).push({ev:"profile",who:name,cur:state.current||null,day:state.day,t:Date.now()});
   const body=document.querySelector("#lg-ov .modal-body"); if(!body) return;
   const blocks=CASES.filter(c=>state.handled[c.id]).map(c=>{
     const posts=c.searchResults.filter(r=>r.sender===name);
