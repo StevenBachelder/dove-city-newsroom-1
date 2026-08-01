@@ -2683,6 +2683,30 @@ const CASES = [
         "supports": true
       },
       {
+        "title": "nf16_x1t",
+        "description": "nf16_x1d",
+        "isAd": false,
+        "date": "nf16_r0dt",
+        "rIdx": 3,
+        "icons": [
+          "icons/patriotcat.png"
+        ],
+        "supports": false,
+        "keyNote": "keyN_xeno"
+      },
+      {
+        "title": "nf16_x2t",
+        "description": "nf16_x2d",
+        "isAd": false,
+        "date": "nf16_r0dt",
+        "rIdx": 3,
+        "icons": [
+          "icons/patriotcat.png"
+        ],
+        "supports": false,
+        "keyNote": "keyN_xeno"
+      },
+      {
         "title": "nf16_r2t",
         "description": "nf16_r2d",
         "isAd": false,
