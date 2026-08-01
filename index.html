@@ -374,6 +374,17 @@ img[data-zoom]{cursor:zoom-in}
 .sb-name{font-family:var(--font-mono);font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
 .sb-body{font-size:13.5px;line-height:1.5}
 .sb-x{position:absolute;right:8px;top:8px;background:none;border:none;font-size:15px;cursor:pointer;color:var(--ink-soft)}
+.lg-day{font-family:var(--font-mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.lg-row{padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:13.5px}
+.lg-locked{color:var(--ink-soft);font-style:italic}
+.lg-done{cursor:pointer}
+.lg-ok{color:#1FA84D;font-weight:700;margin-right:7px}
+.lg-err{color:#D93025;font-weight:700;margin-right:7px}
+.lg-call{float:right;font-family:var(--font-mono);font-size:11px;color:var(--ink-soft)}
+.lg-detail{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.lg-desc{font-size:12.5px;margin-bottom:6px}
+.lg-ph{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
+.lg-post{font-size:12px;margin:2px 0}
 .lvl-clear{font-family:var(--font-mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#0E5F58;border:2px solid #1FA84D;border-radius:8px;padding:7px 14px;display:inline-block;margin:2px auto 10px;background:#EAF6EC}
 .fp-date{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-align:center;color:var(--ink-soft);padding:7px 0;border-bottom:1px solid var(--line);margin-bottom:16px}
 .fp-head{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1.15;margin-bottom:10px}
@@ -557,7 +568,7 @@ button:focus-visible{outline:3px solid var(--pop);outline-offset:2px}
       </button>
       <select id="lang-top"></select>
       <button class="btn-guide btn-sw" id="btn-mute" aria-pressed="false" title=""><span class="sw" id="sw-sound"><span class="sw-knob"></span></span></button>
-      <button class="btn-guide" id="btn-guide"></button>
+      <button class="btn-guide" id="btn-ledger" title="🗂">🗂</button> <button class="btn-guide" id="btn-guide"></button>
     </div>
   </div>
   <div class="workspace">
@@ -1412,7 +1423,7 @@ function frontPage(){
         <div class="so-name">${esc(t("shiftName"+state.day))}</div>
         <div class="so-att">${esc(t((state.curTries||0)===0?"lvlAttempt0":(state.curTries===1?"lvlAttempt1":"lvlAttempt2")))}</div>
         <div class="so-skills">${esc(tf("lvlShown",{s:t("lvlSkills"+state.day)}))}</div>
-        ${state.day<MAX_DAY?`<div class="so-next">${esc(tf("lvlNextUp",{name:t("shiftName"+(state.day+1))}))}</div>`:""}
+        ${state.day<MAX_DAY?`<div class="so-next">${esc(tf(state.day+1===MAX_DAY?"lvlNextUpFinal":"lvlNextUp",{name:t("shiftName"+(state.day+1))}))}</div>`:""}
       </div>
       <div class="fp-date">${esc(tf("fpDate",{n:state.day}))}</div>
       <div class="fp-head">${esc(head)}</div>
@@ -1746,6 +1757,29 @@ function openToolGuide(kind){
   $("#tg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
   $("#tg-ov").addEventListener("click",e=>{ if(e.target.id==="tg-ov"){ sfxClose(); mount.innerHTML=""; } });
 }
+function openLedger(){
+  const mount=$("#modal-mount");
+  const days=[1,2,3].map(d=>{
+    const rows=CASES.filter(c=>c.day===d).map(c=>{
+      const h=state.handled[c.id];
+      if(!h) return `<div class="lg-row lg-locked">🔒 ${esc(t("ledgerLocked"))}</div>`;
+      const posts=c.searchResults.filter(r=>!r.isAd).map(r=>`<div class="lg-post">· ${esc(t(r.title))}</div>`).join("");
+      return `<div class="lg-row lg-done" data-lg="${c.id}">
+        <span class="${h.correct?"lg-ok":"lg-err"}">${h.correct?"✓":"✗"}</span>
+        <span class="lg-title">${esc(t(c.title))}</span>
+        <span class="lg-call">${esc(t(h.choice==="publish"?"ledgerPub":"ledgerFlag"))}</span>
+        <div class="lg-detail" hidden><div class="lg-desc">${esc(t(c.description))}</div><div class="lg-ph">${esc(t("ledgerPosts"))}</div>${posts}</div></div>`;
+    }).join("");
+    return `<div class="lg-day">${esc(t("shiftName"+d))}</div>${rows}`;
+  }).join("");
+  mount.innerHTML=`<div class="overlay" id="lg-ov"><div class="modal">
+    <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:4px">🗂 ${esc(t("ledgerTitle"))}</h2>
+    <button class="modal-close" id="lg-close">✕</button></div>
+    <div class="modal-body">${days}</div></div></div>`;
+  $("#lg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
+  $("#lg-ov").addEventListener("click",e=>{ if(e.target.id==="lg-ov"){ sfxClose(); mount.innerHTML=""; } });
+  mount.querySelectorAll(".lg-done").forEach(r=>r.addEventListener("click",()=>{ const d=r.querySelector(".lg-detail"); d.hidden=!d.hidden; }));
+}
 function openGuide(){
   const entries=TECH_LIST.map(k=>{
     const seen=state.seenTech.has(k);
@@ -1833,6 +1867,7 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ const lb=document.getElementById("lightbox"); if(lb){ sfxClose(); lb.remove(); } }
 });
 $("#btn-guide").addEventListener("click",()=>{ sfxOpen(); openGuide(); });
+  $("#btn-ledger").addEventListener("click",()=>{ sfxOpen(); openLedger(); });
 $("#btn-mute").addEventListener("click",()=>{
   state.muted=!state.muted;
   if(!state.muted) sfxToggle();
