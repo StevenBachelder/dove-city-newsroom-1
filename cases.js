@@ -1942,7 +1942,8 @@ const CASES = [
         "icons": [
           "icons/forestcom.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "SafeForest Surveillance Systems"
       },
       {
         "title": "forestfiretitle2",
@@ -1953,7 +1954,8 @@ const CASES = [
         "icons": [
           "icons/forestfirecom.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "FireShield Home Protection"
       },
       {
         "title": "forestfiretitle3",
@@ -1964,7 +1966,8 @@ const CASES = [
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PatriotSignal Network"
       },
       {
         "title": "forestfiretitle4",
@@ -1975,7 +1978,8 @@ const CASES = [
         "icons": [
           "icons/weatherEU.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "WeatherSpot"
       },
       {
         "title": "forestfiretitle5",
@@ -1986,7 +1990,8 @@ const CASES = [
         "icons": [
           "icons/redligtwatch.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "RedAlertWatch"
       },
       {
         "title": "forestfiretitle6",
@@ -1997,7 +2002,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CivicUpdateHQ"
       },
       {
         "title": "forestfiretitle7",
@@ -2008,7 +2014,8 @@ const CASES = [
         "icons": [
           "icons/police.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "the City Police"
       },
       {
         "title": "forestfiretitle8",
@@ -2019,7 +2026,8 @@ const CASES = [
         "icons": [
           "icons/Public Safety Office .png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Public Safety Office"
       },
       {
         "title": "forestfiretitle9",
@@ -2030,7 +2038,8 @@ const CASES = [
         "icons": [
           "icons/factchecker.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "FactChecker"
       },
       {
         "title": "forestfiretitle10",
@@ -2041,7 +2050,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "ForestWatch Forum"
       },
       {
         "title": "forestfiretitle11",
@@ -2052,7 +2062,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "WeatherSpot"
       },
       {
         "title": "forestfiretitle12",
@@ -2063,7 +2074,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityTruthDaily"
       },
       {
         "title": "forestfiretitle13",
@@ -2074,7 +2086,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "@StreetVoice"
       }
     ],
     "imageResults": [
@@ -2669,7 +2682,8 @@ const CASES = [
         "icons": [
           "icons/patriotcat.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PatriotSignal Network"
       },
       {
         "title": "nf16_r1t",
@@ -2680,7 +2694,8 @@ const CASES = [
         "icons": [
           "icons/Public Safety Office .png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "Public Safety Office"
       },
       {
         "title": "nf16_x1t",
@@ -2692,7 +2707,8 @@ const CASES = [
           "icons/patriotcat.png"
         ],
         "supports": false,
-        "keyNote": "keyN_xeno"
+        "keyNote": "keyN_xeno",
+        "sender": "RedAlertWatch"
       },
       {
         "title": "nf16_x2t",
@@ -2704,7 +2720,8 @@ const CASES = [
           "icons/patriotcat.png"
         ],
         "supports": false,
-        "keyNote": "keyN_xeno"
+        "keyNote": "keyN_xeno",
+        "sender": "PatriotSignal Network"
       },
       {
         "title": "nf16_r2t",
@@ -2715,7 +2732,8 @@ const CASES = [
         "icons": [
           "icons/forestcom.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Regional Forestry Agency"
       },
       {
         "title": "nf16_r3t",
@@ -2726,7 +2744,8 @@ const CASES = [
         "icons": [
           "icons/urbansafe.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "PrepSmart Gear"
       },
       {
         "title": "nf16_r4t",
@@ -2737,7 +2756,8 @@ const CASES = [
         "icons": [
           "icons/factchecker.png"
         ],
-        "supports": true
+        "supports": true,
+        "sender": "FactChecker"
       },
       {
         "title": "nf16_r5t",
@@ -2748,7 +2768,8 @@ const CASES = [
         "icons": [
           "icons/CityTruthDaily.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "CityTruthDaily"
       },
       {
         "title": "nf16_r6t",
@@ -2759,7 +2780,8 @@ const CASES = [
         "icons": [
           "icons/X.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Resident"
       },
       {
         "title": "nf16_r7t",
@@ -2770,7 +2792,8 @@ const CASES = [
         "icons": [
           "icons/insta.png"
         ],
-        "supports": null
+        "supports": null,
+        "sender": "Reel"
       }
     ],
     "imageResults": [
