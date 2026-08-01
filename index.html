@@ -374,6 +374,13 @@ img[data-zoom]{cursor:zoom-in}
 .sb-name{font-family:var(--font-mono);font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
 .sb-body{font-size:13.5px;line-height:1.5}
 .sb-x{position:absolute;right:8px;top:8px;background:none;border:none;font-size:15px;cursor:pointer;color:var(--ink-soft)}
+#lg-ov .modal-head{position:relative;padding-right:64px}
+#lg-close{position:absolute;right:18px;top:16px;width:34px;height:34px;padding:0;border:1.5px solid var(--line);border-radius:9px;background:var(--paper);font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center}
+#lg-close:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.lg-cited,.lg-cited .lg-pt{font-weight:700}
+.lg-n{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft)}
+.lg-swap{opacity:.75}
+.lg-swapnote{font-size:11.5px;font-style:italic;color:var(--ink-soft);margin:3px 0 6px}
 .lg-day{font-family:var(--font-mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
 .lg-row{padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:13.5px}
 .lg-locked{color:var(--ink-soft);font-style:italic}
@@ -989,7 +996,7 @@ function openCase(id){
   if(rp && state.handled[rp.src] && !state.handled[rp.src].correct && state.handled[rp.src].choice==="publish" && !state["rippled"+id]){
     state["rippled"+id]=true; const cc=caseById(id); cc.buzz=Math.min(5,(cc.buzz||1)+1);
   }
-  state.current=id; state.evidence=[]; state.caseUnpinned=[]; state.usedText[id]=state.usedText[id]||false; state.usedImg[id]=state.usedImg[id]||false;
+  state.current=id; state.evidence=[]; state.caseUnpinned=[]; state.caseUnpinnedKeys=[]; state.usedText[id]=state.usedText[id]||false; state.usedImg[id]=state.usedImg[id]||false;
   $("#lang-top").disabled = true;
   renderQueue();
   const c=caseById(id);
@@ -1053,7 +1060,7 @@ function renderBoard(){
   el.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",ev=>{
     ev.stopPropagation(); sfxUnpin();
     const removed=state.evidence.splice(+b.dataset.i,1)[0];
-    if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0);
+    if(removed){ state.unpins++; state.caseUnpinned.push(removed.pts||0); (state.caseUnpinnedKeys=state.caseUnpinnedKeys||[]).push(removed.key);
       const rb=document.querySelector('.btn-ev[data-ev="'+removed.key[0]+'-'+removed.key.slice(1)+'"]');
       if(rb){ rb.disabled=false; rb.textContent=t("pinBtn"); } }
     renderBoard();
@@ -1223,7 +1230,7 @@ function verdict(choice){
   if(ds>0) events.push({m:"src",amt:ds,label:tf("dSrcPlusBacked",{n:ds})});
   else if(ds<0) events.push({m:"src",amt:ds,label:tf(adUsed?"dSrcMinusAd":"dSrcMinusWeak",{n:Math.abs(ds)})});
   setMeters(dc,dp,ds);
-  state.handled[c.id]={choice,correct,evOk,ts:Date.now(),tech:c.technique,lvl:state.day,txt:!!state.usedText[c.id],img:!!state.usedImg[c.id],pins:state.evidence.length};
+  state.handled[c.id]={choice,correct,evOk,ts:Date.now(),tech:c.technique,lvl:state.day,txt:!!state.usedText[c.id],img:!!state.usedImg[c.id],pins:state.evidence.length,evKeys:state.evidence.map(e=>e.key),swapKeys:(state.caseUnpinnedKeys||[]).slice()};
   const sk=SKILL_MAP[c.technique]||"source";
   state.skills[sk].n++; if(correct) state.skills[sk].ok++;
   state.skills.evidence.n++; if(evOk) state.skills.evidence.ok++;
@@ -1771,12 +1778,19 @@ function openLedger(){
     const rows=CASES.filter(c=>c.day===d).map(c=>{
       const h=state.handled[c.id];
       if(!h) return `<div class="lg-row lg-locked">🔒 ${esc(t("ledgerLocked"))}</div>`;
-      const posts=c.searchResults.filter(r=>!r.isAd).map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${r.sender?`<button class="lg-sender" data-sn="${esc(r.sender)}">${esc(r.sender)}</button>`:""} <span class="lg-pt">${esc(t(r.title))}</span></div>`).join("");
+      const cited=new Set(h.evKeys||[]);
+      const posts=c.searchResults.map((r,j)=>r.isAd?"":`<div class="lg-post ${cited.has("t"+j)?"lg-cited":""}">${cited.has("t"+j)?"📌 ":""}${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${r.sender?`<button class="lg-sender" data-sn="${esc(r.sender)}">${esc(r.sender)}</button>`:""} <span class="lg-pt">${esc(t(r.title))}</span></div>`).join("");
+      const resolveKey=k=>{ const j=+k.slice(1);
+        if(k[0]==="t"){ const r=c.searchResults[j]; return r?{ico:(r.icons&&r.icons.length?iconTag(r.icons):"·"),label:t(r.title)}:null; }
+        const r=c.imageResults[j]; return r?{ico:(r.type==="video"?"🎬":"📷"),label:t(r.location)}:null; };
+      const chosen=(h.evKeys&&h.evKeys.length)?`<div class="lg-ph">${esc(t("ledgerChosen"))}</div>`+h.evKeys.map((k,n)=>{const o=resolveKey(k); return o?`<div class="lg-post lg-cited"><span class="lg-n">${n+1}.</span> ${o.ico} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join(""):"";
+      const swaps=(h.swapKeys||[]).filter(k=>!(h.evKeys||[]).includes(k));
+      const swapped=swaps.length?`<div class="lg-ph">${esc(t("ledgerSwapped"))}</div>`+swaps.map(k=>{const o=resolveKey(k); return o?`<div class="lg-post lg-swap">↺ ${o.ico} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join("")+`<div class="lg-swapnote">${esc(t("ledgerSwapNote"))}</div>`:"";
       return `<div class="lg-row lg-done" data-lg="${c.id}">
         <span class="${h.correct?"lg-ok":"lg-err"}">${h.correct?"✓":"✗"}</span>
         <span class="lg-title">${esc(t(c.title))}</span>
         <span class="lg-call">${esc(t(h.choice==="publish"?"ledgerPub":"ledgerFlag"))}</span>
-        <div class="lg-detail" hidden><div class="lg-desc">${esc(t(c.description))}</div><div class="lg-ph">${esc(t("ledgerPosts"))}</div>${posts}</div></div>`;
+        <div class="lg-detail" hidden><div class="lg-desc">${esc(t(c.description))}</div><div class="lg-ph">${esc(t("ledgerPosts"))}</div>${posts}${chosen}${swapped}</div></div>`;
     }).join("");
     return `<div class="lg-day">${esc(t("shiftName"+d))}</div>${rows}`;
   }).join("");
