@@ -384,7 +384,12 @@ img[data-zoom]{cursor:zoom-in}
 .lg-detail{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .lg-desc{font-size:12.5px;margin-bottom:6px}
 .lg-ph{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
-.lg-post{font-size:12px;margin:3px 0;display:flex;align-items:center;gap:5px}
+.lg-post{font-size:12px;margin:3px 0;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.lg-sender{background:var(--paper-dark);border:1px solid var(--line);border-radius:20px;padding:1px 9px;font-size:11px;font-family:var(--font-mono);cursor:pointer}
+.lg-sender:hover{border-color:var(--ink-soft)}
+.lg-pname{font-family:var(--font-display);font-size:20px;margin:12px 0 2px}
+.lg-psub{font-size:12px;color:var(--ink-soft);font-style:italic;margin-bottom:10px}
+.lg-pd{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft)}
 .lg-post img{height:15px;width:15px;object-fit:contain;flex-shrink:0}
 .lg-post .r-icon{display:inline-flex}
 .lvl-clear{font-family:var(--font-mono);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#0E5F58;border:2px solid #1FA84D;border-radius:8px;padding:7px 14px;display:inline-block;margin:2px auto 10px;background:#EAF6EC}
@@ -1765,7 +1770,7 @@ function openLedger(){
     const rows=CASES.filter(c=>c.day===d).map(c=>{
       const h=state.handled[c.id];
       if(!h) return `<div class="lg-row lg-locked">🔒 ${esc(t("ledgerLocked"))}</div>`;
-      const posts=c.searchResults.filter(r=>!r.isAd).map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${esc(t(r.title))}</div>`).join("");
+      const posts=c.searchResults.filter(r=>!r.isAd).map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${r.sender?`<button class="lg-sender" data-sn="${esc(r.sender)}">${esc(r.sender)}</button>`:""} <span class="lg-pt">${esc(t(r.title))}</span></div>`).join("");
       return `<div class="lg-row lg-done" data-lg="${c.id}">
         <span class="${h.correct?"lg-ok":"lg-err"}">${h.correct?"✓":"✗"}</span>
         <span class="lg-title">${esc(t(c.title))}</span>
@@ -1780,7 +1785,21 @@ function openLedger(){
     <div class="modal-body">${days}</div></div></div>`;
   $("#lg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
   $("#lg-ov").addEventListener("click",e=>{ if(e.target.id==="lg-ov"){ sfxClose(); mount.innerHTML=""; } });
-  mount.querySelectorAll(".lg-done").forEach(r=>r.addEventListener("click",()=>{ const d=r.querySelector(".lg-detail"); d.hidden=!d.hidden; }));
+  mount.querySelectorAll(".lg-done").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest(".lg-sender")) return; const d=r.querySelector(".lg-detail"); d.hidden=!d.hidden; }));
+  mount.querySelectorAll(".lg-sender").forEach(b=>b.addEventListener("click",()=>{ sfxOpen(); renderSenderProfile(b.dataset.sn); }));
+}
+function renderSenderProfile(name){
+  const body=document.querySelector("#lg-ov .modal-body"); if(!body) return;
+  const blocks=CASES.filter(c=>state.handled[c.id]).map(c=>{
+    const posts=c.searchResults.filter(r=>r.sender===name);
+    if(!posts.length) return "";
+    return `<div class="lg-day">${esc(t(c.title))}</div>`+posts.map(r=>`<div class="lg-post">${r.icons&&r.icons.length?iconTag(r.icons):"·"} <span class="lg-pt">${esc(t(r.title))}</span>${r.date?` <span class="lg-pd">${esc(t(r.date))}</span>`:""}</div>`).join("");
+  }).join("");
+  body.innerHTML=`<button class="btn-secondary" id="lg-back">${esc(t("profileBack"))}</button>
+    <h3 class="lg-pname">${esc(name)}</h3>
+    <div class="lg-psub">${esc(t("profileScope"))}</div>
+    ${blocks||`<div class="lg-locked">${esc(t("ledgerLocked"))}</div>`}`;
+  body.querySelector("#lg-back").addEventListener("click",()=>{ sfxClose(); openLedger(); });
 }
 function openGuide(){
   const entries=TECH_LIST.map(k=>{
