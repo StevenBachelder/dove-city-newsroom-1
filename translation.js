@@ -162,7 +162,7 @@ const languageData = {
         "Initial confusion: Early, incorrect reports suggested a different dog named Bear had died, but Bear and another dog (Nikita) were found alive. 🔗<br><br>" +
         "Status: The specific dog Zinna is deceased, but the family's other dogs survived. 🔗<br><br>" +
         "Note: This information refers to the tragic events surrounding actor Gene Hackman's passing in 2025. 🔗",
-    baddogTitle: "BAD DOG Found Dead?",
+    baddogTitle: "BAD DOG Found Dead!",
     baddogDescription: "Celebrity Gossip Channel -- BREAKING: The artist known as BAD DOG found dead at home. Family confirms tragic news.",
     baddogsearchTerms1: "BAD DOG death news today",
     baddogsearchTerms2: "BAD DOG artist found dead home",
@@ -555,7 +555,7 @@ const languageData = {
 
     // --- STORY: FORESTFIRE ---
     aiSummary_12: "Human activity is the primary driver of global forest fires, causing over 84% of wildland fires in the U.S. and up to 99% in some regions, often through neglected campfires, debris burning, equipment failure, and arson. Climate change, accelerated by human-caused greenhouse gas emissions, exacerbates these fires by creating warmer, drier conditions that increase fuel loads and prolong fire seasons 🔗",
-    forestfireTitle: "Illegal immigrants spotted in forest outside of the city last night",
+    forestfireTitle: "Illegal immigrants spotted in the forest last night!",
     forestfireDescription: "Authorities investigating.",
     forestfiresearchTerms1: "Forest fire ritual outside the city illegal immigrants",
     forestfiresearchTerms2: "Forest fire the city",
@@ -1237,7 +1237,7 @@ const languageData = {
         "Inledande förvirring: Tidiga, felaktiga rapporter angav att en annan hund vid namn Bear hade dött, men Bear och en annan hund (Nikita) hittades vid liv. 🔗<br><br>" +
         "Status: Den specifika hunden Zinna är avliden, men familjens övriga hundar överlevde. 🔗<br><br>" +
         "Notering: Denna information avser de tragiska händelserna kring skådespelaren Gene Hackmans bortgång 2025. 🔗",
-    baddogTitle: "BAD DOG hittad död?",
+    baddogTitle: "BAD DOG hittad död!",
     baddogDescription: "Sociala medier exploderar av rykten om att den legendariska artisten BAD DOG har gått bort. Är det sant, eller bara ännu en kändisbluff?",
     baddogsearchTerms1: "BAD DOG dödsfall nyheter idag",
     baddogsearchTerms2: "BAD DOG artist hittad död hemma",
@@ -1637,7 +1637,7 @@ const languageData = {
 
     // --- STORY: FORESTFIRE ---
     aiSummary_12: "Mänsklig aktivitet är den främsta orsaken till globala skogsbränder och orsakar över 84 % av skogsbränderna i USA och upp till 99 % i vissa regioner, ofta genom försummade lägereldar, eldning av skräp, utrustningsfel och anlagda bränder. 🔗 Klimatförändringar, påskyndade av människoorsakade växthusgasutsläpp, förvärrar dessa bränder genom att skapa varmare och torrare förhållanden som ökar mängden brännbart material och förlänger brandsäsongerna. 🔗",
-    forestfireTitle: "Olagliga invandrare sågs i skogen utanför staden i går kväll",
+    forestfireTitle: "Illegala invandrare sedda i skogen i natt!",
     forestfireDescription: "Myndigheterna utreder... ",
     forestfiresearchTerms1: "Skogsbrand ritual utanför staden illegala immigranter",
     forestfiresearchTerms2: "Skogsbrand staden",
@@ -2373,7 +2373,7 @@ const languageData = {
     sportpulsetextdate10: "EuroUrheiluKeskustelu · 50 minuuttia sitten",
     sportpulsetextdate11: "Kaupungin Urheilulautakunta · 3 tuntia sitten",
     aiSummary_15: "Viimeaikaisten uutisten perusteella näyttelijä Gene Hackmanin ja hänen vaimonsa Betsy Arakawan kuolemaa tutkittiin Santa Fessä, New Mexicossa. Zinna, yksi heidän koiristaan (12‑vuotias australiankelpiesekoitus), löydettiin kuolleena kuljetushäkistä kotona: kuolinsyyksi epäillään nälkiintymistä ja nestehukkaa. 🔗<br><br>",
-    baddogTitle: "BAD DOG löydetty kuolleena?",
+    baddogTitle: "BAD DOG löydetty kuolleena!",
     baddogDescription: "Julkkisjuouokanava -- UUTISPOMMI: BAD DOG -nimellä tunnettu artisti löydetty kuolleena kotoaan. Perhe vahvistaa traagisen uutisen.",
     baddogsearchTerms1: "BAD DOG kuolema uutiset tänään",
     baddogsearchTerms2: "BAD DOG artisti löydetty kuolleena koti",
@@ -2750,7 +2750,7 @@ const languageData = {
     fireincidentdate3: "Katukulkija. 20 minuuttia sitten",
     fireincidentdate4: "Kaupungin Pelastuslaitos. Juuri nyt",
     aiSummary_12: "Ihmisen toiminta on maailmanlaajuisesti metsäpalojen ensisijainen aiheuttaja. Se aiheuttaa yli 84 % maastopaloista Yhdysvalloissa ja joillakin alueilla jopa 99 %. Syitä ovat usein huolimattomasti huolimattomasti käsitellyt nuotiot, roskien poltto, laiteviat ja tuhopoltot. Ilmastonmuutos, jota ihmisen aiheuttamat kasvihuonekaasupäästöt kiihdyttävät, pahentaa paloja luomalla lämpimämpiä ja kuivempia olosuhteita, jotka lisäävät palokuormaa ja pidentävät palokausia 🔗",
-    forestfireTitle: "Laittomia siirtolaisia nähty metsässä kaupungin ulkopuolella viime yönä",
+    forestfireTitle: "Laittomia siirtolaisia nähty metsässä viime yönä!",
     forestfireDescription: "Viranomaiset tutkivat asiaa.",
     forestfiresearchTerms1: "Metsäpalo rituaali kaupunki ulkopuolella laittomat siirtolaiset",
     forestfiresearchTerms2: "Metsäpalo kaupunki",
@@ -3435,7 +3435,7 @@ const languageData = {
 
     // --- STORY: BADDOG ---
     aiSummary_15: " Hiljutiste uudiste kohaselt viidi New Mexico osariigis Santa Fes läbi uurimine näitleja Gene Hackmani ja tema abikaasa Betsy Arakawa surma asjaolude kohta. Üks nende koertest, 12-aastane Austraalia kelpie segatõugu Zinna, leiti kodust puurist surnuna. Loom suri tõenäoliselt nälja ja vedelikupuuduse tagajärjel🔗<br><br>Algne segadus: esialgse informatsiooni kohaselt väideti, et koer nimega Bear suri, kuid Bear ja veel üks koer (Nikita) leiti elusana. 🔗<br><br>Praegune seis: koer nimega Zinna on surnud, kuid pere ülejäänud lemmikud pääsesid eluga. 🔗<br><br>Märkus: See informatsioon viitab traagilistele sündmustele, mis ümbritsesid näitleja Gene Hackmani surma 2025. aastal. 🔗",
-    baddogTitle: "BAD DOG leiti surnuna?",
+    baddogTitle: "BAD DOG leiti surnuna!",
     baddogDescription: "Kuulsuste Kõmukanal -- ERAKORRALINE: Artist nimega BAD DOG leiti kodust surnuna. Perekond kinnitab traagilist uudist.",
     baddogsearchTerms1: "BAD DOGi surmauudised täna",
     baddogsearchTerms2: "Artist BAD DOG leiti kodust surnuna",
@@ -3824,7 +3824,7 @@ decisionLearningTip_8_correct: "",
 
 // --- STORY: FORESTFIRE ---
     aiSummary_12: "Inimtegevus on peamine metsapõlengute põhjustaja maailmas, põhjustades USA-s üle 84% ja mõnes piirkonnas kuni 99% maastikupõlengutest. Inimtekkeline õhusaaste kiirendab kliimasoojenemist, muudab ilmad kuumemaks ja kuivemaks, mistõttu metsades on rohkem kuivanud oksi ja lehti, mis võtavad kergelt tuld. Nii kestab tuleohtlik aeg aastas palju kauem.🔗",
-    forestfireTitle: "Eile öösel märgati linnalähedases metsas illegaalseid immigrante",
+    forestfireTitle: "Illegaalseid immigrante nähti öösel metsas!",
     forestfireDescription: "Võimud uurivad asja.",
     forestfiresearchTerms1: "Rituaalsed lõkked linna metsas: illegaalsed immigrandid",
     forestfiresearchTerms2: "Metsatulekahju linnas ",
