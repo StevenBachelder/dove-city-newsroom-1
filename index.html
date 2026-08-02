@@ -393,17 +393,21 @@ img[data-zoom]{cursor:zoom-in}
 .lg-thc{font-family:var(--font-mono);font-size:10.5px;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
 .capstone-tip{background:#EEF3FB;border:1.5px solid #9BB3D4;border-radius:8px;padding:8px 11px;font-size:12.5px;margin-bottom:9px}
 .fb-take{background:var(--highlight-soft);border:1px solid var(--highlight);border-radius:8px;padding:8px 11px;font-size:13px;margin:12px 0 4px}
+.lg-legend{font-size:11.5px;color:var(--ink-soft);background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:6px 10px;margin-bottom:10px}
 .lg-day{font-family:var(--font-mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
 .lg-row{padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:13.5px}
 .lg-locked{color:var(--ink-soft);font-style:italic}
 .lg-done{cursor:pointer}
+.lg-title{display:inline-block;max-width:calc(100% - 90px)}
 .lg-ok{color:#1FA84D;font-weight:700;margin-right:7px}
 .lg-err{color:#D93025;font-weight:700;margin-right:7px}
 .lg-call{float:right;font-family:var(--font-mono);font-size:11px;color:var(--ink-soft)}
 .lg-detail{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
 .lg-desc{font-size:12.5px;margin-bottom:6px}
 .lg-ph{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
-.lg-post{font-size:12px;margin:3px 0;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.lg-post{font-size:12px;margin:3px 0;display:flex;align-items:flex-start;gap:5px}
+.lg-post>*{flex-shrink:0}
+.lg-post .lg-pt{flex:1 1 0;min-width:0;line-height:1.45}
 .lg-sender{background:var(--paper-dark);border:1px solid var(--line);border-radius:20px;padding:1px 9px;font-size:11px;font-family:var(--font-mono);cursor:pointer}
 .lg-sender:hover{border-color:var(--ink-soft)}
 .lg-pname{font-family:var(--font-display);font-size:20px;margin:12px 0 2px}
@@ -1795,9 +1799,9 @@ function openLedger(){
       const cited=new Set(h.evKeys||[]);
       const posts=c.searchResults.map((r,j)=>r.isAd?"":`<div class="lg-post ${cited.has("t"+j)?"lg-cited":""}">${cited.has("t"+j)?"📌 ":""}${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${r.sender?`<button class="lg-sender" data-sn="${esc(r.sender)}">${esc(r.sender)}</button>`:""} <span class="lg-pt">${esc(t(r.title))}</span></div>`).join("");
       const resolveKey=k=>{ const j=+k.slice(1);
-        if(k[0]==="t"){ const r=c.searchResults[j]; return r?{ico:(r.icons&&r.icons.length?iconTag(r.icons):"·"),label:t(r.title)}:null; }
-        const r=c.imageResults[j]; return r?{ico:(r.type==="video"?"🎬":"📷"),label:t(r.location)}:null; };
-      const chosen=(h.evKeys&&h.evKeys.length)?`<div class="lg-ph">${esc(t("ledgerChosen"))}</div>`+h.evKeys.map((k,n)=>{const o=resolveKey(k); return o?`<div class="lg-post lg-cited"><span class="lg-n">${n+1}.</span> ${o.ico} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join(""):"";
+        if(k[0]==="t"){ const r=c.searchResults[j]; return r?{ico:(r.icons&&r.icons.length?iconTag(r.icons):"·"),label:t(r.title),sn:r.sender}:null; }
+        const r=c.imageResults[j]; return r?{ico:(r.type==="video"?"🎬":"📷"),label:t(r.location),sn:r.sender}:null; };
+      const chosen=(h.evKeys&&h.evKeys.length)?`<div class="lg-ph">${esc(t("ledgerChosen"))}</div>`+h.evKeys.map((k,n)=>{const o=resolveKey(k); return o?`<div class="lg-post lg-cited"><span class="lg-n">${n+1}.</span> ${o.ico} ${o.sn?`<button class="lg-sender" data-sn="${esc(o.sn)}">${esc(o.sn)}</button>`:""} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join(""):"";
       const swaps=(h.swapKeys||[]).filter(k=>!(h.evKeys||[]).includes(k));
       const swapped=swaps.length?`<div class="lg-ph">${esc(t("ledgerSwapped"))}</div>`+swaps.map(k=>{const o=resolveKey(k); return o?`<div class="lg-post lg-swap">↺ ${o.ico} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join("")+`<div class="lg-swapnote">${esc(t("ledgerSwapNote"))}</div>`:"";
       return `<div class="lg-row lg-done" data-lg="${c.id}">
@@ -1815,7 +1819,7 @@ function openLedger(){
   mount.innerHTML=`<div class="overlay" id="lg-ov"><div class="modal">
     <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:4px">🗂 ${esc(state.playerName?tf("ledgerTitleNamed",{name:state.playerName}):t("ledgerTitle"))}</h2>
     <button class="modal-close" id="lg-close">✕</button></div>
-    <div class="modal-body">${threads}${days}</div></div></div>`;
+    <div class="modal-body"><div class="lg-legend">${esc(t("ledgerLegend"))}</div>${threads}${days}</div></div></div>`;
   $("#lg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
   $("#lg-ov").addEventListener("click",e=>{ if(e.target.id==="lg-ov"){ sfxClose(); mount.innerHTML=""; } });
   mount.querySelectorAll(".lg-done").forEach(r=>r.addEventListener("click",e=>{ if(e.target.closest(".lg-sender")) return; const d=r.querySelector(".lg-detail"); d.hidden=!d.hidden; }));
@@ -1937,9 +1941,15 @@ $("#btn-mute").addEventListener("click",()=>{
   state.muted=!state.muted;
   if(!state.muted) sfxToggle();
   const b=$("#btn-mute"); document.getElementById("sw-sound").classList.toggle("off",state.muted);
-  b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn");
+  b.setAttribute("aria-pressed",String(state.muted)); b.title=t(state.muted?"soundOff":"soundOn"); if(typeof applyHeaderTitles==="function") applyHeaderTitles();
 });
 $("#btn-mute").title=t("soundOn");
+function applyHeaderTitles(){
+  const m={"lang-top":"ttLang","btn-ledger":"ttLedger","btn-guide":"ttGuide"};
+  for(const [id,k] of Object.entries(m)){ const el=document.getElementById(id); if(el) el.title=t(k); }
+  const mb=document.getElementById("btn-mute"); if(mb) mb.title=t(state.muted?"soundOff":"soundOn");
+}
+applyHeaderTitles();
 
 (function boot(){
   const pl=PARAMS.get("lang");
