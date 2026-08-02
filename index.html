@@ -395,6 +395,7 @@ img[data-zoom]{cursor:zoom-in}
 .fb-take{background:var(--highlight-soft);border:1px solid var(--highlight);border-radius:8px;padding:8px 11px;font-size:13px;margin:12px 0 4px}
 .lg-legend{font-size:11.5px;color:var(--ink-soft);background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:6px 10px;margin-bottom:10px}
 .lg-day{font-family:var(--font-mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 6px}
+.lg-day .lg-dsub{font-size:11px;letter-spacing:2.2px;color:var(--ink);margin-top:1px}
 .lg-row{padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:13.5px}
 .lg-locked{color:var(--ink-soft);font-style:italic}
 .lg-done{cursor:pointer}
@@ -1692,7 +1693,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
           .concat(badgeCount===9?["Badges/badge_generic.png"]:[])
       });
       if(!canvas){ cardBtn.textContent=t("cardUnavailable"); return; }
-      const fname = hired ? "dove-city-press-card.png" : "dove-city-applicant-report.png";
+      const fname = hired ? "City-News-Press-Card.png" : "City-News-Applicant-Report.png";
       const dl=b=>{ const a=document.createElement("a"); a.href=b; a.download=fname; document.body.appendChild(a); a.click(); a.remove(); };
       if(canvas.toBlob) canvas.toBlob(b=>{ if(b) dl(URL.createObjectURL(b)); else dl(canvas.toDataURL("image/png")); },"image/png");
       else dl(canvas.toDataURL("image/png"));
@@ -1789,13 +1790,16 @@ function openToolGuide(kind){
   $("#tg-close").addEventListener("click",()=>{ sfxClose(); mount.innerHTML=""; });
   $("#tg-ov").addEventListener("click",e=>{ if(e.target.id==="tg-ov"){ sfxClose(); mount.innerHTML=""; } });
 }
+function lgShort(x){ for(const sep of [" \u2014 "," -- "," \u2013 "]){ const i=x.indexOf(sep); if(i>0) return x.slice(0,i).trim(); } return x.trim(); }
 function openLedger(){
   (state.ledgerLog=state.ledgerLog||[]).push({ev:"ledger",cur:state.current||null,day:state.day,t:Date.now()});
   const mount=$("#modal-mount");
+  let lgNum=0;
   const days=[1,2,3].map(d=>{
     const rows=CASES.filter(c=>c.day===d).map(c=>{
+      lgNum++;
       const h=state.handled[c.id];
-      if(!h) return `<div class="lg-row lg-locked">🔒 ${esc(t("ledgerLocked"))}</div>`;
+      if(!h) return `<div class="lg-row lg-locked"><span class="lg-n">${lgNum}.</span> 🔒 ${esc(t("ledgerLocked"))}</div>`;
       const cited=new Set(h.evKeys||[]);
       const posts=c.searchResults.map((r,j)=>r.isAd?"":`<div class="lg-post ${cited.has("t"+j)?"lg-cited":""}">${cited.has("t"+j)?"📌 ":""}${r.icons&&r.icons.length?iconTag(r.icons):"·"} ${r.sender?`<button class="lg-sender" data-sn="${esc(r.sender)}">${esc(r.sender)}</button>`:""} <span class="lg-pt">${esc(t(r.title))}</span></div>`).join("");
       const resolveKey=k=>{ const j=+k.slice(1);
@@ -1805,16 +1809,18 @@ function openLedger(){
       const swaps=(h.swapKeys||[]).filter(k=>!(h.evKeys||[]).includes(k));
       const swapped=swaps.length?`<div class="lg-ph">${esc(t("ledgerSwapped"))}</div>`+swaps.map(k=>{const o=resolveKey(k); return o?`<div class="lg-post lg-swap">↺ ${o.ico} <span class="lg-pt">${esc(o.label)}</span></div>`:"";}).join("")+`<div class="lg-swapnote">${esc(t("ledgerSwapNote"))}</div>`:"";
       return `<div class="lg-row lg-done" data-lg="${c.id}">
-        <span class="${h.correct?"lg-ok":"lg-err"}">${h.correct?"✓":"✗"}</span>
-        <span class="lg-title">${esc(t(c.title))}</span>
+        <span class="lg-n">${lgNum}.</span><span class="${h.correct?"lg-ok":"lg-err"}">${h.correct?"✓":"✗"}</span>
+        <span class="lg-title">${esc(lgShort(t(c.title)))}</span>
         <span class="lg-call">${esc(t(h.choice==="publish"?"ledgerPub":"ledgerFlag"))}</span>
         <div class="lg-detail" hidden><div class="lg-desc">${esc(t(c.description))}</div><div class="lg-ph">${esc(t("ledgerPosts"))}</div>${posts}${chosen}${swapped}</div></div>`;
     }).join("");
-    return `<div class="lg-day">${esc(t("shiftName"+d))}</div>${rows}`;
+    const sn=t("shiftName"+d), ci=sn.indexOf(": ");
+    const head=ci>0?`<div class="lg-day"><div>${esc(sn.slice(0,ci))}</div><div class="lg-dsub">${esc(sn.slice(ci+2))}</div></div>`:`<div class="lg-day">${esc(sn)}</div>`;
+    return `${head}${rows}`;
   }).join("");
   const THREADS=[{ids:[1,9],name:"threadTwins",line:"threadTwinsL"},{ids:[8,15],name:"threadDuo",line:"threadDuoL"},{ids:[12,16],name:"threadXeno",line:"threadXenoL"}];
   const th=THREADS.filter(T=>T.ids.filter(id=>state.handled[id]).length>=2).map(T=>
-    `<div class="lg-thread"><div class="lg-thname">🧵 ${esc(t(T.name))}</div><div class="lg-thline">${esc(t(T.line))}</div><div class="lg-thcases">${T.ids.map(id=>`<span class="lg-thc">${state.handled[id]?"✓":"·"} ${esc(t(caseById(id).title)).slice(0,34)}</span>`).join("")}</div></div>`).join("");
+    `<div class="lg-thread"><div class="lg-thname">🧵 ${esc(t(T.name))}</div><div class="lg-thline">${esc(t(T.line))}</div><div class="lg-thcases">${T.ids.map(id=>`<span class="lg-thc">${state.handled[id]?"✓":"·"} ${esc(lgShort(t(caseById(id).title))).slice(0,40)}</span>`).join("")}</div></div>`).join("");
   const threads=th?`<div class="lg-ph" style="margin-top:2px">${esc(t("threadsHead"))}</div>${th}`:"";
   mount.innerHTML=`<div class="overlay" id="lg-ov"><div class="modal">
     <div class="modal-head"><h2 style="font-family:var(--font-display);font-size:22px;padding-bottom:4px">🗂 ${esc(state.playerName?tf("ledgerTitleNamed",{name:state.playerName}):t("ledgerTitle"))}</h2>
