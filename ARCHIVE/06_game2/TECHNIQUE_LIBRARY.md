@@ -96,6 +96,5 @@ These live in the library as *post-level* phenomena. Ranked by how strongly the 
 **Outlier promotion is the badge roadmap.** Tiers 1–3 above (amplification, insinuation, denialism) have complete teaching material *already in the deck* — posts, trap notes, verdicts. They can be Game 2 badges on day one. Tiers 4–9 are the expansion path.
 
 ## Tagging status (the techniques[] sweep)
-- **Level I: DONE** (all posts in cases 1–5 carry technique arrays; ‘genuine’ = valid answer preserved throughout).
-- Levels II–III: next batches. Vocabulary: the merged-14 slugs + tier-1 outliers; multi-label by design (Game 2’s difficulty = label density).
+- **ALL LEVELS DONE — 232/232 posts carry technique arrays** (‘genuine’ preserved as valid answer throughout). Tier-1 outliers in live use: amplification, insinuation, denialism, fearcommerce, prenarration, seeding, compounding, astroturf, engagementbait. Vocabulary: the merged-14 slugs + tier-1 outliers; multi-label by design (Game 2’s difficulty = label density).
 - Rule inherited from the sender sweep: canonical slugs, no near-matches; City News ignores the field, Game 2 is built on it — one canon, two games, now in code.
