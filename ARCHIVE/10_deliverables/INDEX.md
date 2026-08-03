@@ -22,3 +22,5 @@
 - **Master taxonomy:** ../06_game2/MASTER_TAXONOMY.md — Bad News + Harmony Square + City News + outliers merged (14 techniques, 5 families), redundancies resolved, 12 gap techniques ranked in three tiers.
 - **Technique conversations (running):** ../06_game2/TECHNIQUE_CONVERSATIONS.md — practitioner-observed patterns → literature → badge assessment; opens with The Smuggled Premise and The Gallop.
 - **Field orientation:** ../06_game2/FIELD_ORIENTATION.md — our taxonomy cross-checked against DISARM, FLICC/Cranky Uncle, IPA-7, Nimmo 4D, BEND, Schopenhauer and the Greeks; six new gap candidates; the two-axis compass.
+- **Game 2 curriculum spine:** ../06_game2/GAME2_CURRICULUM_SPINE.md — anatomy-before-physiology in three terms (Cambridge six on authored plates → the fifteen on the real archive → compound dissection); specimen-scarcity finding.
+- **Term-1 specimen plates:** ../06_game2/specimen_plates.js — twenty authored single-technique teaching posts (Cambridge six incl. the discredit set), each with its tell in the trap-note voice. EN drafts for approval.

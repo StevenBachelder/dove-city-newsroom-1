@@ -1,0 +1,122 @@
+// GAME 2 — Term 1 specimen plates (the anatomy atlas)
+// Twenty purpose-built single-technique posts. EN drafts for approval; ×4 after sign-off.
+// Diegetic frame: desk training material — plates, not archive. Senders are fictional
+// textbook actors, deliberately separate from the City News census.
+// Each: technique · post (title/body/sender/date) · tell (the teaching note, trap-note voice).
+
+const SPECIMENS = [
+
+// ——— IMPERSONATION (3) — the sender is the lie
+{ id:"S01", technique:"impersonation",
+  sender:"City Health Departement", date:"1 hour ago",
+  title:"OFFICIAL: New guidelines for all residents",
+  body:"By order of the Health Departement, all residents must register their vaccination status at the link below within 48 hours.",
+  tell:"Look at the sender before the message: 'Departement' is misspelled, and health authorities announce through their own channels, not link-posts with deadlines. The costume is the technique." },
+{ id:"S02", technique:"impersonation",
+  sender:"BREAKING NEWS 24-7", date:"20 minutes ago",
+  title:"City News confirms: schools closed tomorrow",
+  body:"Sources at City News have confirmed all schools will close. Share so parents can prepare!",
+  tell:"An unknown outlet borrowing a known newsroom's name as its source. Verification means going to City News itself — where no such story exists. Borrowed authority is impersonation at one remove." },
+{ id:"S03", technique:"impersonation",
+  sender:"Michael Chen, MD — Immunology", date:"3 hours ago",
+  title:"As a doctor, I'm warning everyone about the tap water",
+  body:"Twenty years in medicine and I have never seen anything like this. Do NOT drink unfiltered water this week.",
+  tell:"Credentials asserted are not credentials verified: no institution, no register entry, no publication trail. A white coat in a profile picture is a costume until checked." },
+
+// ——— EMOTIONAL LANGUAGE (3) — the volume is the lie
+{ id:"S04", technique:"emotional",
+  sender:"Maria K.", date:"2 hours ago",
+  title:"HEARTBREAKING!!! You will CRY when you see what they did to the old oak",
+  body:"DEVASTATED doesn't even cover it. Our beloved tree, MURDERED by the council. My children are in TEARS. How do these MONSTERS sleep at night??",
+  tell:"Strip the capitals and the tears: the council pruned a tree. The facts are mundane; the packaging is the payload. Emotional language is measured by the gap between the event and the volume." },
+{ id:"S05", technique:"emotional",
+  sender:"CityAlert!", date:"45 minutes ago",
+  title:"TERRIFYING discovery in the harbor — parents, HOLD YOUR CHILDREN CLOSE",
+  body:"What divers found beneath the surface will haunt this city forever. Officials are 'assessing'. We are BEYOND afraid.",
+  tell:"Fear with no object: what was found? The post never says — because dread that names nothing can never be checked. Emotion that replaces information, not accompanies it, is the technique." },
+{ id:"S06", technique:"emotional",
+  sender:"TrueHeart Community", date:"Yesterday",
+  title:"If you have ANY humanity left, you will share this",
+  body:"Every share is a prayer. Every scroll-past is a betrayal. Show us who you really are.",
+  tell:"The message tests your goodness instead of telling you anything. Guilt-framing converts sharing into a moral performance — the content no longer matters, which is precisely the point." },
+
+// ——— POLARIZATION (3) — the wedge is the lie
+{ id:"S07", technique:"polarization",
+  sender:"Real City Voices", date:"4 hours ago",
+  title:"Downtown people got a new park. Guess what OUR side of the river got.",
+  body:"Nothing. Again. They dine; we pay. How long will east-siders accept being the city's servants?",
+  tell:"One budget line becomes two tribes. Note the pronouns doing the work: they/we, dine/pay, servants. Polarization converts a policy question into an identity wound." },
+{ id:"S08", technique:"polarization",
+  sender:"Parents Who Actually Care", date:"1 day ago",
+  title:"There are two kinds of parents in this city. Which are you?",
+  body:"Those who showed up to protest the curriculum — and those who let strangers raise their kids. No middle ground. Not anymore.",
+  tell:"'No middle ground' is the signature move: the technique doesn't argue a position, it abolishes the space between positions — and the group name shames dissent in advance." },
+{ id:"S09", technique:"polarization",
+  sender:"NorthEnd Pride", date:"6 hours ago",
+  title:"They laugh at how we talk. Time we remembered who built this city.",
+  body:"Every joke about our accent is a joke about our grandparents' hands. Enough.",
+  tell:"Real pride, weaponized: a grievance is welded to group identity so that any disagreement becomes an attack on the group. The feeling is genuine; the wedge is manufactured." },
+
+// ——— CONSPIRACY (3) — the hidden hand is the lie
+{ id:"S10", technique:"conspiracy",
+  sender:"OpenYourEyesCity", date:"5 hours ago",
+  title:"Three council members. Three 'coincidental' resignations. One week.",
+  body:"They want you to think it's unrelated. Ask yourself: who benefits? Follow the money. We are not allowed to say more.",
+  tell:"Pattern asserted, mechanism never shown: questions posed as evidence, 'who benefits' as proof, and the flourish — 'not allowed to say more' — that makes absence of evidence feel like presence of danger." },
+{ id:"S11", technique:"conspiracy",
+  sender:"The Unfiltered Report", date:"2 days ago",
+  title:"Why does the weather service 'update' its records? What are they correcting — or hiding?",
+  body:"Routine revisions, they say. Since when is the truth 'revised'?",
+  tell:"Normal institutional process reframed as cover-up. Every organization corrects records; conspiracy thinking converts maintenance into malice by refusing to allow innocent explanations." },
+{ id:"S12", technique:"conspiracy",
+  sender:"CityWatchers", date:"12 hours ago",
+  title:"The new streetlights aren't lights.",
+  body:"Look closely at the housings. Ask why they were installed at night. Ask why nobody will answer.",
+  tell:"The unfalsifiable structure: any denial confirms the plot ('of course they'd say that'). When no possible answer could count against a claim, the claim has left the world of evidence." },
+
+// ——— DISCREDIT (4) — the accuser is the target (the set the archive lacked)
+{ id:"S13", technique:"discredit",
+  sender:"Friends of the Marina Project", date:"3 hours ago",
+  title:"About the 'journalist' attacking the marina deal",
+  body:"Before you read her so-called exposé, know this: she was passed over for a city job in 2019. Bitter much? Consider the source.",
+  tell:"Not one word about the exposé's claims — only about its author. 'Consider the source' is legitimate; replacing the argument with the author is the technique." },
+{ id:"S14", technique:"discredit",
+  sender:"BuildForward Group", date:"1 hour ago",
+  title:"The safety report was written by people who profit from delays",
+  body:"Consultants get paid by the month. Of course their report found 'concerns'. Do the math.",
+  tell:"A motive is imagined, then treated as a refutation. Motives matter for scrutiny — but a report is answered by checking its findings, not by inventing its incentives." },
+{ id:"S15", technique:"discredit",
+  sender:"@CouncilmanRoos", date:"30 minutes ago",
+  title:"Funny how these 'allegations' appear right before the vote",
+  body:"Timing tells you everything. I won't dignify coordinated smears with a response.",
+  tell:"The timing dodge: when the calendar becomes the whole defense and the claims go unanswered, discredit is doing the work refutation should. Suspicious timing is a reason to check harder — not a verdict." },
+{ id:"S16", technique:"discredit",
+  sender:"PlainTruth Blog", date:"8 hours ago",
+  title:"Fact-checkers: who fact-checks THEM?",
+  body:"Funded by foundations. Staffed by ex-journalists. And we're supposed to treat their 'ratings' as neutral?",
+  tell:"Discredit aimed at the referee: erode the checking system itself and every future correction arrives pre-dismissed. Note that no specific error is alleged — the target is trust, not a claim." },
+
+// ——— TROLLING (4) — provocation is the point (taught as the historical umbrella)
+{ id:"S17", technique:"trolling",
+  sender:"JustSayingg", date:"2 hours ago",
+  title:"Unpopular opinion: the fire department response was actually embarrassing",
+  body:"Twelve minutes? My grandmother moves faster. Downvote away, heroes.",
+  tell:"Engineered outrage: a graceless jab at people who can't lose the argument, framed to farm angry replies. The measure of trolling is that the reaction — not any claim — is the product." },
+{ id:"S18", technique:"trolling",
+  sender:"DevilsAdvocateNo1", date:"5 hours ago",
+  title:"Genuine question: why do we even have a library?",
+  body:"Everything's online. Just asking questions the council is too scared to ask.",
+  tell:"'Just asking questions' as costume: the question isn't seeking an answer, it's seeking a fight. Real questions survive being answered; bait questions move on to the next provocation." },
+{ id:"S19", technique:"trolling",
+  sender:"CityBantz", date:"1 day ago",
+  title:"Ranking city neighborhoods by how much they complain (part 3)",
+  body:"Number one will not surprise you. You know who you are. 😂",
+  tell:"Humor as the delivery vehicle: 'it's just a joke' pre-installs the retreat while the wedge goes in. The modern chart files this under engagement-bait + polarization — the umbrella term is taught, then split." },
+{ id:"S20", technique:"trolling",
+  sender:"FirstCommenter", date:"3 hours ago",
+  title:"Watching everyone melt down over the parking changes is the best content this city produces",
+  body:"Please, keep going. This is free entertainment.",
+  tell:"Meta-trolling: the audience's anger is openly declared to be the point. When a poster tells you your reaction is their reward — believe them, and starve the reward." }
+];
+
+if (typeof module!=="undefined") module.exports = SPECIMENS;
