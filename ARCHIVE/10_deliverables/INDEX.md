@@ -1,3 +1,4 @@
+- **SOURCE charter:** ../00_mission/SOURCE_CHARTER.md — the umbrella project's founding statement; what it commits every game to.
 # Deliverables index — views over the matrix (render on demand)
 | View | Audience | Access tier | Source rows/modules | Status |
 |---|---|---|---|---|
@@ -16,3 +17,8 @@
 - **Curriculum guide (cycle v1, in progress):** ../05_curriculum/LEVEL_GUIDE.md — levels as method, case-by-case five-question entries, level ceremony copy, five-step improvement cycle.
 
 - **Cycle 1 Step 2 recommendations:** ../05_curriculum/CYCLE1_STEP2_RECOMMENDATIONS.md — ranked improvement analysis; R1 (sender profiles) built.
+
+- **Game 2 foundation:** ../06_game2/TECHNIQUE_LIBRARY.md — technique→post matrix, post→technique table, nine outlier techniques ranked for badge promotion, and the one-canon-two-games data architecture.
+- **Master taxonomy:** ../06_game2/MASTER_TAXONOMY.md — Bad News + Harmony Square + City News + outliers merged (14 techniques, 5 families), redundancies resolved, 12 gap techniques ranked in three tiers.
+- **Technique conversations (running):** ../06_game2/TECHNIQUE_CONVERSATIONS.md — practitioner-observed patterns → literature → badge assessment; opens with The Smuggled Premise and The Gallop.
+- **Field orientation:** ../06_game2/FIELD_ORIENTATION.md — our taxonomy cross-checked against DISARM, FLICC/Cranky Uncle, IPA-7, Nimmo 4D, BEND, Schopenhauer and the Greeks; six new gap candidates; the two-axis compass.
