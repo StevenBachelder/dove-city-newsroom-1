@@ -57,11 +57,14 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 <div class="wrap">
 
 <div class="card" id="scr-intro">
-  <h1>Term I — The Classic Six</h1>
+  <h1>LEVEL I — The Classic Six</h1>
   <p>Welcome back to the desk. You survived the tip queue; now you learn the <b>names</b>. Before anyone diagnoses a living operation, they learn anatomy — clean specimens, one technique at a time, from the field's classic chart.</p>
-  <p>Each technique: first the <b>training plates</b> (built for the classroom), then straight into the <b>real archive</b> — posts you may remember from your first days. Recognition, then execution. The atlas, then the cadaver.</p>
+  <p>Three rooms, each with less scaffolding than the last:</p>
+<p><b>1.a The Introduction</b> — three plates per technique, in order. The structure itself is your tutor.<br>
+<b>1.b Last One Standing</b> — one of each, shuffled; every correct name removes its button. Elimination is a diagnostic skill too.<br>
+<b>1.c The Scramble</b> — shuffled, with extras mixed in. The structure goes silent; only the content speaks.</p>
   <p class="note">Term I is the classroom: no doors here. The doors return in Term II — the archive deserves seriousness.</p>
-  <button class="btn" id="btn-begin">Begin Term I</button>
+  <button class="btn" id="btn-begin">Begin Level I</button>
 </div>
 
 <div class="card hid" id="scr-loop">
@@ -74,7 +77,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </div>
 
 <div class="card hid" id="scr-end">
-  <h1>Term I complete</h1>
+  <h1>LEVEL I complete</h1>
   <p id="end-line"></p>
   <div class="mastery" id="mastery"></div>
   <p class="note">Term II awaits: the full chart, the real archive, mixed presentation — and the doors. Most of the city is real; your job will be precision, not suspicion.</p>
@@ -102,13 +105,13 @@ const SIX=[
  {k:"discredit",name:"Discredit",hint:"The accuser is the target"},
  {k:"trolling",name:"Trolling",hint:"Provocation is the point"}
 ];
-const state={variant:null, order:[], idx:0, tries:{}, firstTry:{}, log:[], started:Date.now()};
+const state={variant:null, order:[], idx:0, tries:{}, firstTry:{}, log:[], started:Date.now(), curSub:null, eliminated:new Set()};
 (function(){ const u=new URLSearchParams(location.search).get("arm");
   state.variant=u||EXPERIMENT.arms[Math.floor(Math.random()*EXPERIMENT.arms.length)]; })();
 
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-// braided micro-cycles: per technique → its plates, then up to 2 dominant archive posts
+// LEVEL I sub-structure: 1.a Introduction (18, blocked) · 1.b Last One Standing (6, elimination) · 1.c The Scramble (6+3, mixed)
 function archiveFor(tk,max){
   const out=[];
   if(typeof CASES==="undefined") return out;
@@ -125,16 +128,41 @@ function archiveFor(tk,max){
   }
   return out;
 }
+function toItem(s){ return {kind:"plate",technique:s.technique,sender:s.sender,date:s.date,title:s.title,body:s.body,tell:s.tell,id:s.id}; }
 function buildOrder(){
-  const seq=[];
+  const seq=[]; const used=new Set(); const spares=[];
+  // 1.a — 18 blocked: three plates per technique, technique order fixed (the tutor is the structure)
   for(const T of SIX){
-    const plates=shuffle(SPECIMENS.filter(s=>s.technique===T.k).map(s=>({kind:"plate",technique:s.technique,sender:s.sender,date:s.date,title:s.title,body:s.body,tell:s.tell,id:s.id})));
-    seq.push(...plates, ...archiveFor(T.k,2));
+    const mine=SPECIMENS.filter(x=>x.technique===T.k);
+    const three=shuffle(mine.slice()).slice(0,3);
+    three.forEach(x=>{used.add(x.id); seq.push(Object.assign(toItem(x),{sub:"a"}));});
+    mine.filter(x=>!used.has(x.id)).forEach(x=>spares.push(x));
   }
+  // pool for b/c: spare plates + clean archive singles, else retrieval-practice reuse
+  const pool={}; SIX.forEach(T=>pool[T.k]=[]);
+  spares.forEach(x=>pool[x.technique].push(toItem(x)));
+  SIX.forEach(T=>archiveFor(T.k,2).forEach(a=>pool[T.k].push(a)));
+  const draw=tk=>{ if(pool[tk].length) return pool[tk].shift();
+    const re=shuffle(SPECIMENS.filter(x=>x.technique===tk).slice())[0]; return Object.assign(toItem(re),{reused:true}); };
+  // 1.b — one of each, shuffled, elimination mode
+  shuffle(SIX.slice()).forEach(T=>seq.push(Object.assign(draw(T.k),{sub:"b"})));
+  // 1.c — one of each + three extras, fully shuffled, full chart
+  const cItems=SIX.map(T=>draw(T.k));
+  shuffle(SIX.slice()).slice(0,3).forEach(T=>cItems.push(draw(T.k)));
+  shuffle(cItems).forEach(it=>seq.push(Object.assign(it,{sub:"c"})));
   return seq;
 }
+const SUBNAMES={a:"1.a THE INTRODUCTION",b:"1.b LAST ONE STANDING",c:"1.c THE SCRAMBLE"};
+const SUBINTRO={
+ a:"Three of each, in order. Let the structure carry you — it won\u2019t, later.",
+ b:"One of each, shuffled. Each correct name removes its button: elimination is diagnosis too. The last one stands on its own.",
+ c:"Shuffled — with extras. No pattern to lean on now. Read the post."};
+function chartFor(cur){
+  if(cur.sub!=="b") return SIX;
+  return SIX.filter(T=>!state.eliminated.has(T.k));
+}
 function renderChart(cur){
-  $("#chart").innerHTML=SIX.map(T=>`<button class="tq" data-k="${T.k}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(T.hint)}</div></button>`).join("");
+  $("#chart").innerHTML=chartFor(cur).map(T=>`<button class="tq" data-k="${T.k}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(T.hint)}</div></button>`).join("");
   document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>answer(b,cur)));
 }
 function renderPost(p){
@@ -145,7 +173,16 @@ function renderPost(p){
     ${p.body?`<div class="p-body">${esc(p.body)}</div>`:""}</div>`;
 }
 function show(cur){
-  $("#prog").textContent=`ITEM ${state.idx+1} / ${state.order.length}`;
+  if(cur.sub!==state.curSub){ state.curSub=cur.sub; if(cur.sub==="b") state.eliminated=new Set();
+    $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
+    $("#post-mount").innerHTML=`<div class="post" style="background:var(--paper-dark)"><span class="srcchip">${esc(SUBNAMES[cur.sub])}</span><div class="p-body">${esc(SUBINTRO[cur.sub])}</div></div>`;
+    $("#chart").innerHTML=`<button class="btn" id="btn-sub-go" style="grid-column:1/-1">Enter ${esc(SUBNAMES[cur.sub])}</button>`;
+    document.getElementById("btn-sub-go").addEventListener("click",()=>{ state.curSubEntered=cur.sub; realShow(cur); });
+    $("#prog").textContent=esc(SUBNAMES[cur.sub]); updScore(); return; }
+  realShow(cur);
+}
+function realShow(cur){
+  $("#prog").textContent=`${esc(SUBNAMES[cur.sub])} · ITEM ${state.idx+1} / ${state.order.length}`;
   $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
   renderPost(cur); renderChart(cur);
   updScore();
@@ -159,11 +196,12 @@ function answer(btn,cur){
   const pick=btn.dataset.k, key=state.idx;
   state.tries[key]=(state.tries[key]||0)+1;
   const correct=pick===cur.technique;
-  state.log.push({i:state.idx,kind:cur.kind,tech:cur.technique,pick,correct,try:state.tries[key],t:Date.now()-state.started});
+  state.log.push({i:state.idx,sub:cur.sub,kind:cur.kind,tech:cur.technique,pick,correct,try:state.tries[key],options:chartFor(cur).length,t:Date.now()-state.started});
   if(correct){
     if(state.firstTry[key]===undefined) state.firstTry[key]=(state.tries[key]===1);
     btn.classList.add("picked-good");
     document.querySelectorAll(".tq").forEach(b=>b.disabled=true);
+    if(cur.sub==="b") state.eliminated.add(cur.technique);
     $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">✓ ${esc(SIX.find(T=>T.k===cur.technique).name)}</div>${esc(cur.tell)}</div>`;
     $("#next-wrap").classList.remove("hid");
   }else{
