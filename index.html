@@ -863,6 +863,9 @@ function renderStart(){
     b.querySelector(".sb-x").addEventListener("click",()=>{ sfxClose(); b.remove(); });
   }
   window.showShiftBanner=showShiftBanner;
+  const EXPERIMENT={name:"none",arms:["control"]};
+  (function(){ const u=new URLSearchParams(location.search).get("arm");
+    state.variant = state.variant || u || EXPERIMENT.arms[Math.floor(Math.random()*EXPERIMENT.arms.length)]; })();
   $("#btn-start").addEventListener("click", ()=>{
     sfxStart(); setTimeout(()=>showShiftBanner(1),200);
     const f=document.getElementById("press-name");
@@ -1539,7 +1542,7 @@ function levelFailed(){
   $("#lf-btn").addEventListener("click",()=>{ uiClick(); restartLevel(); });
 }
 function exportLog(){
-  const d={v:1,game:"CityNewsroom",ledger:(state.ledgerLog||[]),lang:(typeof LANG!=="undefined"?LANG:document.documentElement.lang||""),when:new Date().toISOString(),
+  const d={v:1,game:"CityNewsroom",experiment:EXPERIMENT.name,variant:state.variant||"control",ledger:(state.ledgerLog||[]),lang:(typeof LANG!=="undefined"?LANG:document.documentElement.lang||""),when:new Date().toISOString(),
     retries:state.retries,doorFired:state.doorFired,cred:state.cred,pop:state.pop,src:state.src,
     badges:[...state.badges],badgeLv:state.badgeLv,adPinned:state.adPinned,
     cases:Object.entries(state.handled).map(([id,h])=>({id:+id,tech:h.tech,lvl:h.lvl,choice:h.choice,correct:h.correct,evOk:h.evOk,usedText:h.txt,usedImg:h.img,pins:h.pins,ts:h.ts}))};
