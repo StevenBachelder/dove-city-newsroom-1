@@ -53,7 +53,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · TERM I</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.1</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -107,6 +107,14 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
   <button class="btn" id="btn-retry">Re-enter Level II</button>
 </div>
 </div>
+<script>
+window.addEventListener("error",e=>{
+  const d=document.createElement("div");
+  d.style.cssText="position:fixed;bottom:10px;left:10px;right:10px;background:#F7E4E1;border:2px solid #D93025;border-radius:9px;padding:10px 14px;font:13px Georgia,serif;z-index:99";
+  d.textContent="⚠ Something broke: "+e.message+" — try a hard refresh (Cmd+Shift+R). If it persists, tell the dev desk this exact message.";
+  document.body.appendChild(d);
+});
+</script>
 <script src="specimen_plates.js"></script>
 <script src="term2_answer_key.js"></script>
 <script src="../cases.js"></script>
@@ -280,6 +288,8 @@ function endTerm(){
   $("#end-line").textContent=`First-try naming: ${tot} of ${state.order.length}. Every one you missed taught you its tell — that was the design.`;
 }
 function l2Start(){
+  if(typeof TERM2_KEY==="undefined"){ alert("term2_answer_key.js did not load — hard refresh (Cmd+Shift+R), or check the file is deployed."); return; }
+  if(typeof CASES==="undefined"){ alert("../cases.js did not load — the intern's lesson needs the City News archive beside it."); return; }
   state.mode="L2"; state.l2.items=shuffle(TERM2_KEY.slice()); state.l2.idx=0; state.l2.strikes=0; state.l2.firstTry={};
   ["scr-end","scr-l2intro","scr-door"].forEach(id=>document.getElementById(id).classList.add("hid"));
   $("#scr-loop").classList.remove("hid"); l2Show();
@@ -287,6 +297,7 @@ function l2Start(){
 function l2Case(){ return state.l2.items[state.l2.idx]; }
 function l2Show(){
   const k=l2Case(); const c=CASES.find(x=>x.id===k.caseId);
+  if(!c){ state.l2.idx++; if(state.l2.idx>=state.l2.items.length){ $("#scr-loop").classList.add("hid"); $("#scr-l2end").classList.remove("hid"); return; } l2Show(); return; }
   $("#prog").textContent=`LEVEL II \u00b7 TIP ${state.l2.idx+1} / ${state.l2.items.length} \u00b7 MISSES ${state.l2.strikes}/4 \u00b7 ATTEMPT ${state.l2.attempt}`;
   $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
   $("#post-mount").innerHTML=`<div class="post"><span class="srcchip archive">ARCHIVE TIP #${k.ledger}</span>
