@@ -102,7 +102,8 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 
 <div class="card hid" id="scr-door">
   <h1>The door closes</h1>
-  <p>Four misses — the level ends here this time. That's not the desk being cruel; it's the desk being honest about what the archive demands. Every miss showed you its discrimination note. Take them with you.</p>
+  <p>Four misses — the level ends here this time. That's not the desk being cruel; it's the desk being honest about what the archive demands. Losing teaches too — here's the one that closed it:</p>
+  <div id="door-teach"></div>
   <p class="note" id="door-note"></p>
   <button class="btn" id="btn-retry">Re-enter Level II</button>
 </div>
@@ -154,6 +155,9 @@ const SIX=[
  {k:"trolling",name:"Trolling",hint:"Provocation is the point"}
 ];
 const state={variant:null, order:[], idx:0, tries:{}, firstTry:{}, log:[], started:Date.now(), curSub:null, eliminated:new Set(), mode:"L1", l2:{items:[],idx:0,strikes:0,attempt:1,firstTry:{}}};
+(function(){ const dv=new URLSearchParams(location.search).get("dev");
+  if(dv==="l2") window.addEventListener("DOMContentLoaded",()=>{ document.getElementById("scr-intro").classList.add("hid"); document.getElementById("scr-l2intro").classList.remove("hid"); });
+})();
 (function(){ const u=new URLSearchParams(location.search).get("arm");
   state.variant=u||EXPERIMENT.arms[Math.floor(Math.random()*EXPERIMENT.arms.length)]; })();
 
@@ -329,7 +333,15 @@ function l2Answer(btn){
     if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=false;
     state.l2.strikes++;
     btn.classList.add("picked-bad"); btn.disabled=true;
-    if(state.l2.strikes>=4){ $("#scr-loop").classList.add("hid"); $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`; $("#scr-door").classList.remove("hid"); return; }
+    if(state.l2.strikes>=4){
+      $("#scr-loop").classList.add("hid");
+      const c=CASES.find(x=>x.id===k.caseId);
+      const tn=(FIFTEEN.find(T=>T.k===k.dominant)||{name:k.dominant}).name;
+      $("#door-teach").innerHTML=`<div class="post" style="margin:10px 0"><span class="srcchip archive">THE TIP THAT CLOSED THE DOOR</span>
+        <div class="p-title">${esc(c?t(c.title):"")}</div>
+        <div class="p-body"><b>Load-bearing: ${esc(tn)}.</b> ${esc(k.why||"")}</div></div>`;
+      $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`;
+      $("#scr-door").classList.remove("hid"); return; }
     const near=(k.distractors||[]).includes(pick);
     $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">${near?"Adjacent \u2014 the discrimination that matters":"Not this one"} \u00b7 miss ${state.l2.strikes}/4</div>${near?`You picked this tip\u2019s classic near-miss. Compare: what does ${esc(FIFTEEN.find(T=>T.k===pick).name)} require that this tip doesn\u2019t show?`:`Step back: is the material fake, the frame wrong, the sender false, the audience played \u2014 or is it real?`}</div>`;
   }
