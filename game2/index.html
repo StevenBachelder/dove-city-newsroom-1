@@ -53,7 +53,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · TERM I</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.1</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -102,11 +102,20 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 
 <div class="card hid" id="scr-door">
   <h1>The door closes</h1>
-  <p>Four misses — the level ends here this time. That's not the desk being cruel; it's the desk being honest about what the archive demands. Every miss showed you its discrimination note. Take them with you.</p>
+  <p>Four misses — the level ends here this time. That's not the desk being cruel; it's the desk being honest about what the archive demands. Losing teaches too — here's the one that closed it:</p>
+  <div id="door-teach"></div>
   <p class="note" id="door-note"></p>
   <button class="btn" id="btn-retry">Re-enter Level II</button>
 </div>
 </div>
+<script>
+window.addEventListener("error",e=>{
+  const d=document.createElement("div");
+  d.style.cssText="position:fixed;bottom:10px;left:10px;right:10px;background:#F7E4E1;border:2px solid #D93025;border-radius:9px;padding:10px 14px;font:13px Georgia,serif;z-index:99";
+  d.textContent="⚠ Something broke: "+e.message+" — try a hard refresh (Cmd+Shift+R). If it persists, tell the dev desk this exact message.";
+  document.body.appendChild(d);
+});
+</script>
 <script src="specimen_plates.js"></script>
 <script src="term2_answer_key.js"></script>
 <script src="../cases.js"></script>
@@ -146,6 +155,9 @@ const SIX=[
  {k:"trolling",name:"Trolling",hint:"Provocation is the point"}
 ];
 const state={variant:null, order:[], idx:0, tries:{}, firstTry:{}, log:[], started:Date.now(), curSub:null, eliminated:new Set(), mode:"L1", l2:{items:[],idx:0,strikes:0,attempt:1,firstTry:{}}};
+(function(){ const dv=new URLSearchParams(location.search).get("dev");
+  if(dv==="l2") window.addEventListener("DOMContentLoaded",()=>{ document.getElementById("scr-intro").classList.add("hid"); document.getElementById("scr-l2intro").classList.remove("hid"); });
+})();
 (function(){ const u=new URLSearchParams(location.search).get("arm");
   state.variant=u||EXPERIMENT.arms[Math.floor(Math.random()*EXPERIMENT.arms.length)]; })();
 
@@ -280,6 +292,8 @@ function endTerm(){
   $("#end-line").textContent=`First-try naming: ${tot} of ${state.order.length}. Every one you missed taught you its tell — that was the design.`;
 }
 function l2Start(){
+  if(typeof TERM2_KEY==="undefined"){ alert("term2_answer_key.js did not load — hard refresh (Cmd+Shift+R), or check the file is deployed."); return; }
+  if(typeof CASES==="undefined"){ alert("../cases.js did not load — the intern's lesson needs the City News archive beside it."); return; }
   state.mode="L2"; state.l2.items=shuffle(TERM2_KEY.slice()); state.l2.idx=0; state.l2.strikes=0; state.l2.firstTry={};
   ["scr-end","scr-l2intro","scr-door"].forEach(id=>document.getElementById(id).classList.add("hid"));
   $("#scr-loop").classList.remove("hid"); l2Show();
@@ -287,6 +301,7 @@ function l2Start(){
 function l2Case(){ return state.l2.items[state.l2.idx]; }
 function l2Show(){
   const k=l2Case(); const c=CASES.find(x=>x.id===k.caseId);
+  if(!c){ state.l2.idx++; if(state.l2.idx>=state.l2.items.length){ $("#scr-loop").classList.add("hid"); $("#scr-l2end").classList.remove("hid"); return; } l2Show(); return; }
   $("#prog").textContent=`LEVEL II \u00b7 TIP ${state.l2.idx+1} / ${state.l2.items.length} \u00b7 MISSES ${state.l2.strikes}/4 \u00b7 ATTEMPT ${state.l2.attempt}`;
   $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
   $("#post-mount").innerHTML=`<div class="post"><span class="srcchip archive">ARCHIVE TIP #${k.ledger}</span>
@@ -318,7 +333,15 @@ function l2Answer(btn){
     if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=false;
     state.l2.strikes++;
     btn.classList.add("picked-bad"); btn.disabled=true;
-    if(state.l2.strikes>=4){ $("#scr-loop").classList.add("hid"); $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`; $("#scr-door").classList.remove("hid"); return; }
+    if(state.l2.strikes>=4){
+      $("#scr-loop").classList.add("hid");
+      const c=CASES.find(x=>x.id===k.caseId);
+      const tn=(FIFTEEN.find(T=>T.k===k.dominant)||{name:k.dominant}).name;
+      $("#door-teach").innerHTML=`<div class="post" style="margin:10px 0"><span class="srcchip archive">THE TIP THAT CLOSED THE DOOR</span>
+        <div class="p-title">${esc(c?t(c.title):"")}</div>
+        <div class="p-body"><b>Load-bearing: ${esc(tn)}.</b> ${esc(k.why||"")}</div></div>`;
+      $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`;
+      $("#scr-door").classList.remove("hid"); return; }
     const near=(k.distractors||[]).includes(pick);
     $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">${near?"Adjacent \u2014 the discrimination that matters":"Not this one"} \u00b7 miss ${state.l2.strikes}/4</div>${near?`You picked this tip\u2019s classic near-miss. Compare: what does ${esc(FIFTEEN.find(T=>T.k===pick).name)} require that this tip doesn\u2019t show?`:`Step back: is the material fake, the frame wrong, the sender false, the audience played \u2014 or is it real?`}</div>`;
   }
