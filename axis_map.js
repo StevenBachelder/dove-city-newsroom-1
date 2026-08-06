@@ -11,7 +11,7 @@ const AXIS_MAP = {
   manipulated:    { layer:"MEANS" },
   outofcontext:   { layer:"MEANS" },
   impersonation:  { layer:"MEANS" },
-  hoax:           { layer:"MEANS", note:"event-level fabrication" },
+  hoax:           { layer:"MEANS", disputed:true, note:"portmanteau (designer, Aug 2026): entails STATE(false) + names MEANS(event fabrication). Verdict usage (\u2018it\u2019s a hoax\u2019) reads as STATE; staging usage reads as MEANS. Kept in MEANS for its informative content; see act/trace duality, WHAT_HOW_WHY \u00a75." },
   amplification:  { layer:"MEANS" },
   astroturf:      { layer:"MEANS" },
   seeding:        { layer:"MEANS" },
