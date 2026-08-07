@@ -25,6 +25,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 .post .p-date{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);margin-left:8px}
 .post .p-title{font-family:var(--font-display);font-size:17px;margin:8px 0 6px}
 .post .p-body{font-size:14px;line-height:1.5}
+.post .p-img{width:100%;max-height:300px;object-fit:cover;border-radius:9px;border:1.5px solid var(--line);margin:4px 0 10px}
 .srcchip{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;border:1px solid var(--line);border-radius:5px;padding:2px 8px;margin-bottom:8px;background:var(--paper-dark)}
 .srcchip.archive{background:#EEF3FB;border-color:#9BB3D4}
 .chartlbl{font-family:var(--font-mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);margin:14px 0 8px}
@@ -53,7 +54,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.1</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.4</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -89,6 +90,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
   <h1>LEVEL II — The Full Chart</h1>
   <p><b>Most of the city is real. Your job is precision, not suspicion.</b> Five of these fifteen tips are genuine — "genuine" is always on the chart, and choosing it correctly is as skilled as any diagnosis.</p>
   <p>These are the fifteen tips from your first days on the desk — now you name what was <b>load-bearing</b> in each. Several things may be present; one carries the story.</p>
+<p><b>The question is always about the observable:</b> what was demonstrably done — to the material, the frame, the sender, or the audience's attention. <i>Why</i> it was done is a different question, for a later course.</p>
   <p>After each correct naming, mark your confidence (1–3 pins). And the doors are back: <b>four first-try misses close the level</b> — the archive deserves seriousness. You can always re-enter.</p>
   <button class="btn" id="btn-l2-begin">Open the archive</button>
 </div>
@@ -127,8 +129,9 @@ const $=s=>document.querySelector(s);
 const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const lang="en";
 function t(key){ const ex=(typeof extraStrings!=="undefined"&&extraStrings.en)||{}; if(ex[key]!==undefined)return ex[key];
-  const tr=(typeof translations!=="undefined"&&translations.en)||{}; return tr[key]!==undefined?tr[key]:key; }
+  const tr=(typeof languageData!=="undefined"&&languageData.en)||{}; return tr[key]!==undefined?tr[key]:key; }
 
+const AXIS={manipulated:"MEANS",outofcontext:"MEANS",unverified:"STATE",hoax:"MEANS",impersonation:"MEANS",conspiracy:"FORM",polarization:"END",emotional:"MEANS",discredit:"END",denialism:"END",insinuation:"MEANS",amplification:"MEANS",engagementbait:"MEANS",fearcommerce:"END",genuine:"STATE"};
 const FIFTEEN=[
  {k:"manipulated",name:"Manipulated",hint:"The material is doctored"},
  {k:"outofcontext",name:"Out of context",hint:"Real material, wrong frame"},
@@ -305,6 +308,7 @@ function l2Show(){
   $("#prog").textContent=`LEVEL II \u00b7 TIP ${state.l2.idx+1} / ${state.l2.items.length} \u00b7 MISSES ${state.l2.strikes}/4 \u00b7 ATTEMPT ${state.l2.attempt}`;
   $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
   $("#post-mount").innerHTML=`<div class="post"><span class="srcchip archive">ARCHIVE TIP #${k.ledger}</span>
+    ${c.image?`<img class="p-img" src="../${esc(c.image)}" onerror="this.style.display='none'">`:""}
     <div class="p-title">${esc(t(c.title))}</div><div class="p-body">${esc(t(c.description))}</div></div>`;
   $("#chart").innerHTML=FIFTEEN.map(T=>`<button class="tq" data-k="${T.k}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(T.hint)}</div></button>`).join("");
   document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>l2Answer(b)));
@@ -318,7 +322,7 @@ function l2Answer(btn){
     if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=true;
     btn.classList.add("picked-good"); document.querySelectorAll(".tq").forEach(b=>b.disabled=true);
     const also=(k.all||[]).filter(x=>x!==k.dominant);
-    $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">\u2713 ${esc(FIFTEEN.find(T=>T.k===pick).name)} \u2014 load-bearing</div>
+    $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">\u2713 ${esc(FIFTEEN.find(T=>T.k===pick).name)} \u2014 load-bearing \u00b7 ${esc(AXIS[pick]||"")}</div>
       ${also.length?`Also present: ${esc(also.map(x=>(FIFTEEN.find(T=>T.k===x)||{name:x}).name).join(", "))}. The stack is real \u2014 you named its spine.`:`A clean single \u2014 and you treated it as one.`}
       <div style="margin-top:9px"><b>How sure were you?</b> <span id="conf"><button class="btn btn-soft" data-c="1">\u25cf</button> <button class="btn btn-soft" data-c="2">\u25cf\u25cf</button> <button class="btn btn-soft" data-c="3">\u25cf\u25cf\u25cf</button></span></div></div>`;
     document.querySelectorAll("#conf button").forEach(b=>b.addEventListener("click",()=>{
