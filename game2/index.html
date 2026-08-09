@@ -54,7 +54,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.4</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.5</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -90,7 +90,10 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
   <h1>LEVEL II — The Full Chart</h1>
   <p><b>Most of the city is real. Your job is precision, not suspicion.</b> Five of these fifteen tips are genuine — "genuine" is always on the chart, and choosing it correctly is as skilled as any diagnosis.</p>
   <p>These are the fifteen tips from your first days on the desk — now you name what was <b>load-bearing</b> in each. Several things may be present; one carries the story.</p>
-<p><b>The question is always about the observable:</b> what was demonstrably done — to the material, the frame, the sender, or the audience's attention. <i>Why</i> it was done is a different question, for a later course.</p>
+<p>Each tip is handled in <b>three deductive steps</b> — you never weigh everything at once:</p>
+<p><b>1. What do you see?</b> Select every property present in the tip.<br>
+<b>2. Sort what you found</b> — each property is a MEANS (how it was done), an AIM (what it serves), or a STATE (what's true).<br>
+<b>3. What carries the story?</b> Pick the load-bearing property — from your own findings only.</p>
   <p>After each correct naming, mark your confidence (1–3 pins). And the doors are back: <b>four first-try misses close the level</b> — the archive deserves seriousness. You can always re-enter.</p>
   <button class="btn" id="btn-l2-begin">Open the archive</button>
 </div>
@@ -131,7 +134,7 @@ const lang="en";
 function t(key){ const ex=(typeof extraStrings!=="undefined"&&extraStrings.en)||{}; if(ex[key]!==undefined)return ex[key];
   const tr=(typeof languageData!=="undefined"&&languageData.en)||{}; return tr[key]!==undefined?tr[key]:key; }
 
-const AXIS={manipulated:"MEANS",outofcontext:"MEANS",unverified:"STATE",hoax:"MEANS",impersonation:"MEANS",conspiracy:"FORM",polarization:"END",emotional:"MEANS",discredit:"END",denialism:"END",insinuation:"MEANS",amplification:"MEANS",engagementbait:"MEANS",fearcommerce:"END",genuine:"STATE"};
+const AXIS={astroturf:"MEANS",prenarration:"MEANS",seeding:"MEANS",compounding:"MEANS",manipulated:"MEANS",outofcontext:"MEANS",unverified:"STATE",hoax:"MEANS",impersonation:"MEANS",conspiracy:"FORM",polarization:"END",emotional:"MEANS",discredit:"END",denialism:"END",insinuation:"MEANS",amplification:"MEANS",engagementbait:"MEANS",fearcommerce:"END",genuine:"STATE"};
 const FIFTEEN=[
  {k:"manipulated",name:"Manipulated",hint:"The material is doctored"},
  {k:"outofcontext",name:"Out of context",hint:"Real material, wrong frame"},
@@ -147,7 +150,11 @@ const FIFTEEN=[
  {k:"amplification",name:"Amplification",hint:"One voice as many"},
  {k:"engagementbait",name:"Engagement bait",hint:"Urgency mechanics"},
  {k:"fearcommerce",name:"Fear commerce",hint:"Selling the panic"},
- {k:"genuine",name:"Genuine",hint:"It\u2019s real \u2014 say so"}
+ {k:"genuine",name:"Genuine",hint:"It\u2019s real \u2014 say so"},
+ {k:"prenarration",name:"Pre-narration",hint:"The story was pre-written"},
+ {k:"seeding",name:"Seeding",hint:"Planted to be \u2018found\u2019"},
+ {k:"compounding",name:"Compounding",hint:"Built on the last wave"},
+ {k:"astroturf",name:"Astroturfing",hint:"Fake grassroots"}
 ];
 const SIX=[
  {k:"impersonation",name:"Impersonation",hint:"The sender is the lie"},
@@ -302,17 +309,70 @@ function l2Start(){
   $("#scr-loop").classList.remove("hid"); l2Show();
 }
 function l2Case(){ return state.l2.items[state.l2.idx]; }
+const BIN={MEANS:"MEANS",END:"AIM",FORM:"MEANS",STATE:"STATE"};
+const BINS=["MEANS","AIM","STATE"];
 function l2Show(){
   const k=l2Case(); const c=CASES.find(x=>x.id===k.caseId);
   if(!c){ state.l2.idx++; if(state.l2.idx>=state.l2.items.length){ $("#scr-loop").classList.add("hid"); $("#scr-l2end").classList.remove("hid"); return; } l2Show(); return; }
+  state.l2.phase="A"; state.l2.sel=new Set(); state.l2.bins={};
   $("#prog").textContent=`LEVEL II \u00b7 TIP ${state.l2.idx+1} / ${state.l2.items.length} \u00b7 MISSES ${state.l2.strikes}/4 \u00b7 ATTEMPT ${state.l2.attempt}`;
   $("#fb-mount").innerHTML=""; $("#next-wrap").classList.add("hid");
   $("#post-mount").innerHTML=`<div class="post"><span class="srcchip archive">ARCHIVE TIP #${k.ledger}</span>
     ${c.image?`<img class="p-img" src="../${esc(c.image)}" onerror="this.style.display='none'">`:""}
     <div class="p-title">${esc(t(c.title))}</div><div class="p-body">${esc(t(c.description))}</div></div>`;
-  $("#chart").innerHTML=FIFTEEN.map(T=>`<button class="tq" data-k="${T.k}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(T.hint)}</div></button>`).join("");
+  const pal=[...new Set([...(k.all||[]),...(k.distractors||[])])];
+  state.l2.palette=pal.sort(()=>Math.random()-0.5);
+  l2PhaseA();
+}
+function l2PhaseA(){
+  document.querySelector(".chartlbl").textContent="STEP 1 \u00b7 WHAT DO YOU SEE? \u2014 select every property present, then check";
+  $("#chart").innerHTML=state.l2.palette.map(kk=>{const T=FIFTEEN.find(x=>x.k===kk);
+    return `<button class="tq ${state.l2.sel.has(kk)?"reveal":""}" data-k="${kk}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(T.hint)}</div></button>`;}).join("")
+    +`<button class="btn" id="btn-checkA" style="grid-column:1/-1">Check my selection</button>`;
+  document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>{ const kk=b.dataset.k;
+    state.l2.sel.has(kk)?state.l2.sel.delete(kk):state.l2.sel.add(kk); l2PhaseA(); }));
+  $("#btn-checkA").addEventListener("click",()=>{
+    const k=l2Case(), truth=new Set(k.all||[]);
+    const missed=[...truth].filter(x=>!state.l2.sel.has(x));
+    const extra=[...state.l2.sel].filter(x=>!truth.has(x));
+    state.log.push({mode:"L2",step:"A",i:state.l2.idx,caseId:k.caseId,sel:[...state.l2.sel],missed,extra,t:Date.now()-state.started});
+    if(!missed.length&&!extra.length){
+      $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">\u2713 All properties found</div>Now sort them \u2014 what kind of thing is each?</div>`;
+      state.l2.phase="B"; setTimeout(l2PhaseB,600);
+    } else {
+      const nm=x=>(FIFTEEN.find(T=>T.k===x)||{name:x}).name;
+      $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">Look again</div>${missed.length?`Still hiding in the tip: ${missed.length} more propert${missed.length>1?"ies":"y"}. `:""}${extra.length?`Not actually present: ${esc(extra.map(nm).join(", "))}.`:""}</div>`;
+      extra.forEach(x=>state.l2.sel.delete(x)); l2PhaseA();
+    }
+  });
+}
+function l2PhaseB(){
+  const k=l2Case(); const props=(k.all||[]);
+  document.querySelector(".chartlbl").textContent="STEP 2 \u00b7 SORT WHAT YOU FOUND \u2014 tap a property to cycle its bin, then check";
+  $("#chart").innerHTML=props.map(kk=>{const T=FIFTEEN.find(x=>x.k===kk); const b=state.l2.bins[kk]||"\u2014";
+    return `<button class="tq" data-k="${kk}"><div class="tq-name">${esc(T.name)} \u2192 <b>${esc(b)}</b></div><div class="tq-hint">MEANS \u00b7 AIM \u00b7 STATE</div></button>`;}).join("")
+    +`<button class="btn" id="btn-checkB" style="grid-column:1/-1">Check my sorting</button>`;
+  document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>{ const kk=b.dataset.k;
+    const cur=state.l2.bins[kk]; const nx=BINS[(BINS.indexOf(cur)+1)%BINS.length]||"MEANS";
+    state.l2.bins[kk]=cur?nx:"MEANS"; l2PhaseB(); }));
+  $("#btn-checkB").addEventListener("click",()=>{
+    const wrong=props.filter(kk=>state.l2.bins[kk]!==BIN[AXIS[kk]||"MEANS"]);
+    state.log.push({mode:"L2",step:"B",i:state.l2.idx,bins:{...state.l2.bins},wrong,t:Date.now()-state.started});
+    if(!wrong.length){
+      $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">\u2713 Sorted \u2014 kinds separated</div>How it was done, what it serves, what is true \u2014 three different questions, never one uniform.</div>`;
+      state.l2.phase="C"; setTimeout(l2PhaseC,600);
+    } else {
+      const nm=x=>(FIFTEEN.find(T=>T.k===x)||{name:x}).name;
+      $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">Not quite sorted</div>Reconsider: ${esc(wrong.map(nm).join(", "))}. Ask of each \u2014 is it something DONE (means), something SERVED (aim), or something TRUE or not (state)?</div>`;
+    }
+  });
+}
+function l2PhaseC(){
+  const k=l2Case(); const props=(k.all||[]);
+  document.querySelector(".chartlbl").textContent="STEP 3 \u00b7 WHAT CARRIES THE STORY? \u2014 the load-bearing property, from your findings";
+  $("#chart").innerHTML=props.map(kk=>{const T=FIFTEEN.find(x=>x.k===kk);
+    return `<button class="tq" data-k="${kk}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(BIN[AXIS[kk]||"MEANS"])}</div></button>`;}).join("");
   document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>l2Answer(b)));
-  updScore();
 }
 function l2Answer(btn){
   const k=l2Case(); const pick=btn.dataset.k; const idx=state.l2.idx;
@@ -331,8 +391,19 @@ function l2Answer(btn){
       $("#next-wrap").classList.remove("hid");
     }));
   } else if(present){
+    if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=false;
+    state.l2.strikes++;
     btn.classList.add("picked-bad"); btn.disabled=true;
-    $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">Present \u2014 but not load-bearing</div>${esc(FIFTEEN.find(T=>T.k===pick).name)} is genuinely in this tip. But something else carries the story. What would the story collapse without?</div>`;
+    if(state.l2.strikes>=4){
+      $("#scr-loop").classList.add("hid");
+      const c=CASES.find(x=>x.id===k.caseId);
+      const tn=(FIFTEEN.find(T=>T.k===k.dominant)||{name:k.dominant}).name;
+      $("#door-teach").innerHTML=`<div class="post" style="margin:10px 0"><span class="srcchip archive">THE TIP THAT CLOSED THE DOOR</span>
+        <div class="p-title">${esc(c?t(c.title):"")}</div>
+        <div class="p-body"><b>Load-bearing: ${esc(tn)}.</b> ${esc(k.why||"")}</div></div>`;
+      $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`;
+      $("#scr-door").classList.remove("hid"); return; }
+    $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">Present \u2014 but not what carries it \u00b7 miss ${state.l2.strikes}/4</div>${esc(FIFTEEN.find(T=>T.k===pick).name)} is genuinely in this tip \u2014 you found it yourself in Step 1. But the story would survive without it. What would the story collapse without?</div>`;
   } else {
     if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=false;
     state.l2.strikes++;
