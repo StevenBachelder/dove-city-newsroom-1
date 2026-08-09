@@ -54,7 +54,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.5</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.6</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -301,6 +301,41 @@ function endTerm(){
   const tot=Object.values(state.firstTry).filter(Boolean).length;
   $("#end-line").textContent=`First-try naming: ${tot} of ${state.order.length}. Every one you missed taught you its tell — that was the design.`;
 }
+function causalSVG(k,c){
+  const nm=x=>(FIFTEEN.find(T=>T.k===x)||{name:x}).name;
+  const props=(k.all||[]).filter(x=>x!=="genuine");
+  const means=props.filter(x=>BIN[AXIS[x]||"MEANS"]==="MEANS");
+  const aims=props.filter(x=>BIN[AXIS[x]||"MEANS"]==="AIM");
+  const states=props.filter(x=>BIN[AXIS[x]||"MEANS"]==="STATE");
+  const genuine=(k.all||[]).includes("genuine")||c.truth;
+  const ribbon=genuine?["TRUE \u2014 GENUINE","#1FA84D"]:(states.includes("unverified")?["UNVERIFIED","#B8860B"]:["FALSE","#D93025"]);
+  const rows=Math.max(means.length,aims.length,1);
+  const H=86+rows*56;
+  const chip=(x,y,txt,col,dom)=>{
+    const w=Math.max(150,txt.length*8.6+46);
+    return `<rect x="${x}" y="${y}" rx="11" width="${w}" height="42" fill="${col}" ${dom?'stroke="#F2C94C" stroke-width="4"':''}/>
+      <text x="${x+w/2}" y="${y+27}" text-anchor="middle" font-family="Georgia" font-size="15" font-weight="bold" fill="#fff">${dom?"\u2605 ":""}${txt}</text>`;
+  };
+  let svg=`<svg viewBox="0 0 660 ${H}" style="width:100%;max-width:640px;display:block;margin:10px auto 2px">`;
+  svg+=`<rect x="0" y="0" rx="9" width="660" height="30" fill="${ribbon[1]}" opacity="0.14"/>
+    <text x="12" y="20" font-family="Courier New" font-size="13" font-weight="bold" fill="${ribbon[1]}" letter-spacing="2">STATE: ${ribbon[0]}</text>`;
+  const y0=52;
+  svg+=`<text x="16" y="${y0-6}" font-family="Courier New" font-size="11" fill="#5B6377" letter-spacing="1.5">MEANS \u2014 how</text>`;
+  (means.length?means:(genuine?[]:["\u2014"])).forEach((m,i)=>{ if(m!=="\u2014") svg+=chip(14,y0+i*56,nm(m),"#1C7293",m===k.dominant); });
+  if(genuine&&!means.length) svg+=`<text x="16" y="${y0+26}" font-family="Georgia" font-size="14" font-style="italic" fill="#5B6377">no manipulation found \u2014 that was the finding</text>`;
+  if(aims.length){
+    svg+=`<text x="420" y="${y0-6}" font-family="Courier New" font-size="11" fill="#5B6377" letter-spacing="1.5">AIM \u2014 what it serves</text>`;
+    aims.forEach((a,i)=>svg+=chip(418,y0+i*56,nm(a),"#D93025",a===k.dominant));
+    if(means.length){
+      const my=y0+ (means.length*56-14)/2, ay=y0+(aims.length*56-14)/2;
+      svg+=`<line x1="316" y1="${my}" x2="404" y2="${ay}" stroke="#20293A" stroke-width="3" marker-end="url(#arw)"/>
+        <text x="352" y="${(my+ay)/2-8}" text-anchor="middle" font-family="Georgia" font-size="12" font-style="italic" fill="#20293A">serves</text>
+        <defs><marker id="arw" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 z" fill="#20293A"/></marker></defs>`;
+    }
+  }
+  svg+=`</svg><div style="text-align:center;font-size:11.5px;color:#5B6377;font-style:italic">\u2605 = load-bearing \u00b7 your findings, in causal position</div>`;
+  return svg;
+}
 function l2Start(){
   if(typeof TERM2_KEY==="undefined"){ alert("term2_answer_key.js did not load — hard refresh (Cmd+Shift+R), or check the file is deployed."); return; }
   if(typeof CASES==="undefined"){ alert("../cases.js did not load — the intern's lesson needs the City News archive beside it."); return; }
@@ -384,6 +419,7 @@ function l2Answer(btn){
     const also=(k.all||[]).filter(x=>x!==k.dominant);
     $("#fb-mount").innerHTML=`<div class="fb good"><div class="fb-head">\u2713 ${esc(FIFTEEN.find(T=>T.k===pick).name)} \u2014 load-bearing \u00b7 ${esc(AXIS[pick]||"")}</div>
       ${also.length?`Also present: ${esc(also.map(x=>(FIFTEEN.find(T=>T.k===x)||{name:x}).name).join(", "))}. The stack is real \u2014 you named its spine.`:`A clean single \u2014 and you treated it as one.`}
+      ${causalSVG(k,CASES.find(x=>x.id===k.caseId))}
       <div style="margin-top:9px"><b>How sure were you?</b> <span id="conf"><button class="btn btn-soft" data-c="1">\u25cf</button> <button class="btn btn-soft" data-c="2">\u25cf\u25cf</button> <button class="btn btn-soft" data-c="3">\u25cf\u25cf\u25cf</button></span></div></div>`;
     document.querySelectorAll("#conf button").forEach(b=>b.addEventListener("click",()=>{
       state.log.push({mode:"L2",i:idx,conf:+b.dataset.c,t:Date.now()-state.started});
