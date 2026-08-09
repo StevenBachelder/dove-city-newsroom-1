@@ -54,7 +54,7 @@ p{font-size:14.5px;line-height:1.55;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.6</span><span class="score" id="score"></span></div>
+<div class="topbar"><span class="brand">City News</span><span class="sub">THE INTERN'S LESSON · BUILD T2.7</span><span class="score" id="score"></span></div>
 <div class="wrap">
 
 <div class="card" id="scr-intro">
@@ -333,7 +333,7 @@ function causalSVG(k,c){
         <defs><marker id="arw" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 z" fill="#20293A"/></marker></defs>`;
     }
   }
-  svg+=`</svg><div style="text-align:center;font-size:11.5px;color:#5B6377;font-style:italic">\u2605 = load-bearing \u00b7 your findings, in causal position</div>`;
+  svg+=`</svg><div style="text-align:center;font-size:11.5px;color:#5B6377;font-style:italic">\u2605 = what the verdict rests on \u00b7 the AIM is what it serves \u00b7 your findings, in causal position</div>`;
   return svg;
 }
 function l2Start(){
@@ -404,7 +404,7 @@ function l2PhaseB(){
 }
 function l2PhaseC(){
   const k=l2Case(); const props=(k.all||[]);
-  document.querySelector(".chartlbl").textContent="STEP 3 \u00b7 WHAT CARRIES THE STORY? \u2014 the load-bearing property, from your findings";
+  document.querySelector(".chartlbl").textContent="STEP 3 \u00b7 WHAT DOES THE VERDICT REST ON? \u2014 the load-bearing observable, from your findings";
   $("#chart").innerHTML=props.map(kk=>{const T=FIFTEEN.find(x=>x.k===kk);
     return `<button class="tq" data-k="${kk}"><div class="tq-name">${esc(T.name)}</div><div class="tq-hint">${esc(BIN[AXIS[kk]||"MEANS"])}</div></button>`;}).join("");
   document.querySelectorAll(".tq").forEach(b=>b.addEventListener("click",()=>l2Answer(b)));
@@ -439,7 +439,10 @@ function l2Answer(btn){
         <div class="p-body"><b>Load-bearing: ${esc(tn)}.</b> ${esc(k.why||"")}</div></div>`;
       $("#door-note").textContent=`Attempt ${state.l2.attempt} ends. First-try namings this run: ${Object.values(state.l2.firstTry).filter(Boolean).length}.`;
       $("#scr-door").classList.remove("hid"); return; }
-    $("#fb-mount").innerHTML=`<div class="fb bad"><div class="fb-head">Present \u2014 but not what carries it \u00b7 miss ${state.l2.strikes}/4</div>${esc(FIFTEEN.find(T=>T.k===pick).name)} is genuinely in this tip \u2014 you found it yourself in Step 1. But the story would survive without it. What would the story collapse without?</div>`;
+    const isAim=BIN[AXIS[pick]||"MEANS"]==="AIM";
+    $("#fb-mount").innerHTML=isAim
+      ?`<div class="fb bad"><div class="fb-head">An AIM is served \u2014 never load-bearing \u00b7 miss ${state.l2.strikes}/4</div>${esc(FIFTEEN.find(T=>T.k===pick).name)} is real here \u2014 you found it. But it lives in the sender and the context, not in the artifact: it is what the means SERVE. The verdict rests on an observable. Which one?</div>`
+      :`<div class="fb bad"><div class="fb-head">Present \u2014 but not what carries it \u00b7 miss ${state.l2.strikes}/4</div>${esc(FIFTEEN.find(T=>T.k===pick).name)} is genuinely in this tip \u2014 you found it yourself in Step 1. But the verdict would survive without it. What would it collapse without?</div>`;
   } else {
     if(state.l2.firstTry[idx]===undefined) state.l2.firstTry[idx]=false;
     state.l2.strikes++;
