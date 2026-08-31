@@ -1821,7 +1821,7 @@ const CARD_BACK={master:{h:"#16695e",b:"#9fc9b7"},impersonation:{h:"#4a7c64",b:"
   })();
   $("#btn-replay").addEventListener("click",()=>{ uiClick(); setTimeout(()=>location.reload(),120); });
   $("#btn-quit").addEventListener("click",()=>{ uiClick(); window.sendGameComplete(); window.CityNewsHost.send("quit",{});
-    if(!window.CityNewsHost.embedded){ try{ window.close(); }catch(e){} } });
+    if(!window.CityNewsHost.embedded){ setTimeout(()=>{ location.href="index.html"; },150); } });
 }
 
 /* ---------- field guide ---------- */
