@@ -20,8 +20,7 @@ filter:drop-shadow(0 0 26px rgba(59,110,168,.45)) drop-shadow(0 0 2px rgba(220,2
 .wrap{max-width:920px;margin:0 auto;padding:44px 20px 64px;flex:1;width:100%}
 .intro{text-align:center;font-size:16.5px;line-height:1.75;color:var(--pale);max-width:620px;margin:0 auto 46px;opacity:.92}
 .intro b{color:#fff}
-.cards{display:grid;grid-template-columns:1fr;gap:24px}
-@media(min-width:700px){.cards{grid-template-columns:1fr 1fr}}
+.cards{display:grid;grid-template-columns:1fr;gap:24px;max-width:560px;margin:0 auto}
 .card{background:linear-gradient(180deg, rgba(24,38,68,.55), rgba(12,21,38,.55));
 border:1px solid var(--line);border-radius:16px;padding:34px 30px;display:flex;flex-direction:column;
 backdrop-filter:blur(2px);transition:border-color .25s, box-shadow .25s}
@@ -50,17 +49,9 @@ footer{padding:18px 20px 26px;text-align:center;font-family:var(--font-mono);fon
 </header>
 
 <main class="wrap">
-  <p class="intro">Welcome! Two doors to the same city: Play <b>City News</b> right here in your browser — or download the full PC game <b>SOURCE</b>, walk the streets of the city and do your best to get to the real SOURCE. <span style="white-space:nowrap;color:var(--mist)">(Download is 20&nbsp;GB)</span></p>
+  <p class="intro">Welcome! Download the full PC game <b>SOURCE</b> — walk the streets of the city and do your best to get to the real SOURCE. <span style="white-space:nowrap;color:var(--mist)">(Download is 20&nbsp;GB)</span></p>
 
   <div class="cards">
-    <section class="card">
-      <div class="kicker">Play in browser · no install</div>
-      <h2>City News</h2>
-      <p>Your first week on the tip desk of a city newsroom. Fifteen tips, three levels: verify what's real, flag what isn't, and earn your press card. Real verification tools — reverse image search, source checks — taught by playing.</p>
-      <div class="meta">15–35 MIN · DESKTOP OR TABLET · EN / SV / FI / ET · NOTHING TO INSTALL</div>
-      <a class="btn btn-play" href="citynews.html">▶&nbsp; Play City News</a>
-    </section>
-
     <section class="card">
       <div class="kicker">Download · Unreal Engine 5.6</div>
       <h2>SOURCE <span style="font-weight:400;font-size:16px;color:var(--mist)">(full game)</span></h2>
@@ -75,7 +66,7 @@ footer{padding:18px 20px 26px;text-align:center;font-family:var(--font-mono);fon
 <a href="mailto:upexre@gmail.com" style="color:var(--accent);text-decoration:none;font-family:var(--font-mono);font-size:13px;letter-spacing:1px">upexre@gmail.com</a></p>
 </main>
 
-<footer>A SOURCE PROJECT · CITY NEWS RUNS ENTIRELY IN YOUR BROWSER — NO ACCOUNT, NO TRACKING</footer>
+<footer>A SOURCE PROJECT · PLAYTEST BUILD · NO ACCOUNT, NO TRACKING</footer>
 <script>
 (function(){
   var b=document.getElementById('btn-source');
